@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Silas.API", "Silas.API\Silas.API.csproj", "{82C72DEB-1D61-4241-9881-72E4182D313C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{82C72DEB-1D61-4241-9881-72E4182D313C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82C72DEB-1D61-4241-9881-72E4182D313C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82C72DEB-1D61-4241-9881-72E4182D313C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82C72DEB-1D61-4241-9881-72E4182D313C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

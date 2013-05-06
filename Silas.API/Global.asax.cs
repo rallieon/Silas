@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using Silas.API.Models;
 
 namespace Silas.API
 {
@@ -22,6 +24,18 @@ namespace Silas.API
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            Database.SetInitializer(new DataEntryContextInitializer());
+            using (var context = new DataEntryContext())
+            {
+                context.Database.Initialize(true);
+            }
+
+            Database.SetInitializer(new DataEntryEmptyDBContextInitializer());
+            using (var context = new DataEntryEmptyContext())
+            {
+                context.Database.Initialize(true);
+            }
         }
     }
 }

@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Web;
 using System.Web.Configuration;
 using CsvHelper;
+using Silas.Domain;
 
 namespace Silas.API.Models
 {

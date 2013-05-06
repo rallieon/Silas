@@ -9,10 +9,11 @@ using System.Net.Http;
 using System.Web;
 using System.Web.Http;
 using Silas.API.Models;
+using Silas.Domain;
 
 namespace Silas.API.Controllers
 {
-    public class MutableDataEntryController : ApiController
+    public class DataEntryController : ApiController
     {
         private DataEntryEmptyContext db = new DataEntryEmptyContext();
 

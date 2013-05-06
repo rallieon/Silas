@@ -150,12 +150,12 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\MutableDataEntryController.cs" />
+    <Compile Include="Controllers\DataEntryController.cs" />
     <Compile Include="Controllers\PopulatedDataEntryController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\DataEntry.cs" />
+    <Compile Include="Models\DataEntryContext.cs" />
     <Compile Include="Models\DataEntryContextInitializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -175,6 +175,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Silas.Domain\Silas.Domain.csproj">
+      <Project>{6f9db1b0-5afe-4e9d-b0ee-4b333f6108cc}</Project>
+      <Name>Silas.Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

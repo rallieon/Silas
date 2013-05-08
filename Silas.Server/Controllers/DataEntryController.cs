@@ -8,22 +8,22 @@ using System.Net;
 using System.Net.Http;
 using System.Web;
 using System.Web.Http;
-using Silas.API.Models;
 using Silas.Domain;
+using Silas.Server.DB;
 
 namespace Silas.API.Controllers
 {
-    public class PopulatedDataEntryController : ApiController
+    public class DataEntryController : ApiController
     {
-        private DataEntryContext db = new DataEntryContext();
+        private DataEntryEmptyContext db = new DataEntryEmptyContext();
 
-        // GET api/DataEntry
+        // GET api/MutableDataEntry
         public IEnumerable<DataEntry> GetDataEntries()
         {
             return db.Entries.AsEnumerable();
         }
 
-        // GET api/DataEntry/5
+        // GET api/MutableDataEntry/5
         public DataEntry GetDataEntry(int id)
         {
             DataEntry dataentry = db.Entries.Find(id);
@@ -35,7 +35,7 @@ namespace Silas.API.Controllers
             return dataentry;
         }
 
-        // PUT api/DataEntry/5
+        // PUT api/MutableDataEntry/5
         public HttpResponseMessage PutDataEntry(int id, DataEntry dataentry)
         {
             if (!ModelState.IsValid)
@@ -62,7 +62,7 @@ namespace Silas.API.Controllers
             return Request.CreateResponse(HttpStatusCode.OK);
         }
 
-        // POST api/DataEntry
+        // POST api/MutableDataEntry
         public HttpResponseMessage PostDataEntry(DataEntry dataentry)
         {
             if (ModelState.IsValid)
@@ -71,7 +71,6 @@ namespace Silas.API.Controllers
                 db.SaveChanges();
 
                 HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created, dataentry);
-                response.Headers.Location = new Uri(Url.Link("DefaultApi", new { id = dataentry.Id }));
                 return response;
             }
             else
@@ -80,7 +79,7 @@ namespace Silas.API.Controllers
             }
         }
 
-        // DELETE api/DataEntry/5
+        // DELETE api/MutableDataEntry/5
         public HttpResponseMessage DeleteDataEntry(int id)
         {
             DataEntry dataentry = db.Entries.Find(id);

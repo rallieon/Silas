@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web;
 using Silas.Domain;
 
-namespace Silas.API.Models
+namespace Silas.Server.DB
 {
     public class DataEntryContext : DbContext
     {

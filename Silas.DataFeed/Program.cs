@@ -17,7 +17,7 @@ namespace Silas.DataFeed
         static void Main(string[] args)
         {
             HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri("http://localhost:61895/");
+            client.BaseAddress = new Uri("http://localhost:8080/");
 
             // Add an Accept header for JSON format.
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));

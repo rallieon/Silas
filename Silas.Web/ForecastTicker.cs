@@ -18,7 +18,7 @@ namespace Silas.Web
         private readonly ConcurrentDictionary<int, DataEntry> _entries = new ConcurrentDictionary<int, DataEntry>();
 
         private readonly object _forecastLock = new object();
-        private readonly TimeSpan _updateInterval = TimeSpan.FromMilliseconds(250);
+        private readonly TimeSpan _updateInterval = TimeSpan.FromMilliseconds(1000);
         private readonly Timer _timer;
         private volatile bool _updatingEntries = false;
 
@@ -29,7 +29,7 @@ namespace Silas.Web
             _entries.Clear();
             var entries = new List<DataEntry>
             {
-                new DataEntry{ DateTime = DateTime.Now, Value = 20, Id=1}
+                new DataEntry{ DateTime = DateTime.Now, Value = 2000, Id=1}
             };
             entries.ForEach(entry => _entries.TryAdd(entry.Id, entry));
 
@@ -79,7 +79,7 @@ namespace Silas.Web
 
         private bool TryUpdateDataEntry(DataEntry dataEntry)
         {
-            dataEntry.Value = dataEntry.Value + 1;
+            dataEntry.Value = dataEntry.Value + 100;
             return true;
         }
 

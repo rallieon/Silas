@@ -12,14 +12,17 @@ namespace Silas.Server
         {
             var config = new HttpSelfHostConfiguration("http://localhost:8080");
 
-            Database.SetInitializer(new DataEntryContextInitializer());
-            using (var context = new DataEntryContext())
+            //setup data directory
+            AppDomain.CurrentDomain.SetData("DataDirectory", System.IO.Directory.GetCurrentDirectory());
+
+            Database.SetInitializer(new LiveDataContextInitializer());
+            using (var context = new LiveDataContext())
             {
                 context.Database.Initialize(true);
             }
 
-            Database.SetInitializer(new DataEntryEmptyDBContextInitializer());
-            using (var context = new DataEntryEmptyContext())
+            Database.SetInitializer(new TrueDataContextInitializer());
+            using (var context = new TrueDataContext())
             {
                 context.Database.Initialize(true);
             }

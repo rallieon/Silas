@@ -10,11 +10,11 @@ namespace Silas.Web.Hubs
 {
     public class ForecastHub : Hub
     {
-        private readonly NaieveTicker _forecastTicker;
+        private readonly LiveDataTicker _forecastTicker;
 
-        public ForecastHub() : this(NaieveTicker.Instance) { }
+        public ForecastHub() : this(LiveDataTicker.Instance) { }
 
-        public ForecastHub(NaieveTicker ticker)
+        public ForecastHub(LiveDataTicker ticker)
         {
             _forecastTicker = ticker;
         }

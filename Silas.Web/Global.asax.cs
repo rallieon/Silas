@@ -17,7 +17,6 @@ namespace Silas.Web
         protected void Application_Start()
         {
             RouteTable.Routes.MapHubs();
-            RouteConfig.RegisterRoutes(RouteTable.Routes);
         }
     }
 }

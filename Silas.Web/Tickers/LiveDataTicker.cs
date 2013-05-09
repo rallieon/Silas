@@ -12,9 +12,9 @@ using Silas.Forecast;
 
 namespace Silas.Web.Tickers
 {
-    public class NaieveTicker
+    public class LiveDataTicker
     {// Singleton instance
-        private readonly static Lazy<NaieveTicker> _instance = new Lazy<NaieveTicker>(() => new NaieveTicker(GlobalHost.ConnectionManager.GetHubContext<ForecastHub>().Clients));
+        private readonly static Lazy<LiveDataTicker> _instance = new Lazy<LiveDataTicker>(() => new LiveDataTicker(GlobalHost.ConnectionManager.GetHubContext<ForecastHub>().Clients));
 
         private readonly ConcurrentDictionary<int, DataEntry> _entries = new ConcurrentDictionary<int, DataEntry>();
         private Forecast.Forecast _forecast = new Forecast.Forecast();
@@ -23,7 +23,7 @@ namespace Silas.Web.Tickers
         private readonly Timer _timer;
         private volatile bool _updatingEntries = false;
 
-        private NaieveTicker(IHubConnectionContext clients)
+        private LiveDataTicker(IHubConnectionContext clients)
         {
             Clients = clients;
 
@@ -42,7 +42,7 @@ namespace Silas.Web.Tickers
 
         }
 
-        public static NaieveTicker Instance
+        public static LiveDataTicker Instance
         {
             get
             {
@@ -63,12 +63,6 @@ namespace Silas.Web.Tickers
                 //run Naieve forecast
                 BroadcastDataEntry(_forecast.Execute(ForecastStrategy.Naieve, _entries.Values.Select(e => e.Value).ToArray()));
             }
-        }
-
-        private bool TryUpdateDataEntry(DataEntry dataEntry)
-        {
-            dataEntry.Value = dataEntry.Value + 100;
-            return true;
         }
 
         private void BroadcastDataEntry(int value)

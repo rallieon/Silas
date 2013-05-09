@@ -64,10 +64,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\DataEntryController.cs" />
-    <Compile Include="Controllers\PopulatedDataEntryController.cs" />
-    <Compile Include="DB\DataEntryContext.cs" />
-    <Compile Include="DB\DataEntryContextInitializer.cs" />
+    <Compile Include="Controllers\LiveDataController.cs" />
+    <Compile Include="Controllers\TrueDataController.cs" />
+    <Compile Include="DB\LiveDataContext.cs" />
+    <Compile Include="DB\LiveDataContextInitializer.cs" />
+    <Compile Include="DB\TrueDataContext.cs" />
+    <Compile Include="DB\TrueDataContextinitializer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -80,6 +82,9 @@
       <Project>{6f9db1b0-5afe-4e9d-b0ee-4b333f6108cc}</Project>
       <Name>Silas.Domain</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />

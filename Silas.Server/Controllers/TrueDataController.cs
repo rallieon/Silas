@@ -13,9 +13,9 @@ using Silas.Server.DB;
 
 namespace Silas.API.Controllers
 {
-    public class PopulatedDataEntryController : ApiController
+    public class TrueDataController : ApiController
     {
-        private DataEntryContext db = new DataEntryContext();
+        private TrueDataContext db = new TrueDataContext();
 
         // GET api/DataEntry
         public IEnumerable<DataEntry> GetDataEntries()

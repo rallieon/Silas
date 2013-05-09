@@ -23,14 +23,14 @@ namespace Silas.DataFeed
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             
             //run an api call to the web api layer every second to create stream of hits
-            string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ConfigurationSettings.AppSettings["InitialDataPath"]);
+            string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ConfigurationSettings.AppSettings["LiveDataPath"]);
             var csv = new CsvReader(new StreamReader(filePath));
             var entryList = csv.GetRecords<DataEntry>();
 
             foreach (DataEntry entry in entryList)
             {
                 entry.DateTime = DateTime.Now;
-                var response = client.PostAsJsonAsync("api/dataentry", entry).Result;
+                var response = client.PostAsJsonAsync("api/livedata", entry).Result;
                 Console.WriteLine("{0} ({1})", (int)response.StatusCode, response.RequestMessage);
                 System.Threading.Thread.Sleep(1000);
             }

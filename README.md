@@ -11,4 +11,5 @@ Forecasting data, whether it be website traffic or retail sales, is considered b
 3. Verify it works
 4. Define 3 strategies
 5. Setup multiple d3 charts for comparison
-6. Style
+6 Refactor and Clean
+7. Style

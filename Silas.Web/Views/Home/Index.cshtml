@@ -80,10 +80,10 @@
         };
 
         // Add a client-side hub method that the server will call
-        forecastHub.client.updateDataEntry = function(entry) {
+        forecastHub.client.updateNaieve = function(entry) {
             // push a new data point onto the back
-            console.log(entry.Value);
-            data.push(entry.Value);
+            console.log(entry);
+            data.push(entry);
 
             // redraw the line, and slide it to the left
             path

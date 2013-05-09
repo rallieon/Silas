@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace Silas.Forecast
 {
-    public class Class1
+    public class NaieveStrategy : IForecastStrategy
     {
+        public int Forecast(int[] data)
+        {
+            return data.Last();
+        }
     }
 }

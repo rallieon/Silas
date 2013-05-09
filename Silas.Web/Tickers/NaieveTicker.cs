@@ -8,36 +8,41 @@ using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
 using Silas.Domain;
 using Silas.Web.Hubs;
+using Silas.Forecast;
 
-namespace Silas.Web
+namespace Silas.Web.Tickers
 {
-    public class ForecastTicker
+    public class NaieveTicker
     {// Singleton instance
-        private readonly static Lazy<ForecastTicker> _instance = new Lazy<ForecastTicker>(() => new ForecastTicker(GlobalHost.ConnectionManager.GetHubContext<ForecastHub>().Clients));
+        private readonly static Lazy<NaieveTicker> _instance = new Lazy<NaieveTicker>(() => new NaieveTicker(GlobalHost.ConnectionManager.GetHubContext<ForecastHub>().Clients));
 
         private readonly ConcurrentDictionary<int, DataEntry> _entries = new ConcurrentDictionary<int, DataEntry>();
-
+        private Forecast.Forecast _forecast = new Forecast.Forecast();
         private readonly object _forecastLock = new object();
         private readonly TimeSpan _updateInterval = TimeSpan.FromMilliseconds(1000);
         private readonly Timer _timer;
         private volatile bool _updatingEntries = false;
 
-        private ForecastTicker(IHubConnectionContext clients)
+        private NaieveTicker(IHubConnectionContext clients)
         {
             Clients = clients;
 
             _entries.Clear();
-            var entries = new List<DataEntry>
-            {
-                new DataEntry{ DateTime = DateTime.Now, Value = 2000, Id=1}
-            };
-            entries.ForEach(entry => _entries.TryAdd(entry.Id, entry));
+            
+            //initialize entry to first 100 entries
+            _entries = new ConcurrentDictionary<int, DataEntry>();
+            _entries.TryAdd(1, new DataEntry
+                {
+                    Id = 1,
+                    DateTime = DateTime.Now,
+                    Value = 2100
+                });
 
             _timer = new Timer(UpdateDataEntries, null, _updateInterval, _updateInterval);
 
         }
 
-        public static ForecastTicker Instance
+        public static NaieveTicker Instance
         {
             get
             {
@@ -51,29 +56,12 @@ namespace Silas.Web
             set;
         }
 
-        public IEnumerable<DataEntry> GetAllEntries()
-        {
-            return _entries.Values;
-        }
-
         private void UpdateDataEntries(object state)
         {
             lock (_forecastLock)
             {
-                if (!_updatingEntries)
-                {
-                    _updatingEntries = true;
-
-                    foreach (var entry in _entries.Values)
-                    {
-                        if (TryUpdateDataEntry(entry))
-                        {
-                            BroadcastDataEntry(entry);
-                        }
-                    }
-
-                    _updatingEntries = false;
-                }
+                //run Naieve forecast
+                BroadcastDataEntry(_forecast.Execute(ForecastStrategy.Naieve, _entries.Values.Select(e => e.Value).ToArray()));
             }
         }
 
@@ -83,9 +71,9 @@ namespace Silas.Web
             return true;
         }
 
-        private void BroadcastDataEntry(DataEntry entry)
+        private void BroadcastDataEntry(int value)
         {
-            Clients.All.updateDataEntry(entry);
+            Clients.All.updateNaieve(value);
         }
 
     }

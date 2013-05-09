@@ -4,28 +4,19 @@ using System.Linq;
 using System.Web;
 using Microsoft.AspNet.SignalR;
 using Silas.Domain;
+using Silas.Web.Tickers;
 
 namespace Silas.Web.Hubs
 {
     public class ForecastHub : Hub
     {
-        private readonly ForecastTicker _forecastTicker;
+        private readonly NaieveTicker _forecastTicker;
 
-        public ForecastHub() : this(ForecastTicker.Instance) { }
+        public ForecastHub() : this(NaieveTicker.Instance) { }
 
-        public ForecastHub(ForecastTicker stockTicker)
+        public ForecastHub(NaieveTicker ticker)
         {
-            _forecastTicker = stockTicker;
-        }
-
-        public IEnumerable<DataEntry> GetAllEntries()
-        {
-            return _forecastTicker.GetAllEntries();
-        }
-
-        public void Send(int value)
-        {
-            Clients.All.sendValue(value);
+            _forecastTicker = ticker;
         }
     }
 }

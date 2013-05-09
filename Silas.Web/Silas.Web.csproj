@@ -142,7 +142,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="ForecastTicker.cs" />
+    <Compile Include="Tickers\NaieveTicker.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -196,6 +196,10 @@
     <ProjectReference Include="..\Silas.Domain\Silas.Domain.csproj">
       <Project>{6f9db1b0-5afe-4e9d-b0ee-4b333f6108cc}</Project>
       <Name>Silas.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Silas.Forecast\Silas.Forecast.csproj">
+      <Project>{541b9e7f-1e5a-4d10-8781-6de018819140}</Project>
+      <Name>Silas.Forecast</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

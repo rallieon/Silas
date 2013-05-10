@@ -9,6 +9,6 @@ namespace Silas.Web.Clients
 {
     interface IDataClient
     {
-        IEnumerable<DataEntry> GetData()
+        IEnumerable<DataEntry> GetData();
     }
 }

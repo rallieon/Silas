@@ -13,7 +13,8 @@ using Silas.Forecast;
 namespace Silas.Web.Tickers
 {
     public class LiveDataTicker
-    {// Singleton instance
+    {
+        // Singleton instance
         private readonly static Lazy<LiveDataTicker> _instance = new Lazy<LiveDataTicker>(() => new LiveDataTicker(GlobalHost.ConnectionManager.GetHubContext<ForecastHub>().Clients));
 
         private readonly ConcurrentDictionary<int, DataEntry> _entries = new ConcurrentDictionary<int, DataEntry>();

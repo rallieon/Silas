@@ -1,19 +1,20 @@
 ﻿using System;
 using System.Data.Entity;
+using System.IO;
 using System.Web.Http;
 using System.Web.Http.SelfHost;
 using Silas.Server.DB;
 
 namespace Silas.Server
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             var config = new HttpSelfHostConfiguration("http://localhost:8080");
 
             //setup data directory
-            AppDomain.CurrentDomain.SetData("DataDirectory", System.IO.Directory.GetCurrentDirectory());
+            AppDomain.CurrentDomain.SetData("DataDirectory", Directory.GetCurrentDirectory());
 
             Database.SetInitializer(new LiveDataContextInitializer());
             using (var context = new LiveDataContext())
@@ -29,9 +30,9 @@ namespace Silas.Server
 
             config.Routes.MapHttpRoute(
                 "API Default", "api/{controller}/{id}",
-                new { id = RouteParameter.Optional });
+                new {id = RouteParameter.Optional});
 
-            using (HttpSelfHostServer server = new HttpSelfHostServer(config))
+            using (var server = new HttpSelfHostServer(config))
             {
                 server.OpenAsync().Wait();
                 Console.WriteLine("Press Enter to quit.");

@@ -142,11 +142,13 @@
     <Compile Include="Clients\IDataClient.cs" />
     <Compile Include="Clients\LiveDataClient.cs" />
     <Compile Include="Clients\TrueDataClient.cs" />
-    <Compile Include="Tickers\LiveDataTicker.cs" />
+    <Compile Include="Hubs\IDataHub.cs" />
+    <Compile Include="Tickers\IDataTicker.cs" />
+    <Compile Include="Tickers\NaieveDataTicker.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Hubs\ForecastHub.cs" />
+    <Compile Include="Hubs\NaieveDataHub.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tickers\TrueDataTicker.cs" />
   </ItemGroup>

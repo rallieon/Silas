@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Web;
 using Silas.Domain;
 
 namespace Silas.Web.Clients
@@ -11,7 +9,7 @@ namespace Silas.Web.Clients
     {
         public IEnumerable<DataEntry> GetData()
         {
-            HttpClient client = new HttpClient();
+            var client = new HttpClient();
             client.BaseAddress = new Uri("http://localhost:8080/");
 
             HttpResponseMessage resp = client.GetAsync("api/livedata").Result;

@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Silas.Forecast
+﻿namespace Silas.Forecast
 {
     public enum ForecastStrategy
     {
         Naieve
     }
+
     public class Forecast
     {
         public int Execute(ForecastStrategy strategy, int[] data)

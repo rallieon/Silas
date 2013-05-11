@@ -3,9 +3,9 @@ using Silas.Web.Tickers;
 
 namespace Silas.Web.Hubs
 {
-    public class NaieveDataHub : Hub, IDataHub
+    public class NaieveDataHub : Hub
     {
-        private readonly NaieveDataTicker _forecastTicker;
+        private readonly NaieveDataTicker _naieveDataTicker;
 
         public NaieveDataHub() : this(NaieveDataTicker.Instance)
         {
@@ -13,7 +13,7 @@ namespace Silas.Web.Hubs
 
         public NaieveDataHub(NaieveDataTicker ticker)
         {
-            _forecastTicker = ticker;
+            _naieveDataTicker = ticker;
         }
     }
 }

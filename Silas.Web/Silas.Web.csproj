@@ -142,7 +142,7 @@
     <Compile Include="Clients\IDataClient.cs" />
     <Compile Include="Clients\LiveDataClient.cs" />
     <Compile Include="Clients\TrueDataClient.cs" />
-    <Compile Include="Hubs\IDataHub.cs" />
+    <Compile Include="Hubs\TrueDataHub.cs" />
     <Compile Include="Tickers\IDataTicker.cs" />
     <Compile Include="Tickers\NaieveDataTicker.cs" />
     <Compile Include="Global.asax.cs">

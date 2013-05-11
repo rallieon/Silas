@@ -65,11 +65,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\LiveDataController.cs" />
-    <Compile Include="Controllers\TrueDataController.cs" />
     <Compile Include="DB\LiveDataContext.cs" />
     <Compile Include="DB\LiveDataContextInitializer.cs" />
-    <Compile Include="DB\TrueDataContext.cs" />
-    <Compile Include="DB\TrueDataContextinitializer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -19,14 +20,18 @@ namespace Silas.Web.Tickers
                 () => new NaieveDataTicker(GlobalHost.ConnectionManager.GetHubContext<NaieveDataHub>().Clients));
 
         private readonly Forecast.Forecast _forecast = new Forecast.Forecast();
+        private readonly ConcurrentDictionary<int, DataEntry> _entries = new ConcurrentDictionary<int, DataEntry>();
         private readonly object _forecastLock = new object();
         private readonly Timer _timer;
         private readonly TimeSpan _updateInterval = TimeSpan.FromMilliseconds(1000);
-        private readonly LiveDataClient dataClient = new LiveDataClient();
+        private readonly LiveDataClient _dataClient = new LiveDataClient();
+        private int currentPeriod = 1;
 
         private NaieveDataTicker(IHubConnectionContext clients)
         {
             Clients = clients;
+            _entries = new ConcurrentDictionary<int, DataEntry>();
+            _dataClient.GetData().ToList().ForEach(e => _entries.TryAdd(e.Id, e));
             _timer = new Timer(NextValue, null, _updateInterval, _updateInterval);
         }
 
@@ -41,9 +46,7 @@ namespace Silas.Web.Tickers
         {
             lock (_forecastLock)
             {
-                //run Naieve forecast
-                IEnumerable<DataEntry> entries = dataClient.GetData();
-                SendValue(_forecast.Execute(ForecastStrategy.Naieve, entries.Select(e => e.Value).ToArray()));
+                SendValue(_forecast.Execute(ForecastStrategy.Naieve, _entries.Values.Select(e => e.Value).ToArray(), currentPeriod++));
             }
         }
 

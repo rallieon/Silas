@@ -141,7 +141,6 @@
   <ItemGroup>
     <Compile Include="Clients\IDataClient.cs" />
     <Compile Include="Clients\LiveDataClient.cs" />
-    <Compile Include="Clients\TrueDataClient.cs" />
     <Compile Include="Hubs\DoubleExponentialSmoothingDataHub.cs">
       <SubType>Code</SubType>
     </Compile>

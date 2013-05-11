@@ -22,12 +22,6 @@ namespace Silas.Server
                 context.Database.Initialize(true);
             }
 
-            Database.SetInitializer(new TrueDataContextInitializer());
-            using (var context = new TrueDataContext())
-            {
-                context.Database.Initialize(true);
-            }
-
             config.Routes.MapHttpRoute(
                 "API Default", "api/{controller}/{id}",
                 new {id = RouteParameter.Optional});

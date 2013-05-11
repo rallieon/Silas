@@ -23,7 +23,6 @@ namespace Silas.Web.Tickers
         private readonly Timer _timer;
         private readonly TimeSpan _updateInterval = TimeSpan.FromMilliseconds(1000);
         private readonly LiveDataClient dataClient = new LiveDataClient();
-        private volatile bool _updatingEntries = false;
 
         private NaieveDataTicker(IHubConnectionContext clients)
         {

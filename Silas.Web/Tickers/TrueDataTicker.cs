@@ -15,7 +15,7 @@ namespace Silas.Web.Tickers
         // Singleton instance
         private static readonly Lazy<TrueDataTicker> _instance =
             new Lazy<TrueDataTicker>(
-                () => new TrueDataTicker(GlobalHost.ConnectionManager.GetHubContext<NaieveDataHub>().Clients));
+                () => new TrueDataTicker(GlobalHost.ConnectionManager.GetHubContext<TrueDataHub>().Clients));
 
         private readonly TrueDataClient _dataClient = new TrueDataClient();
         private readonly ConcurrentDictionary<int, DataEntry> _entries = new ConcurrentDictionary<int, DataEntry>();

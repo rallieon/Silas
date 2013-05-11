@@ -79,17 +79,17 @@
                     .attr("d", line);
 
                 // Proxy created on the fly          
-                var forecastHub = $.connection.forecastHub;
-
+                var naieveDataHub = $.connection.naieveDataHub;
+                var trueDataHub = $.connection.trueDataHub;
                 var init = function() {
                 };
 
                 // Add a client-side hub method that the server will call
-                forecastHub.client.nextTrueValue = function(value) {
+                trueDataHub.client.nextTrueValue = function(value) {
                     console.log("true value = " + value);
                 };
 
-                forecastHub.client.nextNaieveValue = function(value) {
+                naieveDataHub.client.nextNaieveValue = function(value) {
                     // push a new data point onto the back
                     console.log("naieve forecast value = " + value);
                     data.push(value);

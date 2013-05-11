@@ -142,11 +142,17 @@
     <Compile Include="Clients\IDataClient.cs" />
     <Compile Include="Clients\LiveDataClient.cs" />
     <Compile Include="Clients\TrueDataClient.cs" />
-    <Compile Include="Hubs\DoubleExponentialSmoothingDataHub.cs" />
-    <Compile Include="Hubs\SimpleExponentialSmoothingDataHub.cs" />
+    <Compile Include="Hubs\DoubleExponentialSmoothingDataHub.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Hubs\SimpleExponentialSmoothingDataHub.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Hubs\TrueDataHub.cs" />
     <Compile Include="Hubs\WeightedAverageDataHub.cs" />
-    <Compile Include="Tickers\DoubleExponentialSmoothingDataTicker.cs" />
+    <Compile Include="Tickers\DoubleExponentialSmoothingDataTicker.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Tickers\IDataTicker.cs" />
     <Compile Include="Tickers\NaieveDataTicker.cs" />
     <Compile Include="Global.asax.cs">
@@ -154,7 +160,9 @@
     </Compile>
     <Compile Include="Hubs\NaieveDataHub.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Tickers\SimpleExponentialSmoothingDataTicker.cs" />
+    <Compile Include="Tickers\SimpleExponentialSmoothingDataTicker.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Tickers\TrueDataTicker.cs" />
     <Compile Include="Tickers\WeightedAverageDataTicker.cs" />
   </ItemGroup>

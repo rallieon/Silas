@@ -1,6 +1,4 @@
-﻿#region
-
-using System;
+﻿using System;
 using System.Collections.Concurrent;
 using System.Linq;
 using System.Threading;
@@ -9,8 +7,6 @@ using Microsoft.AspNet.SignalR.Hubs;
 using Silas.Domain;
 using Silas.Web.Clients;
 using Silas.Web.Hubs;
-
-#endregion
 
 namespace Silas.Web.Tickers
 {

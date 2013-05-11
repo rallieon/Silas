@@ -1,6 +1,4 @@
-﻿#region
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -10,8 +8,6 @@ using Silas.Domain;
 using Silas.Forecast;
 using Silas.Web.Clients;
 using Silas.Web.Hubs;
-
-#endregion
 
 namespace Silas.Web.Tickers
 {

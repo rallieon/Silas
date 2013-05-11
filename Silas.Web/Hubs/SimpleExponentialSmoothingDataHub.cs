@@ -1,9 +1,5 @@
-﻿#region
-
-using Microsoft.AspNet.SignalR;
+﻿using Microsoft.AspNet.SignalR;
 using Silas.Web.Tickers;
-
-#endregion
 
 namespace Silas.Web.Hubs
 {

@@ -6,5 +6,6 @@ namespace Silas.Web.Clients
     internal interface IDataClient
     {
         IEnumerable<DataEntry> GetData();
+        DataEntry GetLatestEntry();
     }
 }

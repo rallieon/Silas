@@ -15,13 +15,13 @@ namespace Silas.API.Controllers
         private readonly LiveDataContext db = new LiveDataContext();
 
         // GET api/MutableDataEntry
-        public IEnumerable<DataEntry> GetDataEntries()
+        public IEnumerable<DataEntry> GetAll()
         {
             return db.Entries.AsEnumerable();
         }
 
         // GET api/MutableDataEntry/5
-        public DataEntry GetDataEntry(int id)
+        public DataEntry Get(int id)
         {
             DataEntry dataentry = db.Entries.Find(id);
             if (dataentry == null)
@@ -32,35 +32,13 @@ namespace Silas.API.Controllers
             return dataentry;
         }
 
-        // PUT api/MutableDataEntry/5
-        public HttpResponseMessage PutDataEntry(int id, DataEntry dataentry)
+        public DataEntry GetLatestEntry()
         {
-            if (!ModelState.IsValid)
-            {
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
-            }
-
-            if (id != dataentry.Id)
-            {
-                return Request.CreateResponse(HttpStatusCode.BadRequest);
-            }
-
-            db.Entry(dataentry).State = EntityState.Modified;
-
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException ex)
-            {
-                return Request.CreateErrorResponse(HttpStatusCode.NotFound, ex);
-            }
-
-            return Request.CreateResponse(HttpStatusCode.OK);
+            return db.Entries.OrderByDescending(e => e.Id).FirstOrDefault();
         }
 
         // POST api/MutableDataEntry
-        public HttpResponseMessage PostDataEntry(DataEntry dataentry)
+        public HttpResponseMessage Post(DataEntry dataentry)
         {
             if (ModelState.IsValid)
             {
@@ -74,29 +52,6 @@ namespace Silas.API.Controllers
             {
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
             }
-        }
-
-        // DELETE api/MutableDataEntry/5
-        public HttpResponseMessage DeleteDataEntry(int id)
-        {
-            DataEntry dataentry = db.Entries.Find(id);
-            if (dataentry == null)
-            {
-                return Request.CreateResponse(HttpStatusCode.NotFound);
-            }
-
-            db.Entries.Remove(dataentry);
-
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException ex)
-            {
-                return Request.CreateErrorResponse(HttpStatusCode.NotFound, ex);
-            }
-
-            return Request.CreateResponse(HttpStatusCode.OK, dataentry);
         }
 
         protected override void Dispose(bool disposing)

@@ -18,7 +18,6 @@ namespace Silas.Web.Tickers
                 () => new TrueDataTicker(GlobalHost.ConnectionManager.GetHubContext<TrueDataHub>().Clients));
 
         private readonly LiveDataClient _dataClient = new LiveDataClient();
-        private readonly ConcurrentDictionary<int, DataEntry> _entries = new ConcurrentDictionary<int, DataEntry>();
         private readonly object _forecastLock = new object();
         private readonly Timer _timer;
         private readonly TimeSpan _updateInterval = TimeSpan.FromMilliseconds(1000);
@@ -27,9 +26,6 @@ namespace Silas.Web.Tickers
         private TrueDataTicker(IHubConnectionContext clients)
         {
             Clients = clients;
-            _entries.Clear();
-            _entries = new ConcurrentDictionary<int, DataEntry>();
-            _dataClient.GetData().ToList().ForEach(e => _entries.TryAdd(e.Id, e));
             _timer = new Timer(NextValue, null, _updateInterval, _updateInterval);
         }
 
@@ -44,11 +40,7 @@ namespace Silas.Web.Tickers
         {
             lock (_forecastLock)
             {
-                DataEntry entry;
-                if (_entries.TryGetValue(currentPeriod++, out entry))
-                {
-                    SendValue(entry.Value);
-                }
+                SendValue(_dataClient.GetLatestEntry().Value);
             }
         }
 

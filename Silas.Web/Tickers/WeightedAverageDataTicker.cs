@@ -27,7 +27,7 @@ namespace Silas.Web.Tickers
         private readonly Timer _timer;
         private readonly TimeSpan _updateInterval = TimeSpan.FromMilliseconds(1000);
         private readonly LiveDataClient _dataClient = new LiveDataClient();
-        private int currentPeriod = 1;
+        private int currentPeriod = 101;
 
         private WeightedAverageDataTicker(IHubConnectionContext clients)
         {

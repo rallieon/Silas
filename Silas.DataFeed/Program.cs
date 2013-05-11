@@ -28,7 +28,6 @@ namespace Silas.DataFeed
 
             foreach (DataEntry entry in entryList)
             {
-                entry.DateTime = DateTime.Now;
                 HttpResponseMessage response = client.PostAsJsonAsync("api/livedata", entry).Result;
                 Console.WriteLine("{0} ({1})", (int) response.StatusCode, response.RequestMessage);
                 Thread.Sleep(1000);

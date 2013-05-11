@@ -15,7 +15,7 @@ namespace Silas.API.Controllers
         private readonly LiveDataContext db = new LiveDataContext();
 
         // GET api/MutableDataEntry
-        public IEnumerable<DataEntry> GetAll()
+        public IEnumerable<DataEntry> Get()
         {
             return db.Entries.AsEnumerable();
         }
@@ -23,18 +23,13 @@ namespace Silas.API.Controllers
         // GET api/MutableDataEntry/5
         public DataEntry Get(int id)
         {
-            DataEntry dataentry = db.Entries.Find(id);
+            DataEntry dataentry = db.Entries.FirstOrDefault(e => e.Period == id);
             if (dataentry == null)
             {
                 throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
             }
 
             return dataentry;
-        }
-
-        public DataEntry GetLatestEntry()
-        {
-            return db.Entries.OrderByDescending(e => e.Id).FirstOrDefault();
         }
 
         // POST api/MutableDataEntry

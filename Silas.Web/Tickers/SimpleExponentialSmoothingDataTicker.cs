@@ -33,7 +33,7 @@ namespace Silas.Web.Tickers
         {
             Clients = clients;
             _entries = new ConcurrentDictionary<int, DataEntry>();
-            _dataClient.GetData().ToList().ForEach(e => _entries.TryAdd(e.Id, e));
+            _dataClient.GetData(100).ToList().ForEach(e => _entries.TryAdd(e.Id, e));
             _timer = new Timer(NextValue, null, _updateInterval, _updateInterval);
         }
 

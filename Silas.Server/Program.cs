@@ -24,10 +24,11 @@ namespace Silas.Server
                 context.Database.Initialize(true);
             }
 
-            config.Routes.MapHttpRoute("DefaultApiWithId", "api/{controller}/{id}", new { id = RouteParameter.Optional }, new { id = @"\d+" });
-            config.Routes.MapHttpRoute("DefaultApiWithAction", "api/{controller}/{action}");
-            config.Routes.MapHttpRoute("DefaultApiGet", "api/{controller}", new { action = "Get" }, new { httpMethod = new HttpMethodConstraint(HttpMethod.Get) });
-            config.Routes.MapHttpRoute("DefaultApiPost", "api/{controller}", new { action = "Post" }, new { httpMethod = new HttpMethodConstraint(HttpMethod.Post) });
+            config.Routes.MapHttpRoute(
+                name: "API Default",
+                routeTemplate: "api/{controller}/{id}",
+                defaults: new {id = RouteParameter.Optional}
+                );
 
             using (var server = new HttpSelfHostServer(config))
             {

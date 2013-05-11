@@ -40,7 +40,7 @@ namespace Silas.Web.Tickers
         {
             lock (_forecastLock)
             {
-                SendValue(_dataClient.GetLatestEntry().Value);
+                SendValue(_dataClient.GetEntryByPeriod(currentPeriod++).Value);
             }
         }
 

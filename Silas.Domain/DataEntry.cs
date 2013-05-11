@@ -9,7 +9,7 @@ namespace Silas.Domain
         public int Id { get; set; }
 
         [CsvField(Index = 0)]
-        public DateTime DateTime { get; set; }
+        public int Period { get; set; }
 
         [CsvField(Index = 1)]
         public int Value { get; set; }

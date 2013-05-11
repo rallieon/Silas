@@ -2,31 +2,34 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using Silas.Domain;
+using System.Linq;
 
 namespace Silas.Web.Clients
 {
     public class LiveDataClient : IDataClient
     {
-        public IEnumerable<DataEntry> GetData()
+        public DataEntry GetEntryByPeriod(int period)
         {
             var client = new HttpClient();
             client.BaseAddress = new Uri("http://localhost:8080/");
 
-            HttpResponseMessage resp = client.GetAsync("api/livedata/getall").Result;
-            resp.EnsureSuccessStatusCode();
-
-            return resp.Content.ReadAsAsync<IEnumerable<DataEntry>>().Result;
-        }
-
-        public DataEntry GetLatestEntry()
-        {
-            var client = new HttpClient();
-            client.BaseAddress = new Uri("http://localhost:8080/");
-
-            HttpResponseMessage resp = client.GetAsync("api/livedata/getlatestentry").Result;
+            HttpResponseMessage resp = client.GetAsync("api/livedata/" + period).Result;
             resp.EnsureSuccessStatusCode();
 
             return resp.Content.ReadAsAsync<DataEntry>().Result;
+        }
+
+        public IEnumerable<DataEntry> GetData(int numberOfRecords)
+        {
+            var client = new HttpClient();
+            client.BaseAddress = new Uri("http://localhost:8080/");
+
+            HttpResponseMessage resp = client.GetAsync("api/livedata").Result;
+            resp.EnsureSuccessStatusCode();
+
+            IEnumerable<DataEntry> results = resp.Content.ReadAsAsync<IEnumerable<DataEntry>>().Result;
+
+            return results.OrderBy(e => e.Period).Take(numberOfRecords); ;
         }
     }
 }

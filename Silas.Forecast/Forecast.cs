@@ -2,7 +2,10 @@
 {
     public enum ForecastStrategy
     {
-        Naieve
+        Naieve,
+        WeightedAverage,
+        SimpleExponentialSmoothing,
+        DoubleExponentialSmoothing
     }
 
     public class Forecast
@@ -14,6 +17,15 @@
             {
                 case ForecastStrategy.Naieve:
                     value = new NaieveStrategy().Forecast(data);
+                    break;
+                case ForecastStrategy.WeightedAverage:
+                    value = new WeightedAverageStrategy().Forecast(data);
+                    break;
+                case ForecastStrategy.SimpleExponentialSmoothing:
+                    value = new SimpleExponentialSmoothingStrategy().Forecast(data);
+                    break;
+                case ForecastStrategy.DoubleExponentialSmoothing:
+                    value = new DoubleExponentialSmoothingStrategy().Forecast(data);
                     break;
             }
 

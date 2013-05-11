@@ -15,12 +15,14 @@ using Silas.Web.Hubs;
 
 namespace Silas.Web.Tickers
 {
-    public class NaieveDataTicker : IDataTicker
+    public class WeightedAverageDataTicker : IDataTicker
     {
         // Singleton instance
-        private static readonly Lazy<NaieveDataTicker> _instance =
-            new Lazy<NaieveDataTicker>(
-                () => new NaieveDataTicker(GlobalHost.ConnectionManager.GetHubContext<NaieveDataHub>().Clients));
+        private static readonly Lazy<WeightedAverageDataTicker> _instance =
+            new Lazy<WeightedAverageDataTicker>(
+                () =>
+                new WeightedAverageDataTicker(
+                    GlobalHost.ConnectionManager.GetHubContext<WeightedAverageDataHub>().Clients));
 
         private readonly Forecast.Forecast _forecast = new Forecast.Forecast();
         private readonly object _forecastLock = new object();
@@ -28,13 +30,13 @@ namespace Silas.Web.Tickers
         private readonly TimeSpan _updateInterval = TimeSpan.FromMilliseconds(1000);
         private readonly LiveDataClient dataClient = new LiveDataClient();
 
-        private NaieveDataTicker(IHubConnectionContext clients)
+        private WeightedAverageDataTicker(IHubConnectionContext clients)
         {
             Clients = clients;
             _timer = new Timer(NextValue, null, _updateInterval, _updateInterval);
         }
 
-        public static NaieveDataTicker Instance
+        public static WeightedAverageDataTicker Instance
         {
             get { return _instance.Value; }
         }
@@ -45,9 +47,9 @@ namespace Silas.Web.Tickers
         {
             lock (_forecastLock)
             {
-                //run Naieve forecast
+                //run WeightedAverage forecast
                 IEnumerable<DataEntry> entries = dataClient.GetData();
-                SendValue(_forecast.Execute(ForecastStrategy.Naieve, entries.Select(e => e.Value).ToArray()));
+                SendValue(_forecast.Execute(ForecastStrategy.WeightedAverage, entries.Select(e => e.Value).ToArray()));
             }
         }
 

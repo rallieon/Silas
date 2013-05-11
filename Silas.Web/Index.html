@@ -81,15 +81,30 @@
                 // Proxy created on the fly          
                 var naieveDataHub = $.connection.naieveDataHub;
                 var trueDataHub = $.connection.trueDataHub;
+                var weightedAverageDataHub = $.connection.weightedAverageDataHub;
+                var simpleExponentialSmoothingDataHub = $.connection.simpleExponentialSmoothingDataHub;
+                var doubleExponentialSmoothingDataHub = $.connection.doubleExponentialSmoothingDataHub;
                 var init = function() {
                 };
 
                 // Add a client-side hub method that the server will call
-                trueDataHub.client.nextTrueValue = function(value) {
+                trueDataHub.client.sendValue = function(value) {
                     console.log("true value = " + value);
                 };
+                
+                weightedAverageDataHub.client.sendValue = function(value) {
+                    console.log("weighted average value = " + value);
+                };
+                
+                simpleExponentialSmoothingDataHub.client.sendValue = function(value) {
+                    console.log("simple value = " + value);
+                };
+                
+                doubleExponentialSmoothingDataHub.client.sendValue = function(value) {
+                    console.log("doulbe value = " + value);
+                };
 
-                naieveDataHub.client.nextNaieveValue = function(value) {
+                naieveDataHub.client.sendValue = function(value) {
                     // push a new data point onto the back
                     console.log("naieve forecast value = " + value);
                     data.push(value);

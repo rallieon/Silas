@@ -144,7 +144,7 @@
     <Compile Include="Hubs\DoubleExponentialSmoothingDataHub.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Hubs\SimpleExponentialSmoothingDataHub.cs">
+    <Compile Include="Hubs\SingleExponentialSmoothingDataHub.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Hubs\TrueDataHub.cs" />
@@ -159,7 +159,7 @@
     </Compile>
     <Compile Include="Hubs\NaieveDataHub.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Tickers\SimpleExponentialSmoothingDataTicker.cs">
+    <Compile Include="Tickers\SingleExponentialSmoothingDataTicker.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Tickers\TrueDataTicker.cs" />

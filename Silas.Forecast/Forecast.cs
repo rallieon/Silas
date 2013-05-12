@@ -22,7 +22,7 @@
                     value = new WeightedAverageStrategy().Forecast(data, period, strategyParameters);
                     break;
                 case ForecastStrategy.SimpleExponentialSmoothing:
-                    value = new SimpleExponentialSmoothingStrategy().Forecast(data, period, strategyParameters);
+                    value = new SingleExponentialSmoothingStrategy().Forecast(data, period, strategyParameters);
                     break;
                 case ForecastStrategy.DoubleExponentialSmoothing:
                     value = new DoubleExponentialSmoothingStrategy().Forecast(data, period, strategyParameters);

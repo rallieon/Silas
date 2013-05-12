@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Silas.Forecast
 {
@@ -8,6 +10,12 @@ namespace Silas.Forecast
         {
             if (period - 1 < 0 || period - 1 > data.Length)
                 return 0;
+
+            if (!((IDictionary<String, object>)strategyParameters).ContainsKey("NumberOfWeights"))
+                throw new ArgumentException("The strategy parameters must include NumberOfWeights");
+
+            if (!((IDictionary<String, object>)strategyParameters).ContainsKey("Weights"))
+                throw new ArgumentException("The strategy parameters must include Weights");
 
             int numberOfWeights = strategyParameters.NumberOfWeights;
             double[] weights = strategyParameters.Weights;

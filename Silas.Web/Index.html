@@ -82,7 +82,7 @@
                 var naieveDataHub = $.connection.naieveDataHub;
                 var trueDataHub = $.connection.trueDataHub;
                 var weightedAverageDataHub = $.connection.weightedAverageDataHub;
-                var simpleExponentialSmoothingDataHub = $.connection.simpleExponentialSmoothingDataHub;
+                var singleExponentialSmoothingDataHub = $.connection.singleExponentialSmoothingDataHub;
                 var doubleExponentialSmoothingDataHub = $.connection.doubleExponentialSmoothingDataHub;
                 var init = function() {
                 };
@@ -96,8 +96,8 @@
                     console.log("weighted average value = " + value);
                 };
                 
-                simpleExponentialSmoothingDataHub.client.sendValue = function(value) {
-                    console.log("simple value = " + value);
+                singleExponentialSmoothingDataHub.client.sendValue = function(value) {
+                    console.log("single value = " + value);
                 };
                 
                 doubleExponentialSmoothingDataHub.client.sendValue = function(value) {

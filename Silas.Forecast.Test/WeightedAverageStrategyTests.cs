@@ -30,7 +30,25 @@ namespace Silas.Forecast.Test
         [TestMethod]
         public void TestForecastInvalidPeriodNumber()
         {
-            Assert.AreEqual(0, _strategy.Forecast(data, 5, null));
+            Assert.AreEqual(0, _strategy.Forecast(data, 5, parameters));
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException), "The strategy parameters must include NumberOfWeights")]
+        public void TestForecastMissingNumberOfWeights()
+        {
+            dynamic testParameters = new ExpandoObject();
+            testParameters.Weights = new[] { 0.5, 0.3, 0.2 };
+            Assert.AreEqual(0, _strategy.Forecast(data, 4, testParameters));
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException), "The strategy parameters must include Weights")]
+        public void TestForecastMissingWeights()
+        {
+            dynamic testParameters = new ExpandoObject();
+            testParameters.NumberOfWeights = 3;
+            Assert.AreEqual(0, _strategy.Forecast(data, 4, testParameters));
         }
     }
 }

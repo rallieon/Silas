@@ -12,14 +12,14 @@ using Silas.Web.Hubs;
 
 namespace Silas.Web.Tickers
 {
-    public class SimpleExponentialSmoothingDataTicker : IDataTicker
+    public class SingleExponentialSmoothingDataTicker : IDataTicker
     {
         // Singleton instance
-        private static readonly Lazy<SimpleExponentialSmoothingDataTicker> _instance =
-            new Lazy<SimpleExponentialSmoothingDataTicker>(
+        private static readonly Lazy<SingleExponentialSmoothingDataTicker> _instance =
+            new Lazy<SingleExponentialSmoothingDataTicker>(
                 () =>
-                new SimpleExponentialSmoothingDataTicker(
-                    GlobalHost.ConnectionManager.GetHubContext<SimpleExponentialSmoothingDataHub>().Clients));
+                new SingleExponentialSmoothingDataTicker(
+                    GlobalHost.ConnectionManager.GetHubContext<SingleExponentialSmoothingDataHub>().Clients));
 
         private readonly Forecast.Forecast _forecast = new Forecast.Forecast();
         private readonly ConcurrentDictionary<int, DataEntry> _entries = new ConcurrentDictionary<int, DataEntry>();
@@ -29,7 +29,7 @@ namespace Silas.Web.Tickers
         private readonly LiveDataClient _dataClient = new LiveDataClient();
         private int currentPeriod = 101;
 
-        private SimpleExponentialSmoothingDataTicker(IHubConnectionContext clients)
+        private SingleExponentialSmoothingDataTicker(IHubConnectionContext clients)
         {
             Clients = clients;
             _entries = new ConcurrentDictionary<int, DataEntry>();
@@ -37,7 +37,7 @@ namespace Silas.Web.Tickers
             _timer = new Timer(NextValue, null, _updateInterval, _updateInterval);
         }
 
-        public static SimpleExponentialSmoothingDataTicker Instance
+        public static SingleExponentialSmoothingDataTicker Instance
         {
             get { return _instance.Value; }
         }

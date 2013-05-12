@@ -12,8 +12,8 @@ Forecasting data, whether it be website traffic or retail sales, is considered b
 4. Confidence Intervals?
 5. Setup feedback system to display error rate
 6. Prepare Talk
-	a. Part 1 Forecasting in Excel
-		i. Talk about the techniques
-		ii.Talk about Holdout data
-	b. Part 2 Dynamic System based on live data.
-		i. Go over the architecture of the system
+    a. Part 1 Forecasting in Excel
+        i. Talk about the techniques
+        ii.Talk about Holdout data
+    b. Part 2 Dynamic System based on live data.
+        i. Go over the architecture of the system

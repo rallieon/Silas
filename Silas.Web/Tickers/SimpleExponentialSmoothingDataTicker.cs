@@ -48,6 +48,8 @@ namespace Silas.Web.Tickers
         {
             lock (_forecastLock)
             {
+                var entry = _dataClient.GetEntryByPeriod(currentPeriod++);
+                _entries.TryAdd(entry.Id, entry);
                 SendValue(_forecast.Execute(ForecastStrategy.SimpleExponentialSmoothing, _entries.Values.Select(e => e.Value).ToArray(), currentPeriod++, null));
             }
         }

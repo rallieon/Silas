@@ -38,7 +38,7 @@ namespace Silas.Forecast.Test
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException), "The strategy parameters must include Alpha")]
-        public void TestForecastMissingNumberOfWeights()
+        public void TestForecastMissingAlpha()
         {
             dynamic testParameters = new ExpandoObject();
             Assert.AreEqual(0, _strategy.Forecast(data, 10, testParameters));

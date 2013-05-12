@@ -19,22 +19,39 @@ namespace Silas.Forecast.Test
         [TestInitialize]
         public void Setup()
         {
-            data = new[] { 100, 30, 200 };
+            data = new[] { 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120 };
             parameters = new ExpandoObject();
-            parameters.NumberOfWeights = 3;
-            parameters.Weights = new[] { 0.5, 0.3, 0.2 };
+            parameters.Alpha = 0.5;
+            parameters.Beta = 0.5;
         }
 
         [TestMethod]
         public void TestForecastValidPeriodNumber()
         {
-            Assert.AreEqual(99, _strategy.Forecast(data, 4, parameters));
+            Assert.AreEqual(130, _strategy.Forecast(data, 13, parameters));
         }
 
         [TestMethod]
         public void TestForecastInvalidPeriodNumber()
         {
-            Assert.AreEqual(0, _strategy.Forecast(data, 5, null));
+            Assert.AreEqual(0, _strategy.Forecast(data, 99, parameters));
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException), "The strategy parameters must include Alpha")]
+        public void TestForecastMissingAlpha()
+        {
+            dynamic testParameters = new ExpandoObject();
+            Assert.AreEqual(0, _strategy.Forecast(data, 13, testParameters));
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException), "The strategy parameters must include Beta")]
+        public void TestForecastMissingBeta()
+        {
+            dynamic testParameters = new ExpandoObject();
+            testParameters.Alpha = 0.34;
+            Assert.AreEqual(0, _strategy.Forecast(data, 13, testParameters));
         }
     }
 }

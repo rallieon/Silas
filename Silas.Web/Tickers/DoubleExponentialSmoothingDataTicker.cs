@@ -48,7 +48,7 @@ namespace Silas.Web.Tickers
         {
             lock (_forecastLock)
             {
-                SendValue(_forecast.Execute(ForecastStrategy.DoubleExponentialSmoothing, _entries.Values.Select(e => e.Value).ToArray(), currentPeriod++));
+                SendValue(_forecast.Execute(ForecastStrategy.DoubleExponentialSmoothing, _entries.Values.Select(e => e.Value).ToArray(), currentPeriod++, null));
             }
         }
 

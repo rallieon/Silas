@@ -4,10 +4,12 @@ namespace Silas.Forecast
 {
     public class NaieveStrategy : IForecastStrategy
     {
-        public int Forecast(int[] data, int period)
+        public int Forecast(int[] data, int period, dynamic strategyParameters)
         {
-            //check minus 2 due to 0 index
-            return period - 2 >= 0 && period - 2 < data.Length ? data.ElementAt(period - 2) : 0;
+            if (period - 1 < 0 || period - 1 > data.Length)
+                return 0;
+
+            return data.ElementAt(period - 2);
         }
     }
 }

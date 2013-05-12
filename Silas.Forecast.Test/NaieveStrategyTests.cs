@@ -13,14 +13,14 @@ namespace Silas.Forecast.Test
         public void TestForecastValidPeriodNumber()
         {
             var data = new[]{1,2,3};
-            Assert.AreEqual(3, _strategy.Forecast(data, 4));
+            Assert.AreEqual(3, _strategy.Forecast(data, 4, null));
         }
 
         [TestMethod]
         public void TestForecastInvalidPeriodNumber()
         {
             var data = new[] { 1, 2, 3 };
-            Assert.AreEqual(0, _strategy.Forecast(data, 5));
+            Assert.AreEqual(0, _strategy.Forecast(data, 5, null));
         }
     }
 }

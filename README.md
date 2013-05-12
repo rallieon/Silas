@@ -7,7 +7,7 @@ Forecasting data, whether it be website traffic or retail sales, is considered b
 
 ##ToDo
 1. Setup d3 chart to show 4 strategies plus true data.
-2 Refactor and Clean
+2. Refactor and Clean
 3. Style
 4. Confidence Intervals?
 5. Setup feedback system to display error rate

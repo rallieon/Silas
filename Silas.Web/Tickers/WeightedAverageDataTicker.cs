@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Threading;
 using Microsoft.AspNet.SignalR;
@@ -28,6 +29,7 @@ namespace Silas.Web.Tickers
         private readonly TimeSpan _updateInterval = TimeSpan.FromMilliseconds(1000);
         private readonly LiveDataClient _dataClient = new LiveDataClient();
         private int currentPeriod = 101;
+        private dynamic _parameters;
 
         private WeightedAverageDataTicker(IHubConnectionContext clients)
         {
@@ -35,6 +37,9 @@ namespace Silas.Web.Tickers
             _entries = new ConcurrentDictionary<int, DataEntry>();
             _dataClient.GetData(100).ToList().ForEach(e => _entries.TryAdd(e.Id, e));
             _timer = new Timer(NextValue, null, _updateInterval, _updateInterval);
+            _parameters = new ExpandoObject();
+            _parameters.NumberOfWeights = 2;
+            _parameters.Weights = new[] { 0.5, 0.5 };
         }
 
         public static WeightedAverageDataTicker Instance
@@ -50,7 +55,7 @@ namespace Silas.Web.Tickers
             {
                 var entry = _dataClient.GetEntryByPeriod(currentPeriod++);
                 _entries.TryAdd(entry.Id, entry);
-                SendValue(_forecast.Execute(ForecastStrategy.WeightedAverage, _entries.Values.Select(e => e.Value).ToArray(), currentPeriod++, null));
+                SendValue(_forecast.Execute(ForecastStrategy.WeightedAverage, _entries.Values.Select(e => e.Value).ToArray(), currentPeriod++, _parameters));
             }
         }
 

@@ -46,9 +46,17 @@ namespace Silas.Web.Tickers
         {
             lock (_forecastLock)
             {
-                var entry = _dataClient.GetEntryByPeriod(currentPeriod++);
+                var entry = new DataEntry
+                    {
+                        Value =
+                            _forecast.Execute(ForecastStrategy.Naieve, _entries.Values.Select(e => e.Value).ToArray(),
+                                              currentPeriod, null),
+                        Id = currentPeriod,
+                        Period = currentPeriod
+                    };
                 _entries.TryAdd(entry.Id, entry);
-                SendValue(_forecast.Execute(ForecastStrategy.Naieve, _entries.Values.Select(e => e.Value).ToArray(), currentPeriod++, null));
+                currentPeriod++;
+                SendValue(entry.Value);
             }
         }
 

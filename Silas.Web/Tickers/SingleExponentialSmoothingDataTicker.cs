@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Threading;
 using Microsoft.AspNet.SignalR;
@@ -28,12 +29,15 @@ namespace Silas.Web.Tickers
         private readonly TimeSpan _updateInterval = TimeSpan.FromMilliseconds(1000);
         private readonly LiveDataClient _dataClient = new LiveDataClient();
         private int currentPeriod = 101;
+        private dynamic _parameters;
 
         private SingleExponentialSmoothingDataTicker(IHubConnectionContext clients)
         {
             Clients = clients;
             _entries = new ConcurrentDictionary<int, DataEntry>();
             _dataClient.GetData(100).ToList().ForEach(e => _entries.TryAdd(e.Id, e));
+            _parameters = new ExpandoObject();
+            _parameters.Alpha = 0.3;
             _timer = new Timer(NextValue, null, _updateInterval, _updateInterval);
         }
 
@@ -48,9 +52,17 @@ namespace Silas.Web.Tickers
         {
             lock (_forecastLock)
             {
-                var entry = _dataClient.GetEntryByPeriod(currentPeriod++);
+                var entry = new DataEntry
+                {
+                    Value =
+                        _forecast.Execute(ForecastStrategy.SimpleExponentialSmoothing,
+                                              _entries.Values.Select(e => e.Value).ToArray(), currentPeriod, _parameters),
+                    Id = currentPeriod,
+                    Period = currentPeriod
+                };
                 _entries.TryAdd(entry.Id, entry);
-                SendValue(_forecast.Execute(ForecastStrategy.SimpleExponentialSmoothing, _entries.Values.Select(e => e.Value).ToArray(), currentPeriod++, null));
+                currentPeriod++;
+                SendValue(entry.Value);
             }
         }
 

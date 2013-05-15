@@ -38,8 +38,8 @@ namespace Silas.Web.Tickers
             _dataClient.GetData(100).ToList().ForEach(e => _entries.TryAdd(e.Id, e));
             _timer = new Timer(NextValue, null, _updateInterval, _updateInterval);
             _parameters = new ExpandoObject();
-            _parameters.NumberOfWeights = 2;
-            _parameters.Weights = new[] { 0.5, 0.5 };
+            _parameters.NumberOfWeights = 5;
+            _parameters.Weights = new[] { 0.4, 0.3, 0.2, 0.05, 0.05 };
         }
 
         public static WeightedAverageDataTicker Instance
@@ -53,9 +53,18 @@ namespace Silas.Web.Tickers
         {
             lock (_forecastLock)
             {
-                var entry = _dataClient.GetEntryByPeriod(currentPeriod++);
+                var entry = new DataEntry
+                {
+                    Value =
+                        _forecast.Execute(ForecastStrategy.WeightedAverage,
+                                              _entries.Values.Select(e => e.Value).ToArray(), currentPeriod,
+                                              _parameters),
+                    Id = currentPeriod,
+                    Period = currentPeriod
+                };
                 _entries.TryAdd(entry.Id, entry);
-                SendValue(_forecast.Execute(ForecastStrategy.WeightedAverage, _entries.Values.Select(e => e.Value).ToArray(), currentPeriod++, _parameters));
+                currentPeriod++;
+                SendValue(entry.Value);
             }
         }
 

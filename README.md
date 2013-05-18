@@ -7,17 +7,14 @@ Forecasting data, whether it be website traffic or retail sales, is considered b
 
 ##ToDo
 1. Write Triple Exponential Smoothing strategy.
-2. Introduce Holdout data set in the model
-3. Introduce Confidence Intervals to the strategies.
-4. Introduce Error parameters to strategies.
-5. Setup Multiple DataSets for each strategy.
-6. Write Solver Library to help minimize error by modifying parameters (http://msdn.microsoft.com/en-us/library/ff628587(v=vs.93).aspx)
-7. Setup deck.js
-8. Setup http://gridster.net/#usage
-9. Setup a page for each strategy showing the Graph of data vs forecast model, error rates, confidence intervals (data table?)
-10. Setup each Ticker to be Activated once that slide is active
-11. Style Pages
-12. Prepare Talk
+2. Setup Multiple DataSets for each strategy.
+3. Write Solver Library to help minimize error by modifying parameters (http://msdn.microsoft.com/en-us/library/ff628587(v=vs.93).aspx)
+4. Setup deck.js
+5. Setup http://gridster.net/#usage
+6. Setup a page for each strategy showing the Graph of data vs forecast model, error rates, confidence intervals (data table?)
+7. Setup each Ticker to be Activated once that slide is active
+8. Style Pages
+9. Prepare Talk
 
 ##Talk
 1. What is Forecasting?

@@ -24,5 +24,10 @@ namespace Silas.Forecast.Models
         {
             get { return Math.Abs(Error); }
         }
+
+        public double SquaredError
+        {
+            get { return Math.Pow(Error, 2); }
+        }
     }
 }

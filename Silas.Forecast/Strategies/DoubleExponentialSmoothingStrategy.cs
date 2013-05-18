@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Silas.Forecast.Models;
 
-namespace Silas.Forecast
+namespace Silas.Forecast.Strategies
 {
     public class DoubleExponentialSmoothingStrategy : IForecastStrategy
     {
-        public int Forecast(int[] data, int period, dynamic strategyParameters)
+        public ForecastEntry Forecast(IEnumerable<DataEntry> dataEntries, int period, dynamic strategyParameters)
         {
-            if (period - 1 < 0 || period - 1 > data.Length)
-                return 0;
+            if (period - 1 < 0)
+                return null;
 
             if (!((IDictionary<String, object>)strategyParameters).ContainsKey("Alpha"))
                 throw new ArgumentException("The strategy parameters must include Alpha");
@@ -18,7 +19,7 @@ namespace Silas.Forecast
                 throw new ArgumentException("The strategy parameters must include Beta");
 
             //initial forecast is set to to true data point
-            double currForecast = data[0];
+            double currForecast = dataEntries.ElementAt(0).Value;
             double currTrend = 0;
             double adjustedForecast = currForecast + currTrend;
             double alpha = strategyParameters.Alpha;
@@ -32,16 +33,23 @@ namespace Silas.Forecast
                 double tempCurrForecast = currForecast;                
 
                 //sub two since list is 0 index based and we want to go back one period
-                currForecast = (alpha * data[currPeriod - 2]) + ((1 - alpha) * (currForecast + currTrend));
+                currForecast = (alpha * dataEntries.ElementAt(currPeriod - 2).Value) + ((1 - alpha) * (currForecast + currTrend));
 
                 //use old currForecast
-                currTrend = (beta * (data[currPeriod - 2] - tempCurrForecast)) + ((1 - beta) * currTrend);
+                currTrend = (beta * dataEntries.ElementAt(currPeriod - 2).Value - tempCurrForecast) + ((1 - beta) * currTrend);
 
                 //calculate adjusted forecast
                 adjustedForecast = currForecast + currTrend;
             }
 
-            return (int)adjustedForecast;
+            return new ForecastEntry
+            {
+                Period = period,
+                DataEntry = period > dataEntries.Count() ? dataEntries.Last() : dataEntries.ElementAt(period - 1),
+                ForecastValue = adjustedForecast,
+                ConfidenceIntervalLow = adjustedForecast,
+                ConfidenceIntervalHigh = adjustedForecast
+            };
         }
     }
 }

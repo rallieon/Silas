@@ -1,21 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Silas.Forecast.Models;
 
-namespace Silas.Forecast
+namespace Silas.Forecast.Strategies
 {
     public class SingleExponentialSmoothingStrategy : IForecastStrategy
     {
-        public int Forecast(int[] data, int period, dynamic strategyParameters)
+        public ForecastEntry Forecast(IEnumerable<DataEntry> dataEntries, int period, dynamic strategyParameters)
         {
-            if (period - 1 < 0 || period - 1 > data.Length)
-                return 0;
+            if (period - 1 < 0)
+                return null;
 
             if (!((IDictionary<String, object>)strategyParameters).ContainsKey("Alpha"))
                 throw new ArgumentException("The strategy parameters must include Alpha");
 
             //initial forecast is set to to true data point
-            double currForecast = data[0];
+            double currForecast = dataEntries.ElementAt(0).Value;
             double alpha = strategyParameters.Alpha;
 
             //start at three since there is no forecast for period 1 
@@ -23,10 +24,17 @@ namespace Silas.Forecast
             for (int currPeriod = 3; currPeriod <= period; currPeriod++)
             {
                 //sub two since list is 0 index based and we want to go back one period
-                currForecast = (alpha*data[currPeriod - 2]) + ((1 - alpha)*currForecast);
+                currForecast = (alpha*dataEntries.ElementAt(currPeriod - 2).Value) + ((1 - alpha)*currForecast);
             }
 
-            return (int)currForecast;
+            return new ForecastEntry
+            {
+                Period = period,
+                DataEntry = period > dataEntries.Count() ? dataEntries.Last() : dataEntries.ElementAt(period - 1),
+                ForecastValue = currForecast,
+                ConfidenceIntervalLow = currForecast,
+                ConfidenceIntervalHigh = currForecast
+            };
         }
     }
 }

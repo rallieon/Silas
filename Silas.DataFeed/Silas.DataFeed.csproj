@@ -61,9 +61,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Silas.Domain\Silas.Domain.csproj">
-      <Project>{6f9db1b0-5afe-4e9d-b0ee-4b333f6108cc}</Project>
-      <Name>Silas.Domain</Name>
+    <ProjectReference Include="..\Silas.Forecast\Silas.Forecast.csproj">
+      <Project>{541b9e7f-1e5a-4d10-8781-6de018819140}</Project>
+      <Name>Silas.Forecast</Name>
     </ProjectReference>
     <ProjectReference Include="..\Silas.Server\Silas.Server.csproj">
       <Project>{fe4ab3a7-98aa-4d8c-a227-4140c88c816a}</Project>

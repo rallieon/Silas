@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using Silas.Domain;
 using System.Linq;
+using Silas.Forecast.Models;
 
 namespace Silas.Web.Clients
 {

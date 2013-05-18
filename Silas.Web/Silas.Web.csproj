@@ -148,7 +148,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Hubs\TrueDataHub.cs" />
-    <Compile Include="Hubs\WeightedAverageDataHub.cs" />
+    <Compile Include="Hubs\MovingAverageDataHub.cs" />
     <Compile Include="Tickers\DoubleExponentialSmoothingDataTicker.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -163,7 +163,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Tickers\TrueDataTicker.cs" />
-    <Compile Include="Tickers\WeightedAverageDataTicker.cs" />
+    <Compile Include="Tickers\MovingAverageDataTicker.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="D3 LICENSE.txt" />
@@ -205,10 +205,6 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Silas.Domain\Silas.Domain.csproj">
-      <Project>{6f9db1b0-5afe-4e9d-b0ee-4b333f6108cc}</Project>
-      <Name>Silas.Domain</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Silas.Forecast\Silas.Forecast.csproj">
       <Project>{541b9e7f-1e5a-4d10-8781-6de018819140}</Project>
       <Name>Silas.Forecast</Name>

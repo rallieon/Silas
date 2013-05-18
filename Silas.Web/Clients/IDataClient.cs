@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Silas.Domain;
+using Silas.Forecast.Models;
 
 namespace Silas.Web.Clients
 {

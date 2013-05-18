@@ -1,5 +1,5 @@
 ﻿using System.Data.Entity;
-using Silas.Domain;
+using Silas.Forecast.Models;
 
 namespace Silas.Server.DB
 {

@@ -4,7 +4,7 @@ using System.Configuration;
 using System.Data.Entity;
 using System.IO;
 using CsvHelper;
-using Silas.Domain;
+using Silas.Forecast.Models;
 
 namespace Silas.Server.DB
 {

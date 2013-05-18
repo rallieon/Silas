@@ -6,7 +6,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading;
 using CsvHelper;
-using Silas.Domain;
+using Silas.Forecast.Models;
 
 namespace Silas.DataFeed
 {

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using Silas.Domain;
+using Silas.Forecast.Models;
 using Silas.Server.DB;
 
 namespace Silas.API.Controllers

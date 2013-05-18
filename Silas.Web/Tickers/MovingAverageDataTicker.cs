@@ -6,43 +6,45 @@ using System.Linq;
 using System.Threading;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
-using Silas.Domain;
 using Silas.Forecast;
+using Silas.Forecast.Models;
+using Silas.Forecast.Strategies;
 using Silas.Web.Clients;
 using Silas.Web.Hubs;
 
 namespace Silas.Web.Tickers
 {
-    public class WeightedAverageDataTicker : IDataTicker
+    public class MovingAverageDataTicker : IDataTicker
     {
         // Singleton instance
-        private static readonly Lazy<WeightedAverageDataTicker> _instance =
-            new Lazy<WeightedAverageDataTicker>(
+        private static readonly Lazy<MovingAverageDataTicker> _instance =
+            new Lazy<MovingAverageDataTicker>(
                 () =>
-                new WeightedAverageDataTicker(
-                    GlobalHost.ConnectionManager.GetHubContext<WeightedAverageDataHub>().Clients));
+                new MovingAverageDataTicker(
+                    GlobalHost.ConnectionManager.GetHubContext<MovingAverageDataHub>().Clients));
 
-        private readonly Forecast.Forecast _forecast = new Forecast.Forecast();
+        private readonly Model _model;
         private readonly ConcurrentDictionary<int, DataEntry> _entries = new ConcurrentDictionary<int, DataEntry>();
         private readonly object _forecastLock = new object();
         private readonly Timer _timer;
         private readonly TimeSpan _updateInterval = TimeSpan.FromMilliseconds(1000);
         private readonly LiveDataClient _dataClient = new LiveDataClient();
-        private int currentPeriod = 101;
-        private dynamic _parameters;
+        private int _currentPeriod = 1;
+        private readonly dynamic _parameters;
 
-        private WeightedAverageDataTicker(IHubConnectionContext clients)
+        private MovingAverageDataTicker(IHubConnectionContext clients)
         {
             Clients = clients;
             _entries = new ConcurrentDictionary<int, DataEntry>();
             _dataClient.GetData(100).ToList().ForEach(e => _entries.TryAdd(e.Id, e));
             _timer = new Timer(NextValue, null, _updateInterval, _updateInterval);
             _parameters = new ExpandoObject();
-            _parameters.NumberOfWeights = 5;
-            _parameters.Weights = new[] { 0.4, 0.3, 0.2, 0.05, 0.05 };
+            _parameters.NumberOfWeights = 2;
+
+            _model = new Model(new MovingAverageStrategy(), _entries.Values, _parameters);
         }
 
-        public static WeightedAverageDataTicker Instance
+        public static MovingAverageDataTicker Instance
         {
             get { return _instance.Value; }
         }
@@ -53,22 +55,13 @@ namespace Silas.Web.Tickers
         {
             lock (_forecastLock)
             {
-                var entry = new DataEntry
-                {
-                    Value =
-                        _forecast.Execute(ForecastStrategy.WeightedAverage,
-                                              _entries.Values.Select(e => e.Value).ToArray(), currentPeriod,
-                                              _parameters),
-                    Id = currentPeriod,
-                    Period = currentPeriod
-                };
-                _entries.TryAdd(entry.Id, entry);
-                currentPeriod++;
-                SendValue(entry.Value);
+                ForecastEntry value = _model.Forecast(_currentPeriod);
+                _currentPeriod++;
+                SendValue(value);
             }
         }
 
-        public void SendValue(int value)
+        public void SendValue(ForecastEntry value)
         {
             Clients.All.sendValue(value);
         }

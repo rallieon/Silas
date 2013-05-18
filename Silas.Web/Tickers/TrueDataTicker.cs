@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
-using Silas.Domain;
+using Silas.Forecast.Models;
 using Silas.Web.Clients;
 using Silas.Web.Hubs;
 
@@ -40,11 +40,25 @@ namespace Silas.Web.Tickers
         {
             lock (_forecastLock)
             {
-                SendValue(_dataClient.GetEntryByPeriod(currentPeriod++).Value);
+                DataEntry entry = new DataEntry
+                    {
+                        Id = 0,
+                        Period = currentPeriod,
+                        Value = _dataClient.GetEntryByPeriod(currentPeriod).Value
+                    };
+
+                ForecastEntry fakeEntry = new ForecastEntry
+                    {
+                        DataEntry = entry,
+                        Period = currentPeriod
+                    };
+
+                currentPeriod++;
+                SendValue(fakeEntry);
             }
         }
 
-        public void SendValue(int value)
+        public void SendValue(ForecastEntry value)
         {
             Clients.All.sendValue(value);
         }

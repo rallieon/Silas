@@ -25,21 +25,44 @@ namespace Silas.Forecast.Strategies
             double alpha = strategyParameters.Alpha;
             double beta = strategyParameters.Beta;
 
-            //start at three since there is no forecast for period 1 
-            //and period 2 forecast is set to true datapoint from period 1
-            for (int currPeriod = 3; currPeriod <= period; currPeriod++)
+            if (dataEntries.Count() < 3 || period < 3)
+                currForecast = dataEntries.ElementAt(0).Value;
+            else if (dataEntries.Count() > 1 && period <= dataEntries.Count() + 1)
             {
-                //need to store temp current forecast since trend calcuation is dependent on it
-                double tempCurrForecast = currForecast;                
+                //start at three since there is no forecast for period 1 
+                //and period 2 forecast is set to true datapoint from period 1
+                for (int currPeriod = 3; currPeriod <= period; currPeriod++)
+                {
+                    //need to store temp current forecast since trend calcuation is dependent on it
+                    double tempCurrForecast = currForecast;
 
-                //sub two since list is 0 index based and we want to go back one period
-                currForecast = (alpha * dataEntries.ElementAt(currPeriod - 2).Value) + ((1 - alpha) * (currForecast + currTrend));
+                    //sub two since list is 0 index based and we want to go back one period
+                    currForecast = (alpha * dataEntries.ElementAt(currPeriod - 2).Value) + ((1 - alpha) * (currForecast + currTrend));
 
-                //use old currForecast
-                currTrend = (beta * dataEntries.ElementAt(currPeriod - 2).Value - tempCurrForecast) + ((1 - beta) * currTrend);
+                    //use old currForecast
+                    currTrend = (beta * (dataEntries.ElementAt(currPeriod - 2).Value - tempCurrForecast)) + ((1 - beta) * currTrend);
 
-                //calculate adjusted forecast
-                adjustedForecast = currForecast + currTrend;
+                    //calculate adjusted forecast
+                    adjustedForecast = currForecast + currTrend;
+                }
+            }
+            else
+            {
+                //double exponential smoothing should only be used to predict only one period ahead.
+                for (int currPeriod = 3; currPeriod <= dataEntries.Count() + 1; currPeriod++)
+                {
+                    //need to store temp current forecast since trend calcuation is dependent on it
+                    double tempCurrForecast = currForecast;
+
+                    //sub two since list is 0 index based and we want to go back one period
+                    currForecast = (alpha * dataEntries.ElementAt(currPeriod - 2).Value) + ((1 - alpha) * (currForecast + currTrend));
+
+                    //use old currForecast
+                    currTrend = (beta * (dataEntries.ElementAt(currPeriod - 2).Value - tempCurrForecast)) + ((1 - beta) * currTrend);
+
+                    //calculate adjusted forecast
+                    adjustedForecast = currForecast + currTrend;
+                }
             }
 
             return new ForecastEntry

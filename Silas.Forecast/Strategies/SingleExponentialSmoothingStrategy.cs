@@ -15,16 +15,30 @@ namespace Silas.Forecast.Strategies
             if (!((IDictionary<String, object>)strategyParameters).ContainsKey("Alpha"))
                 throw new ArgumentException("The strategy parameters must include Alpha");
 
-            //initial forecast is set to to true data point
             double currForecast = dataEntries.ElementAt(0).Value;
             double alpha = strategyParameters.Alpha;
 
-            //start at three since there is no forecast for period 1 
-            //and period 2 forecast is set to true datapoint from period 1
-            for (int currPeriod = 3; currPeriod <= period; currPeriod++)
+            if (dataEntries.Count() < 3 || period < 3)
+                currForecast = dataEntries.ElementAt(0).Value;
+            else if (dataEntries.Count() > 1 && period <= dataEntries.Count() + 1)
             {
-                //sub two since list is 0 index based and we want to go back one period
-                currForecast = (alpha*dataEntries.ElementAt(currPeriod - 2).Value) + ((1 - alpha)*currForecast);
+                //start at three since there is no forecast for period 1 
+                //and period 2 forecast is set to true datapoint from period 1
+                for (int currPeriod = 3; currPeriod <= period; currPeriod++)
+                {
+                    //sub two since list is 0 index based and we want to go back one period
+                    currForecast = (alpha*dataEntries.ElementAt(currPeriod - 2).Value) + ((1 - alpha)*currForecast);
+                }
+            }
+            else
+            {
+                //the single exponential smoothing model should only be used to predict one period ahead
+                //anything after that will just be the same value.
+                for (int currPeriod = 3; currPeriod <= dataEntries.Count() + 1; currPeriod++)
+                {
+                    //sub two since list is 0 index based and we want to go back one period
+                    currForecast = (alpha * dataEntries.ElementAt(currPeriod - 2).Value) + ((1 - alpha) * currForecast);
+                }
             }
 
             return new ForecastEntry

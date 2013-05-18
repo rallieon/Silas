@@ -13,6 +13,7 @@ namespace Silas.Forecast.Models
         public double ConfidenceIntervalLow { get; set; }
         public double ConfidenceIntervalHigh { get; set; }
         public int Period { get; set; }
+        public bool IsHoldout { get; set; }
 
         public double Error
         {

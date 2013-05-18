@@ -33,7 +33,8 @@ namespace Silas.Forecast.Strategies
                 DataEntry = period > dataEntries.Count() ? dataEntries.Last() : dataEntries.ElementAt(period - 1),
                 ForecastValue = currForecast,
                 ConfidenceIntervalLow = currForecast,
-                ConfidenceIntervalHigh = currForecast
+                ConfidenceIntervalHigh = currForecast,
+                IsHoldout = period > dataEntries.Count() * 0.7  //holdout data is always 70 percent
             };
         }
     }

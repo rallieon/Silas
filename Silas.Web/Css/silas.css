@@ -1,4 +1,8 @@
-﻿ul, ol {
+﻿body {
+    background-color: #FFFFFF;
+}
+
+ul, ol {
     list-style: none;
 }
 
@@ -7,6 +11,28 @@ h1 {
   text-align: center;
   font-size: 30px;
   font-weight: 400;
+}
+
+.gridster li div {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
+.yellow {
+    background-color: #EEFF30;
+}
+
+.red {
+    background-color: #FF2215;
+}
+
+.blue {
+    background-color: #257CCC;
+}
+
+.darkblue {
+    background-color: #065FB2;
 }
 
 h3 {
@@ -39,7 +65,7 @@ h3 {
 }
 
 .gridster .gs_w {
-    background: #FFF;
+    background-color: #fff;
     cursor: pointer;
     -webkit-box-shadow: 0 0 5px rgba(0,0,0,0.3);
     box-shadow: 0 0 5px rgba(0,0,0,0.3);

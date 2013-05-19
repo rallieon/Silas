@@ -5,17 +5,33 @@
         <meta name="viewport" content="width=device-width" />
         <title></title>
         <script src="Scripts/modernizr-2.6.2.js" type="text/javascript"> </script>
-
         <link rel="stylesheet" href="Css/deck.core.css">
-        <link rel="stylesheet" href="Css/deck.navigation.css">
-        
         <link rel="stylesheet" href="Css/web-2.0.css">
         <link rel="stylesheet" href="Css/horizontal-slide.css">
+        <link rel="stylesheet" href="Css/jquery.gridster.min.css">
+        <link rel="stylesheet" href="Css/silas.css">
     </head>
     <body>
         <article class="deck-container">
-            <section class="slide">
+            <section class="slide demo">
                 <h2>How to Make a Deck</h2>
+                <div class="gridster">
+                    <ul>
+                        <li data-row="1" data-col="1" data-sizex="1" data-sizey="1"></li>
+                        <li data-row="2" data-col="1" data-sizex="1" data-sizey="1"></li>
+                        <li data-row="3" data-col="1" data-sizex="1" data-sizey="1"></li>
+                        <li data-row="1" data-col="2" data-sizex="2" data-sizey="1"></li>
+                        <li data-row="2" data-col="2" data-sizex="2" data-sizey="2"></li>
+                        <li data-row="1" data-col="4" data-sizex="1" data-sizey="1"></li>
+                        <li data-row="2" data-col="4" data-sizex="2" data-sizey="1"></li>
+                        <li data-row="3" data-col="4" data-sizex="1" data-sizey="1"></li>
+                        <li data-row="1" data-col="5" data-sizex="1" data-sizey="1"></li>
+                        <li data-row="3" data-col="5" data-sizex="1" data-sizey="1"></li>
+                        <li data-row="1" data-col="6" data-sizex="1" data-sizey="1"></li>
+                        <li data-row="2" data-col="6" data-sizex="1" data-sizey="2"></li>
+                    </ul>
+                </div>
+                
                 <ol>
                     <li>
                         <h3>Write Slides</h3>
@@ -55,11 +71,13 @@
             </section>
         </article>
         <script src="Scripts/jquery-1.8.2.min.js" type="text/javascript"> </script>
+        <script src="Scripts/jquery.gridster.min.js" type="text/javascript"> </script>
         <script src="Scripts/jquery.signalR-1.0.1.min.js" type="text/javascript"> </script>
+        
         <script src="Scripts/d3.v3.min.js" type="text/javascript"> </script>
         <script src="Scripts/deck.core.js" type="text/javascript"> </script>
-        <script src="Scripts/deck.navigation.js" type="text/javascript"> </script>
-        <script src="signalr/hubs" type="text/javascript"> </script>
+        
         <script src="Scripts/silas.core.js" type="text/javascript"> </script>
+        <script src="signalr/hubs" type="text/javascript"> </script>
     </body>
 </html>

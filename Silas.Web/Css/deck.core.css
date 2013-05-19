@@ -23,7 +23,7 @@ body.deck-container {
 .js .deck-container {
   visibility: hidden;
 }
-.ready .deck-container {
+.isready .deck-container {
   visibility: visible;
 }
 .touch .deck-container {

@@ -464,7 +464,7 @@ that use the API provided by core.
 	};
 	
 	$d.ready(function() {
-		$('html').addClass('ready');
+		$('html').addClass('isready');
 	});
 	
 	/*

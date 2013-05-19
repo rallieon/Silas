@@ -29,19 +29,19 @@ namespace Silas.Web.Tickers
         private readonly Timer _timer;
         private readonly TimeSpan _updateInterval = TimeSpan.FromMilliseconds(1000);
         private readonly LiveDataClient _dataClient = new LiveDataClient();
-        private int _currentPeriod = 101;
+        private int _currentPeriod = 1;
         private readonly dynamic _parameters;
 
         private DoubleExponentialSmoothingDataTicker(IHubConnectionContext clients)
         {
             Clients = clients;
             _entries = new ConcurrentDictionary<int, DataEntry>();
-            _dataClient.GetData(100).ToList().ForEach(e => _entries.TryAdd(e.Id, e));
+            _dataClient.GetData().ToList().ForEach(e => _entries.TryAdd(e.Id, e));
             _parameters = new ExpandoObject();
             _parameters.Alpha = 0.5;
             _parameters.Beta = 0.5;
             _model = new Model(new DoubleExponentialSmoothingStrategy(), _entries.Values, _parameters);
-            _timer = new Timer(NextValue, null, _updateInterval, _updateInterval);
+            _timer = new Timer(NextValue, null, Timeout.Infinite, Timeout.Infinite);
         }
 
         public static DoubleExponentialSmoothingDataTicker Instance
@@ -64,6 +64,16 @@ namespace Silas.Web.Tickers
         public void SendValue(ForecastEntry value)
         {
             Clients.All.sendValue(value);
+        }
+
+        public void Start()
+        {
+            _timer.Change(_updateInterval, _updateInterval);
+        }
+
+        public void Stop()
+        {
+            _timer.Change(Timeout.Infinite, Timeout.Infinite);
         }
     }
 }

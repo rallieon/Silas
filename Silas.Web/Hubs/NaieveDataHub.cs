@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.SignalR;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNet.SignalR;
 using Silas.Web.Tickers;
 
 namespace Silas.Web.Hubs
@@ -14,6 +15,16 @@ namespace Silas.Web.Hubs
         public NaieveDataHub(NaieveDataTicker ticker)
         {
             _naieveDataTicker = ticker;
+        }
+
+        public void Stop()
+        {
+            _naieveDataTicker.Stop();
+        }
+
+        public void Start()
+        {
+            _naieveDataTicker.Start();
         }
     }
 }

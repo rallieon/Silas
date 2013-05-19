@@ -36,11 +36,11 @@ namespace Silas.Web.Tickers
         {
             Clients = clients;
             _entries = new ConcurrentDictionary<int, DataEntry>();
-            _dataClient.GetData(100).ToList().ForEach(e => _entries.TryAdd(e.Id, e));
+            _dataClient.GetData().ToList().ForEach(e => _entries.TryAdd(e.Id, e));
             _parameters = new ExpandoObject();
             _parameters.Alpha = 0.3;
             _model = new Model(new SingleExponentialSmoothingStrategy(), _entries.Values, _parameters);
-            _timer = new Timer(NextValue, null, _updateInterval, _updateInterval);
+            _timer = new Timer(NextValue, null, Timeout.Infinite, Timeout.Infinite);
         }
 
         public static SingleExponentialSmoothingDataTicker Instance
@@ -63,6 +63,16 @@ namespace Silas.Web.Tickers
         public void SendValue(ForecastEntry value)
         {
             Clients.All.sendValue(value);
+        }
+
+        public void Start()
+        {
+            _timer.Change(_updateInterval, _updateInterval);
+        }
+
+        public void Stop()
+        {
+            _timer.Change(Timeout.Infinite, Timeout.Infinite);
         }
     }
 }

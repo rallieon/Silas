@@ -21,12 +21,12 @@ namespace Silas.Web.Tickers
         private readonly object _forecastLock = new object();
         private readonly Timer _timer;
         private readonly TimeSpan _updateInterval = TimeSpan.FromMilliseconds(1000);
-        private int currentPeriod = 101;
+        private int currentPeriod = 1;
 
         private TrueDataTicker(IHubConnectionContext clients)
         {
             Clients = clients;
-            _timer = new Timer(NextValue, null, _updateInterval, _updateInterval);
+            _timer = new Timer(NextValue, null, Timeout.Infinite, Timeout.Infinite);
         }
 
         public static TrueDataTicker Instance
@@ -61,6 +61,16 @@ namespace Silas.Web.Tickers
         public void SendValue(ForecastEntry value)
         {
             Clients.All.sendValue(value);
+        }
+
+        public void Start()
+        {
+            _timer.Change(_updateInterval, _updateInterval);
+        }
+
+        public void Stop()
+        {
+            _timer.Change(Timeout.Infinite, Timeout.Infinite);
         }
     }
 }

@@ -36,8 +36,8 @@ namespace Silas.Web.Tickers
         {
             Clients = clients;
             _entries = new ConcurrentDictionary<int, DataEntry>();
-            _dataClient.GetData(100).ToList().ForEach(e => _entries.TryAdd(e.Id, e));
-            _timer = new Timer(NextValue, null, _updateInterval, _updateInterval);
+            _dataClient.GetData().ToList().ForEach(e => _entries.TryAdd(e.Id, e));
+            _timer = new Timer(NextValue, null, Timeout.Infinite, Timeout.Infinite);
             _parameters = new ExpandoObject();
             _parameters.NumberOfWeights = 2;
 
@@ -64,6 +64,16 @@ namespace Silas.Web.Tickers
         public void SendValue(ForecastEntry value)
         {
             Clients.All.sendValue(value);
+        }
+
+        public void Start()
+        {
+            _timer.Change(_updateInterval, _updateInterval);
+        }
+
+        public void Stop()
+        {
+            _timer.Change(Timeout.Infinite, Timeout.Infinite);
         }
     }
 }

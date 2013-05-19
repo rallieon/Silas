@@ -19,6 +19,19 @@ namespace Silas.Web.Clients
             return resp.Content.ReadAsAsync<DataEntry>().Result;
         }
 
+        public IEnumerable<DataEntry> GetData()
+        {
+            var client = new HttpClient();
+            client.BaseAddress = new Uri("http://localhost:8080/");
+
+            HttpResponseMessage resp = client.GetAsync("api/livedata").Result;
+            resp.EnsureSuccessStatusCode();
+
+            IEnumerable<DataEntry> results = resp.Content.ReadAsAsync<IEnumerable<DataEntry>>().Result;
+
+            return results.OrderBy(e => e.Period);
+        }
+
         public IEnumerable<DataEntry> GetData(int numberOfRecords)
         {
             var client = new HttpClient();
@@ -29,7 +42,7 @@ namespace Silas.Web.Clients
 
             IEnumerable<DataEntry> results = resp.Content.ReadAsAsync<IEnumerable<DataEntry>>().Result;
 
-            return results.OrderBy(e => e.Period).Take(numberOfRecords); ;
+            return results.OrderBy(e => e.Period).Take(numberOfRecords);
         }
     }
 }

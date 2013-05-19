@@ -11,7 +11,7 @@ namespace Silas.Forecast.Models
     {
         private readonly IForecastStrategy _forecast;
         private IEnumerable<DataEntry> _originalDataEntries;
-        private IList<ForecastEntry> _forecastEntries;
+        private ICollection<dynamic> _forecastEntries;
         private dynamic _parameters;
 
         public Model(IForecastStrategy forecast, IEnumerable<DataEntry> initialDataEntries, dynamic strategyParameters)
@@ -19,7 +19,7 @@ namespace Silas.Forecast.Models
             _forecast = forecast;
             _originalDataEntries = initialDataEntries;
             _parameters = strategyParameters;
-            _forecastEntries = new List<ForecastEntry>();
+            _forecastEntries = new List<dynamic>();
             BuildModel();
         }
 

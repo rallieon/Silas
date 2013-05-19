@@ -16,5 +16,15 @@ namespace Silas.Web.Hubs
         {
             _doubleExponentialSmoothingDataTicker = ticker;
         }
+
+        public void Stop()
+        {
+            _doubleExponentialSmoothingDataTicker.Stop();
+        }
+
+        public void Start()
+        {
+            _doubleExponentialSmoothingDataTicker.Start();
+        }
     }
 }

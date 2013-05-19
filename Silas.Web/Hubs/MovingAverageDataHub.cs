@@ -16,5 +16,15 @@ namespace Silas.Web.Hubs
         {
             _movingAverageDataTicker = ticker;
         }
+
+        public void Stop()
+        {
+            _movingAverageDataTicker.Stop();
+        }
+
+        public void Start()
+        {
+            _movingAverageDataTicker.Start();
+        }
     }
 }

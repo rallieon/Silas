@@ -7,9 +7,8 @@ Forecasting data, whether it be website traffic or retail sales, is considered b
 
 ##ToDo
 1. Setup a page for each strategy showing the Graph of data vs forecast model, error rates, confidence intervals (data table?)
-2. Setup each Ticker to have a stop and start button.
-3. Style Pages
-4. Prepare Talk
+2. Style Pages
+3. Prepare Talk
 
 ##Talk
 1. What is Forecasting?

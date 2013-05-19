@@ -6,5 +6,7 @@ namespace Silas.Web.Tickers
     {
         void NextValue(object state);
         void SendValue(ForecastEntry value);
+        void Start();
+        void Stop();
     }
 }

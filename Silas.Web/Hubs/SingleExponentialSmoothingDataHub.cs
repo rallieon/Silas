@@ -5,7 +5,7 @@ namespace Silas.Web.Hubs
 {
     public class SingleExponentialSmoothingDataHub : Hub
     {
-        private readonly SingleExponentialSmoothingDataTicker _simpleExponentialSmoothingDataTicker;
+        private readonly SingleExponentialSmoothingDataTicker _singleExponentialSmoothingDataTicker;
 
         public SingleExponentialSmoothingDataHub()
             : this(SingleExponentialSmoothingDataTicker.Instance)
@@ -14,7 +14,17 @@ namespace Silas.Web.Hubs
 
         public SingleExponentialSmoothingDataHub(SingleExponentialSmoothingDataTicker ticker)
         {
-            _simpleExponentialSmoothingDataTicker = ticker;
+            _singleExponentialSmoothingDataTicker = ticker;
+        }
+
+        public void Stop()
+        {
+            _singleExponentialSmoothingDataTicker.Stop();
+        }
+
+        public void Start()
+        {
+            _singleExponentialSmoothingDataTicker.Start();
         }
     }
 }

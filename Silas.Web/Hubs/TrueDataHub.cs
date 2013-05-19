@@ -16,5 +16,15 @@ namespace Silas.Web.Hubs
         {
             _trueDataTicker = ticker;
         }
+
+        public void Stop()
+        {
+            _trueDataTicker.Stop();
+        }
+
+        public void Start()
+        {
+            _trueDataTicker.Start();
+        }
     }
 }

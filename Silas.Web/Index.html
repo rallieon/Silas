@@ -4,273 +4,62 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width" />
         <title></title>
+        <script src="Scripts/modernizr-2.6.2.js" type="text/javascript"> </script>
 
-        <script src="http://code.jquery.com/jquery-1.8.2.min.js" type="text/javascript"> </script>
-        <script src="Scripts/jquery.signalR-1.0.1.min.js" type="text/javascript"> </script>
-        <script src="Scripts/d3.v3.min.js" type="text/javascript"> </script>
-        <script src="signalr/hubs" type="text/javascript"> </script>
-
-        <style>
-            svg { font: 10px sans-serif; }
-
-            .trueLine {
-                fill: none;
-                stroke: #000;
-                stroke-width: 1.5px;
-            }
-
-            .naieveLine {
-                fill: none;
-                stroke: #b22222;
-                stroke-width: 1.5px;
-            }
-
-            .weightedLine {
-                fill: none;
-                stroke: #006400;
-                stroke-width: 1.5px;
-            }
-
-            .singleLine {
-                fill: none;
-                stroke: #00bfff;
-                stroke-width: 1.5px;
-            }
-
-            .doubleLine {
-                fill: none;
-                stroke:#ffa500;
-                stroke-width: 1.5px;
-            }
-
-            .axis path, .axis line {
-                fill: none;
-                shape-rendering: crispEdges;
-                stroke: #000;
-            }
- 
-        </style>
-
-        <script type="text/javascript">
-            $(function() {
-
-                //setup the d3 charting
-                var n = 40,
-                    trueData = [],
-                    naieveData = [],
-                    weightedData = [],
-                    singleData = [],
-                    doubleData = [];
-
-                var margin = { top: 10, right: 10, bottom: 20, left: 40 },
-                    width = 960 - margin.left - margin.right,
-                    height = 500 - margin.top - margin.bottom;
-
-                var x = d3.scale.linear()
-                    .domain([0, n - 1])
-                    .range([0, width]);
-
-                var y = d3.scale.linear()
-                    .domain([0, 20000])
-                    .range([height, 0]);
-
-                var trueLine = d3.svg.line()
-                    .x(function(d, i) { return x(i); })
-                    .y(function(d, i) { return y(d); });
-                var naieveLine = d3.svg.line()
-                    .x(function(d, i) { return x(i); })
-                    .y(function(d, i) { return y(d); });
-                var weightedLine = d3.svg.line()
-                    .x(function(d, i) { return x(i); })
-                    .y(function(d, i) { return y(d); });
-                var singleLine = d3.svg.line()
-                    .x(function(d, i) { return x(i); })
-                    .y(function(d, i) { return y(d); });
-                var doubleLine = d3.svg.line()
-                    .x(function(d, i) { return x(i); })
-                    .y(function(d, i) { return y(d); });
-
-                var svg = d3.select("body").append("svg")
-                    .attr("width", width + margin.left + margin.right)
-                    .attr("height", height + margin.top + margin.bottom)
-                    .append("g")
-                    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-                svg.append("defs").append("clipPath")
-                    .attr("id", "clip")
-                    .append("rect")
-                    .attr("width", width)
-                    .attr("height", height);
-
-                svg.append("g")
-                    .attr("class", "x axis")
-                    .attr("transform", "translate(0," + height + ")")
-                    .call(d3.svg.axis().scale(x).orient("bottom"));
-
-                svg.append("g")
-                    .attr("class", "y axis")
-                    .call(d3.svg.axis().scale(y).orient("left"));
-
-                var truePath = svg.append("g")
-                    .attr("clip-path", "url(#clip)")
-                    .append("path")
-                    .data([trueData])
-                    .attr("class", "line")
-                    .attr("class", "trueLine")
-                    .attr("d", trueLine);
-
-                var naievePath = svg.append("g")
-                    .attr("clip-path", "url(#clip)")
-                    .append("path")
-                    .data([naieveData])
-                    .attr("class", "line")
-                    .attr("class", "naieveLine")
-                    .attr("d", naieveLine);
-
-                var weightedPath = svg.append("g")
-                    .attr("clip-path", "url(#clip)")
-                    .append("path")
-                    .data([weightedData])
-                    .attr("class", "line")
-                    .attr("class", "weightedLine")
-                    .attr("d", weightedLine);
-
-                var singlePath = svg.append("g")
-                    .attr("clip-path", "url(#clip)")
-                    .append("path")
-                    .data([singleData])
-                    .attr("class", "line")
-                    .attr("class", "singleLine")
-                    .attr("d", singleLine);
-
-                var doublePath = svg.append("g")
-                    .attr("clip-path", "url(#clip)")
-                    .append("path")
-                    .data([doubleData])
-                    .attr("class", "line")
-                    .attr("class", "doubleLine")
-                    .attr("d", doubleLine);
-
-                // Proxy created on the fly          
-                var naieveDataHub = $.connection.naieveDataHub;
-                var trueDataHub = $.connection.trueDataHub;
-                var weightedAverageDataHub = $.connection.weightedAverageDataHub;
-                var singleExponentialSmoothingDataHub = $.connection.singleExponentialSmoothingDataHub;
-                var doubleExponentialSmoothingDataHub = $.connection.doubleExponentialSmoothingDataHub;
-                var init = function() {
-                };
-
-                // Add a client-side hub method that the server will call
-                trueDataHub.client.sendValue = function(value) {
-                    trueData.push(value);
-
-                    // redraw the line, and slide it to the left
-                    truePath
-                        .attr("d", trueLine)
-                        .attr("transform", null)
-                        .transition()
-                        .duration(500)
-                        .ease("linear");
-
-                    if (trueData.length > n)
-                        truePath.attr("transform", "translate(" + x(-1) + ")");
-
-                    // pop the old data point off the front
-                    //if we are past our number of data points
-                    if (trueData.length > n)
-                        trueData.shift();
-                };
-                
-                weightedAverageDataHub.client.sendValue = function(value) {
-                    weightedData.push(value);
-
-                    // redraw the line, and slide it to the left
-                    weightedPath
-                        .attr("d", weightedLine)
-                        .attr("transform", null)
-                        .transition()
-                        .duration(500)
-                        .ease("linear");
-
-                    if (weightedData.length > n)
-                        weightedPath.attr("transform", "translate(" + x(-1) + ")");
-
-                    // pop the old data point off the front
-                    //if we are past our number of data points
-                    if (weightedData.length > n)
-                        weightedData.shift();
-                };
-                
-                singleExponentialSmoothingDataHub.client.sendValue = function(value) {
-                    singleData.push(value);
-
-                    // redraw the line, and slide it to the left
-                    singlePath
-                        .attr("d", singleLine)
-                        .attr("transform", null)
-                        .transition()
-                        .duration(500)
-                        .ease("linear");
-
-                    if (singlePath.length > n)
-                        path.attr("transform", "translate(" + x(-1) + ")");
-
-                    // pop the old data point off the front
-                    //if we are past our number of data points
-                    if (singleData.length > n)
-                        singleData.shift();
-                };
-                
-                doubleExponentialSmoothingDataHub.client.sendValue = function(value) {
-                    console.log(value);
-                    doubleData.push(value);
-
-                    // redraw the line, and slide it to the left
-                    doublePath
-                        .attr("d", doubleLine)
-                        .attr("transform", null)
-                        .transition()
-                        .duration(500)
-                        .ease("linear");
-
-                    if (doubleData.length > n)
-                        doublePath.attr("transform", "translate(" + x(-1) + ")");
-
-                    // pop the old data point off the front
-                    //if we are past our number of data points
-                    if (doubleData.length > n)
-                        doubleData.shift();
-                };
-
-                naieveDataHub.client.sendValue = function(value) {
-                    naieveData.push(value);
-
-                    // redraw the line, and slide it to the left
-                    naievePath
-                        .attr("d", naieveLine)
-                        .attr("transform", null)
-                        .transition()
-                        .duration(500)
-                        .ease("linear");
-
-                    if (naieveData.length > n)
-                        naievePath.attr("transform", "translate(" + x(-1) + ")");
-
-                    // pop the old data point off the front
-                    //if we are past our number of data points
-                    if (naieveData.length > n)
-                        naieveData.shift();
-                };
-
-                // Start the connection
-                $.connection.hub.start().done(init);
-            });
-        </script>
+        <link rel="stylesheet" href="Css/deck.core.css">
+        <link rel="stylesheet" href="Css/deck.navigation.css">
+        
+        <link rel="stylesheet" href="Css/web-2.0.css">
+        <link rel="stylesheet" href="Css/horizontal-slide.css">
     </head>
     <body>
-        <div>
-            <ul id="messages">
-            </ul>
-        </div>
+        <article class="deck-container">
+            <section class="slide">
+                <h2>How to Make a Deck</h2>
+                <ol>
+                    <li>
+                        <h3>Write Slides</h3>
+                        <p>Slide content is simple HTML.</p>
+                    </li>
+                    <li>
+                        <h3>Choose Themes</h3>
+                        <p>One for slide styles and one for deck transitions.</p>
+                    </li>
+                </ol>
+            </section>
+            <section class="slide">
+                <h2>How to Make a Deck 1</h2>
+                <ol>
+                    <li>
+                        <h3>Write Slides</h3>
+                        <p>Slide content is simple HTML.</p>
+                    </li>
+                    <li>
+                        <h3>Choose Themes</h3>
+                        <p>One for slide styles and one for deck transitions.</p>
+                    </li>
+                </ol>
+            </section>
+            <section class="slide">
+                <h2>How to Make a Deck 2</h2>
+                <ol>
+                    <li>
+                        <h3>Write Slides</h3>
+                        <p>Slide content is simple HTML.</p>
+                    </li>
+                    <li>
+                        <h3>Choose Themes</h3>
+                        <p>One for slide styles and one for deck transitions.</p>
+                    </li>
+                </ol>
+            </section>
+        </article>
+        <script src="Scripts/jquery-1.8.2.min.js" type="text/javascript"> </script>
+        <script src="Scripts/jquery.signalR-1.0.1.min.js" type="text/javascript"> </script>
+        <script src="Scripts/d3.v3.min.js" type="text/javascript"> </script>
+        <script src="Scripts/deck.core.js" type="text/javascript"> </script>
+        <script src="Scripts/deck.navigation.js" type="text/javascript"> </script>
+        <script src="signalr/hubs" type="text/javascript"> </script>
+        <script src="Scripts/silas.core.js" type="text/javascript"> </script>
     </body>
 </html>

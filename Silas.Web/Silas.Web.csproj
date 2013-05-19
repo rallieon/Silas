@@ -168,11 +168,18 @@
     <Compile Include="Tickers\MovingAverageDataTicker.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Css\deck.core.css" />
+    <Content Include="Css\deck.navigation.css" />
+    <Content Include="Css\horizontal-slide.css" />
+    <Content Include="Css\silas.css" />
+    <Content Include="Css\web-2.0.css" />
     <Content Include="D3 LICENSE.txt" />
     <Content Include="Global.asax" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\d3.v3.js" />
     <Content Include="Scripts\d3.v3.min.js" />
+    <Content Include="Scripts\deck.core.js" />
+    <Content Include="Scripts\deck.navigation.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -189,6 +196,7 @@
     <Content Include="Scripts\knockout-2.2.0.debug.js" />
     <Content Include="Scripts\knockout-2.2.0.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\silas.core.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

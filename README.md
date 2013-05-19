@@ -9,7 +9,7 @@ Forecasting data, whether it be website traffic or retail sales, is considered b
 1. Setup deck.js
 2. Setup http://gridster.net/#usage
 3. Setup a page for each strategy showing the Graph of data vs forecast model, error rates, confidence intervals (data table?)
-4. Setup each Ticker to be Activated once that slide is active
+4. Setup each Ticker to have a stop and start button.
 5. Style Pages
 6. Prepare Talk
 

@@ -19,7 +19,7 @@ namespace Silas.Forecast.Models
             _forecast = forecast;
             _originalDataEntries = initialDataEntries;
             _parameters = strategyParameters;
-
+            _forecastEntries = new List<ForecastEntry>();
             BuildModel();
         }
 

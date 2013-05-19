@@ -42,12 +42,14 @@
     <Compile Include="Models\DataEntry.cs" />
     <Compile Include="Models\ForecastEntry.cs" />
     <Compile Include="Models\Model.cs" />
+    <Compile Include="Models\SeasonalIndex.cs" />
     <Compile Include="Strategies\DoubleExponentialSmoothingStrategy.cs" />
     <Compile Include="Strategies\IForecastStrategy.cs" />
     <Compile Include="Strategies\NaieveStrategy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Strategies\SingleExponentialSmoothingStrategy.cs" />
     <Compile Include="Strategies\MovingAverageStrategy.cs" />
+    <Compile Include="Strategies\TripleExponentialSmoothingStrategy.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

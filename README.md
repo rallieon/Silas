@@ -6,15 +6,13 @@ Silas
 Forecasting data, whether it be website traffic or retail sales, is considered by many to be a black box system built on advanced statistical models that are incomprehensible.  With the proliferation of dynamic infrastructures through services like Amazon Web Services, the ability to predict resource utilization becomes more important than ever.  A predictive infrastructure system creates an enormous advantage by reducing wasted resources.  This talk lays the groundwork for building a forecasting system of website traffic.  The traffic results will be loaded into the system through a RESTful service built with ASP.NET WebAPI.  The system will update predictions through a custom forecasting system.  Finally, the results of the forecast will be sent to a client side charting framework utilizing SignalR.  There will be a comparison and contrast of four different forecasting models and discussions of which forecasting techniques will help the most with varying types of data.  The four forecasting models will include a moving average, single, double, and triple exponential smoothing.  The number one rule of forecasting is that your forecast will always be wrong; thus, an analysis of when and how to use confidence intervals will be provided.
 
 ##ToDo
-1. Write Triple Exponential Smoothing strategy.
-2. Setup Multiple DataSets for each strategy.
-3. Write Solver Library to help minimize error by modifying parameters (http://msdn.microsoft.com/en-us/library/ff628587(v=vs.93).aspx)
-4. Setup deck.js
-5. Setup http://gridster.net/#usage
-6. Setup a page for each strategy showing the Graph of data vs forecast model, error rates, confidence intervals (data table?)
-7. Setup each Ticker to be Activated once that slide is active
-8. Style Pages
-9. Prepare Talk
+1. Setup Multiple DataSets for each strategy (Get rid of DataFeed?)
+2. Setup deck.js
+3. Setup http://gridster.net/#usage
+4. Setup a page for each strategy showing the Graph of data vs forecast model, error rates, confidence intervals (data table?)
+5. Setup each Ticker to be Activated once that slide is active
+6. Style Pages
+7. Prepare Talk
 
 ##Talk
 1. What is Forecasting?
@@ -39,4 +37,4 @@ Forecasting data, whether it be website traffic or retail sales, is considered b
     1. You need to look at your data first to determine what model you think the data will fit in.
 10. Next Steps
      1. Have the system be able to adjust so you can update your predictions.
-     2. Have the system determine the best parameters to use on the fly.
+     2. Have the system determine the best parameters to use on the fly through some type of Solver functionality.

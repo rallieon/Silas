@@ -51,7 +51,7 @@ namespace Silas.Forecast.Test
         [TestMethod]
         public void TestForecastErrorPeriodInTheMiddle()
         {
-            Assert.AreEqual(-15, _strategy.Forecast(_data, 3, _parameters).Error);
+            Assert.AreEqual(15, _strategy.Forecast(_data, 3, _parameters).Error);
         }
 
         [TestMethod]

@@ -17,7 +17,7 @@ namespace Silas.Forecast.Models
 
         public double Error
         {
-            get { return ForecastValue - DataEntry.Value; }
+            get { return DataEntry.Value - ForecastValue; }
         }
 
         public double AbsError

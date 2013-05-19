@@ -24,13 +24,15 @@ namespace Silas.DataFeed
             string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
                                            ConfigurationSettings.AppSettings["FeedDataPath"]);
             var csv = new CsvReader(new StreamReader(filePath));
+            csv.Configuration.ClassMapping<DataEntryMap, DataEntry>();
+
             IEnumerable<DataEntry> entryList = csv.GetRecords<DataEntry>();
 
             foreach (DataEntry entry in entryList)
             {
                 HttpResponseMessage response = client.PostAsJsonAsync("api/livedata", entry).Result;
-                Console.WriteLine("{0} ({1})", (int) response.StatusCode, response.RequestMessage);
-                Thread.Sleep(1000);
+                Console.WriteLine("{0}", (int) response.StatusCode);
+                Thread.Sleep(100);
             }
         }
     }

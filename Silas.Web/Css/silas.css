@@ -2,15 +2,55 @@
     background-color: #FFFFFF;
 }
 
+svg {
+    font: 10px sans-serif;
+}
+
+.trueLine {
+    fill: none;
+    stroke: #000;
+    stroke-width: 1.5px;
+}
+
+.naieveLine {
+    fill: none;
+    stroke: #b22222;
+    stroke-width: 1.5px;
+}
+
+.weightedLine {
+    fill: none;
+    stroke: #006400;
+    stroke-width: 1.5px;
+}
+
+.singleLine {
+    fill: none;
+    stroke: #00bfff;
+    stroke-width: 1.5px;
+}
+
+.doubleLine {
+    fill: none;
+    stroke: #ffa500;
+    stroke-width: 1.5px;
+}
+
+.axis path, .axis line {
+    fill: none;
+    shape-rendering: crispEdges;
+    stroke: #000;
+}
+
 ul, ol {
     list-style: none;
 }
 
 h1 {
-  margin-bottom: 12px;
-  text-align: center;
-  font-size: 30px;
-  font-weight: 400;
+    margin-bottom: 12px;
+    text-align: center;
+    font-size: 30px;
+    font-weight: 400;
 }
 
 .gridster li div {
@@ -36,9 +76,9 @@ h1 {
 }
 
 h3 {
-  font-size: 25px;
-  font-weight: 600;
-  color: white;
+    font-size: 25px;
+    font-weight: 600;
+    color: white;
 }
 
 /* Gridster styles */
@@ -47,16 +87,14 @@ h3 {
     padding: 7.5em 0 5.5em;
 }
 
-.demo:hover .gridster {
-    opacity: 1;
-}
+    .demo:hover .gridster {
+        opacity: 1;
+    }
 
 .gridster {
     width: 940px;
     margin: 0 auto;
-
     opacity: .8;
-
     -webkit-transition: opacity .6s;
     -moz-transition: opacity .6s;
     -o-transition: opacity .6s;
@@ -64,9 +102,9 @@ h3 {
     transition: opacity .6s;
 }
 
-.gridster .gs_w {
-    background-color: #fff;
-    cursor: pointer;
-    -webkit-box-shadow: 0 0 5px rgba(0,0,0,0.3);
-    box-shadow: 0 0 5px rgba(0,0,0,0.3);
-}
+    .gridster .gs_w {
+        background-color: #fff;
+        cursor: pointer;
+        -webkit-box-shadow: 0 0 5px rgba(0,0,0,0.3);
+        box-shadow: 0 0 5px rgba(0,0,0,0.3);
+    }

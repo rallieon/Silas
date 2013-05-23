@@ -12,27 +12,9 @@ svg {
     stroke-width: 1.5px;
 }
 
-.naieveLine {
+.forecastLine {
     fill: none;
     stroke: #b22222;
-    stroke-width: 1.5px;
-}
-
-.weightedLine {
-    fill: none;
-    stroke: #006400;
-    stroke-width: 1.5px;
-}
-
-.singleLine {
-    fill: none;
-    stroke: #00bfff;
-    stroke-width: 1.5px;
-}
-
-.doubleLine {
-    fill: none;
-    stroke: #ffa500;
     stroke-width: 1.5px;
 }
 

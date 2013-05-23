@@ -148,7 +148,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Hubs\TripleExponentialSmoothingDataHub.cs" />
-    <Compile Include="Hubs\TrueDataHub.cs" />
     <Compile Include="Hubs\MovingAverageDataHub.cs" />
     <Compile Include="Tickers\DoubleExponentialSmoothingDataTicker.cs">
       <SubType>Code</SubType>
@@ -164,7 +163,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Tickers\TripleExponentialSmoothingDataTicker.cs" />
-    <Compile Include="Tickers\TrueDataTicker.cs" />
     <Compile Include="Tickers\MovingAverageDataTicker.cs" />
   </ItemGroup>
   <ItemGroup>

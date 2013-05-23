@@ -13,6 +13,8 @@ namespace Silas.Forecast.Models
         private IEnumerable<DataEntry> _originalDataEntries;
         private ICollection<dynamic> _forecastEntries;
         private dynamic _parameters;
+        private int _numberOfForecasts = 0;
+        private double _absoluteErrorTotal = 0;
 
         public Model(IForecastStrategy forecast, IEnumerable<DataEntry> initialDataEntries, dynamic strategyParameters)
         {
@@ -34,7 +36,17 @@ namespace Silas.Forecast.Models
 
         public ForecastEntry Forecast(int period)
         {
-            return period <= _originalDataEntries.Count() ? _forecastEntries.ElementAt(period - 1) : _forecast.Forecast(_originalDataEntries, period, _parameters);
+            ForecastEntry entry = period <= _originalDataEntries.Count()
+                                      ? _forecastEntries.ElementAt(period - 1)
+                                      : _forecast.Forecast(_originalDataEntries, period, _parameters);
+
+            _numberOfForecasts++;
+            _absoluteErrorTotal += entry.AbsError;
+
+            entry.ModelMeanAbsoluteError = _absoluteErrorTotal/_numberOfForecasts;
+            entry.ModelPercentError += (entry.ForecastValue - entry.DataEntry.Value)/entry.ForecastValue;
+
+            return entry;
         }
     }
 }

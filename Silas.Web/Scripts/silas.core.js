@@ -1,7 +1,16 @@
 ﻿$(function() {
-  var trueData = [],
-    forecastData = [];
-  
+  var trueData=[],
+    forecastData=[],
+    errorVMInstance;
+
+  var ErrorViewModel=function() {
+    this.meanAbsoluteError=ko.observable(0);
+    this.percentError=ko.observable(0);
+    this.confidenceHigh=ko.observable(0);
+    this.confidenceLow=ko.observable(0);
+    this.entries=ko.observableArray([]);
+  };
+
   var init=function() {
     //gridster initialization
     $(".gridster > ul").gridster({
@@ -14,9 +23,14 @@
     // Deck initialization
     $.deck('.slide');
 
-    $.connection.hub.start().done(function() {
-      setupGraph('naieve', '.naieveGraphContainer');
-    });
+    //model init
+    errorVMInstance=new ErrorViewModel();
+    ko.applyBindings(errorVMInstance);
+
+    //setup graphs
+    setupGraph('naieve','.naieveGraphContainer');
+
+    $.connection.hub.start();
   };
 
   var setupHub=function(name,sendValueCallback) {
@@ -24,13 +38,12 @@
     var hubName=name+'DataHub';
 
     // Add a client-side hub method that the server will call
-    $.connection.naieveDataHub.client.sendValue=sendValueCallback;
+    $.connection[hubName].client.sendValue=sendValueCallback;
 
     $("."+name+"TickerStart").click(function() {
-      debugger;
       //clear data before starting
-      trueData = [];
-      forecastData = [];
+      trueData=[];
+      forecastData=[];
       $.connection[hubName].server.start();
     });
     $("."+name+"TickerStop").click(function() {
@@ -39,76 +52,92 @@
   };
 
   var setupGraph=function(name,container) {
-    debugger;
-    //setup the d3 charting
-    var n = 40;
+    var n=30,isInit,x,y,trueLine,forecastLine,svg,truePath,forecastPath,margin;
 
-    var margin={ top: 10,right: 10,bottom: 20,left: 40 },
-        width=960-margin.left-margin.right,
-        height=500-margin.top-margin.bottom;
+    var initGraph=function() {
+      margin={ top: 10,right: 10,bottom: 20,left: 40 },
+              width=740-margin.left-margin.right,
+              height=450-margin.top-margin.bottom;
 
-    var x=d3.scale.linear()
-        .domain([0,n-1])
-        .range([0,width]);
+      x=d3.scale.linear()
+          .domain([0,n-1])
+          .range([0,width]);
 
-    var y=d3.scale.linear()
-        .domain([0,20000])
-        .range([height,0]);
+      y=d3.scale.linear()
+          .domain([800,2700])
+          .range([height,0]);
 
-    var trueLine=d3.svg.line()
-        .x(function(d,i) { return x(i); })
-        .y(function(d,i) { return y(d); });
-    var forecastLine=d3.svg.line()
-        .x(function(d,i) { return x(i); })
-        .y(function(d,i) { return y(d); });
+      trueLine=d3.svg.line()
+          .x(function(d,i) { return x(i); })
+          .y(function(d,i) { return y(d); });
+      forecastLine=d3.svg.line()
+          .x(function(d,i) { return x(i); })
+          .y(function(d,i) { return y(d); });
 
-    var svg=d3.select(container).append("svg")
-        .attr("width",width+margin.left+margin.right)
-        .attr("height",height+margin.top+margin.bottom)
-        .append("g")
-        .attr("transform","translate("+margin.left+","+margin.top+")");
+      svg=d3.select(container).append("svg")
+          .attr("width",width+margin.left+margin.right)
+          .attr("height",height+margin.top+margin.bottom)
+          .append("g")
+          .attr("transform","translate("+margin.left+","+margin.top+")");
 
-    svg.append("defs").append("clipPath")
-        .attr("id","clip")
-        .append("rect")
-        .attr("width",width)
-        .attr("height",height);
+      svg.append("defs").append("clipPath")
+          .attr("id","clip")
+          .append("rect")
+          .attr("width",width)
+          .attr("height",height);
 
-    svg.append("g")
-        .attr("class","x axis")
-        .attr("transform","translate(0,"+height+")")
-        .call(d3.svg.axis().scale(x).orient("bottom"));
+      svg.append("g")
+          .attr("class","x axis")
+          .attr("transform","translate(0,"+height+")")
+          .call(d3.svg.axis().scale(x).orient("bottom"));
 
-    svg.append("g")
-        .attr("class","y axis")
-        .call(d3.svg.axis().scale(y).orient("left"));
+      svg.append("g")
+          .attr("class","y axis")
+          .call(d3.svg.axis().scale(y).orient("left"));
 
-    var truePath=svg.append("g")
-        .attr("clip-path","url(#clip)")
-        .append("path")
-        .data([trueData])
-        .attr("class","line")
-        .attr("class","trueLine")
-        .attr("d",trueLine);
+      truePath=svg.append("g")
+          .attr("clip-path","url(#clip)")
+          .append("path")
+          .data([trueData])
+          .attr("class","line")
+          .attr("class","trueLine")
+          .attr("d",trueLine);
 
-    var forecastPath=svg.append("g")
-        .attr("clip-path","url(#clip)")
-        .append("path")
-        .data([forecastData])
-        .attr("class","line")
-        .attr("class", name + "Line")
-        .attr("d",forecastLine);
+      forecastPath=svg.append("g")
+          .attr("clip-path","url(#clip)")
+          .append("path")
+          .data([forecastData])
+          .attr("class","line")
+          .attr("class","forecastLine")
+          .attr("d",forecastLine);
+    };
 
     // Add a client-side hub method that the server will call
     var sendValue=function(value) {
-      debugger;
-      console.log(name+" true value = "+value.DataEntry.Value);
-      console.log(name+" forecast value = "+value.ForecastValue);
-/*
-      //draw true line
+
+      value.DataEntry.Value = value.DataEntry.Value.toFixed(0);
+      value.ForecastValue = value.ForecastValue.toFixed(0);
+      
+      //update model
+      errorVMInstance.entries.push(value);
+
+      //cause it to shift if over 5
+      if(errorVMInstance.entries().length>3)
+        errorVMInstance.entries.shift();
+
+      errorVMInstance.confidenceLow(value.ConfidenceIntervalLow.toFixed(0));
+      errorVMInstance.confidenceHigh(value.ConfidenceIntervalHigh.toFixed(0));
+      errorVMInstance.meanAbsoluteError(value.ModelMeanAbsoluteError.toFixed(0));
+      errorVMInstance.percentError(value.ModelPercentError.toFixed(2));
+
+      if(!isInit) {
+        isInit=true;
+        initGraph();
+      }
+
+      //update true graph line
       trueData.push(value.DataEntry.Value);
 
-      // redraw the line, and slide it to the left
       truePath
         .attr("d",trueLine)
         .attr("transform",null)
@@ -119,15 +148,12 @@
       if(trueData.length>n)
         truePath.attr("transform","translate("+x(-1)+")");
 
-      // pop the old data point off the front
-      //if we are past our number of data points
       if(trueData.length>n)
         trueData.shift();
 
-      //draw forecast line
+      //update forecast graph
       forecastData.push(value.ForecastValue);
 
-      // redraw the line, and slide it to the left
       forecastPath
         .attr("d",forecastLine)
         .attr("transform",null)
@@ -138,13 +164,11 @@
       if(forecastData.length>n)
         forecastPath.attr("transform","translate("+x(-1)+")");
 
-      // pop the old data point off the front
-      //if we are past our number of data points
       if(forecastData.length>n)
-        forecastData.shift();*/
+        forecastData.shift();
     };
 
-    setupHub(name, sendValue);
+    setupHub(name,sendValue);
   };
 
   init();

@@ -17,35 +17,84 @@
                 <h2>Naieve</h2>
                 <div class="gridster">
                     <ul>
-                        <li data-row="1" data-col="1" data-sizex="5" data-sizey="5">
+                        <li data-row="1" data-col="1" data-sizex="5" data-sizey="3">
                             <div class="naieveGraphContainer"></div>
                         </li>
-                        <li data-row="1" data-col="6" data-sizex="1" data-sizey="1">
+                        <li data-row="4" data-col="1" data-sizex="5" data-sizey="1">
+                            <table>
+                                <thead>
+                                    <tr><th>True Value</th><th>Forecast</th></tr>
+                                </thead>
+                                <tbody data-bind="foreach: entries">
+                                    <tr>
+                                        <td data-bind="text: DataEntry.Value"></td>
+                                        <td data-bind="text: ForecastValue"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </li>
+                        <li data-row="1" data-col="6" data-sizex="3" data-sizey="1">
                             <div class="">
                                 <button class="naieveTickerStart startButton button">Start</button>
-                            </div>
-                        </li>
-                        <li data-row="1" data-col="7" data-sizex="1" data-sizey="1">
-                            <div class="">
-                                <button class="naieveTickerPause pauseButton button">Pause</button>
-                            </div>
-                        </li>
-                        <li data-row="1" data-col="8" data-sizex="1" data-sizey="1">
-                            <div class="">
                                 <button class="naieveTickerStop stopButton button">Stop</button>
                             </div>
                         </li>
                         <li data-row="2" data-col="6" data-sizex="3" data-sizey="1">
-                            <div class=""></div>
+                            Mean Absolute Error
+                            <span data-bind="text: meanAbsoluteError"></span>
                         </li>
                         <li data-row="3" data-col="6" data-sizex="3" data-sizey="1">
-                            <div class=""></div>
+                            Percentage Error
+                            <span data-bind="text: percentError"></span>
                         </li>
                         <li data-row="4" data-col="6" data-sizex="3" data-sizey="1">
-                            <div class=""></div>
+                            Low
+                            <span data-bind="text: confidenceLow"></span>
+                            High
+                            <span data-bind="text: confidenceHigh"></span>
                         </li>
-                        <li data-row="5" data-col="6" data-sizex="3" data-sizey="1">
-                            <div class=""></div>
+                    </ul>
+                </div>
+            </section>
+            <section class="slide demo">
+                <h2>Moving Average</h2>
+                <div class="gridster">
+                    <ul>
+                        <li data-row="1" data-col="1" data-sizex="5" data-sizey="3">
+                            <div class="movingAverageGraphContainer"></div>
+                        </li>
+                        <li data-row="4" data-col="1" data-sizex="5" data-sizey="1">
+                            <table>
+                                <thead>
+                                    <tr><th>True Value</th><th>Forecast</th></tr>
+                                </thead>
+                                <tbody data-bind="foreach: entries">
+                                    <tr>
+                                        <td data-bind="text: DataEntry.Value"></td>
+                                        <td data-bind="text: ForecastValue"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </li>
+                        <li data-row="1" data-col="6" data-sizex="3" data-sizey="1">
+                            <div class="">
+                                <button class="movingAverageTickerStart startButton button">Start</button>
+                                <button class="movingAverageTickerStop stopButton button">Stop</button>
+                            </div>
+                        </li>
+                        <li data-row="2" data-col="6" data-sizex="3" data-sizey="1">
+                            Mean Absolute Error
+                            <span data-bind="text: meanAbsoluteError"></span>
+                        </li>
+                        <li data-row="3" data-col="6" data-sizex="3" data-sizey="1">
+                            Percentage Error
+                            <span data-bind="text: percentError"></span>
+                        </li>
+                        <li data-row="4" data-col="6" data-sizex="3" data-sizey="1">
+                            Low
+                            <span data-bind="text: confidenceLow"></span>
+                            High
+                            <span data-bind="text: confidenceHigh"></span>
                         </li>
                     </ul>
                 </div>
@@ -57,6 +106,7 @@
         <script src="Scripts/jquery.signalR-1.0.1.min.js" type="text/javascript"> </script>
         <script src="Scripts/d3.v3.min.js" type="text/javascript"> </script>
         <script src="Scripts/deck.core.js" type="text/javascript"> </script>
+        <script src="Scripts/knockout-2.2.0.js" type="text/javascript"> </script>
         <script src="Scripts/silas.core.js" type="text/javascript"> </script>
         <script src="signalr/hubs" type="text/javascript"> </script>
     </body>

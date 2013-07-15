@@ -9,8 +9,13 @@
     this.confidenceHigh=ko.observable(0);
     this.confidenceLow=ko.observable(0);
     this.entries=ko.observableArray([]);
+    this.status = ko.observable('Off');
   };
 
+  $(document).bind('deck.change', function(event, from, to) {
+    errorVMInstance = new ErrorViewModel();
+  });
+  
   var init=function() {
     //gridster initialization
     $(".gridster > ul").gridster({
@@ -43,9 +48,11 @@
       //clear data before starting
       trueData=[];
       forecastData=[];
+      errorVMInstance.status('On');
       $.connection[hubName].server.start();
     });
     $("."+name+"TickerStop").click(function() {
+      errorVMInstance.status('Off');
       $.connection[hubName].server.stop();
     });
   };

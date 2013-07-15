@@ -7,51 +7,77 @@
     <script src="Scripts/modernizr-2.6.2.js" type="text/javascript"> </script>
     <link rel="stylesheet" href="Css/deck.core.css">
     <link rel="stylesheet" href="Css/horizontal-slide.css">
-    <link rel="stylesheet" href="Css/web-2.0.css" />
     <link rel="stylesheet" href="Css/jquery.gridster.min.css">
     <link rel="stylesheet" href="Css/silas.css">
 </head>
 <body>
     <article class="deck-container">
-        <section class="slide demo">
+        <section class="slide">
             <h2>Naieve</h2>
             <div class="gridster">
                 <ul>
-                    <li data-row="1" data-col="1" data-sizex="3" data-sizey="1">
-                        <div class="">
-                            <button class="naieveTickerStart startButton button">Start</button>
-                            <button class="naieveTickerStop stopButton button">Stop</button>
+                    <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
+                        <div class="red">
+                            <span data-bind="visible: status() === 'Off'">
+                                <span class="icon-background icon-start naieveTickerStart"></span>
+                            </span>
+                            <span data-bind="visible: status() === 'On'">
+                                <span class="icon-background icon-stop naieveTickerStop"></span>
+                            </span>
                         </div>
                     </li>
-                    <li data-row="2" data-col="1" data-sizex="3" data-sizey="1">Mean Absolute Error
-                            <span data-bind="text: meanAbsoluteError"></span>
+                    <li data-row="1" data-col="2" data-sizex="1" data-sizey="1">
+                        <div class="teal">
+                            <h2>
+                                <label>MAE</label><br />
+                                <span data-bind="text: meanAbsoluteError"></span>
+                            </h2>
+                        </div>
                     </li>
-                    <li data-row="3" data-col="1" data-sizex="3" data-sizey="1">Percentage Error
-                            <span data-bind="text: percentError"></span>
+                    <li data-row="2" data-col="1" data-sizex="1" data-sizey="1">
+                        <div class="orange">
+                            <h2>
+                                <label>% Error</label><br />
+                                <span data-bind="text: percentError"></span>
+                            </h2>
+                        </div>
                     </li>
-                    <li data-row="4" data-col="1" data-sizex="3" data-sizey="1">Low
-                            <span data-bind="text: confidenceLow"></span>
-                        High
-                            <span data-bind="text: confidenceHigh"></span>
+                    <li data-row="2" data-col="2" data-sizex="1" data-sizey="1">
+                        <div class="purple">
+                            <h2>
+                                <label>High</label><br />
+                                <span data-bind="text: confidenceHigh"></span>
+                            </h2>
+                        </div>
                     </li>
-                    <li data-row="1" data-col="4" data-sizex="5" data-sizey="3">
-                        <div class="naieveGraphContainer"></div>
+                    <li data-row="2" data-col="3" data-sizex="1" data-sizey="1">
+                        <div class="green">
+                            <h2>
+                                <label>Low</label><br />
+                                <span data-bind="text: confidenceLow"></span>
+                            </h2>
+                        </div>
                     </li>
-                    <li data-row="4" data-col="4" data-sizex="5" data-sizey="1">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>True Value</th>
-                                    <th>Forecast</th>
-                                </tr>
-                            </thead>
-                            <tbody data-bind="foreach: entries">
-                                <tr>
-                                    <td data-bind="text: DataEntry.Value"></td>
-                                    <td data-bind="text: ForecastValue"></td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <li data-row="1" data-col="4" data-sizex="5" data-sizey="4">
+                        <div class="naieveGraphContainer white"></div>
+                    </li>
+                    <li data-row="1" data-col="3" data-sizex="3" data-sizey="2">
+                        <div class="teal">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th><h2>Real</h2></th>
+                                        <th><h2>Forecast</h2></th>
+                                    </tr>
+                                </thead>
+                                <tbody data-bind="foreach: entries">
+                                    <tr>
+                                        <td data-bind="text: DataEntry.Value"></td>
+                                        <td data-bind="text: ForecastValue"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </li>
                 </ul>
             </div>
@@ -67,8 +93,8 @@
                         <table>
                             <thead>
                                 <tr>
-                                    <th>True Value</th>
-                                    <th>Forecast</th>
+                                    <th><h2>Real</h2></th>
+                                    <th><h2>Forecast</h2></th>
                                 </tr>
                             </thead>
                             <tbody data-bind="foreach: entries">

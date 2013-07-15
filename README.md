@@ -6,16 +6,8 @@ Silas
 Forecasting data, whether it be website traffic or retail sales, is considered by many to be a black box system built on advanced statistical models that are incomprehensible.  With the proliferation of dynamic infrastructures through services like Amazon Web Services, the ability to predict resource utilization becomes more important than ever.  A predictive infrastructure system creates an enormous advantage by reducing wasted resources.  This talk lays the groundwork for building a forecasting system of website traffic.  The traffic results will be loaded into the system through a RESTful service built with ASP.NET WebAPI.  The system will update predictions through a custom forecasting system.  Finally, the results of the forecast will be sent to a client side charting framework utilizing SignalR.  There will be a comparison and contrast of four different forecasting models and discussions of which forecasting techniques will help the most with varying types of data.  The four forecasting models will include moving average, single, double, and triple exponential smoothing.  The number one rule of forecasting is that your forecast will always be wrong; thus, an analysis of when and how to use confidence intervals will be provided.
 
 ##ToDo
-1. Setup a page for each strategy
-    1. Graph True vs Forecast
-    2. Error Variables
-        1. Mean Absolute Error (NonHoldout)
-        2. Mean Squared Error (NonHoldout)
-        3. Mean Absolute Error (Holdout)
-        4. Mean Squared Error (Holdout)
-    3. Confidence Intervals
-    4. Data Table
-2. Style Pages
+1. Style Pages.
+2. Clear Values on page change.
 3. Prepare Talk
 
 ##Talk

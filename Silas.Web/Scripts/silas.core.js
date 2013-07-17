@@ -1,180 +1,211 @@
-﻿$(function() {
-  var trueData=[],
-    forecastData=[],
+﻿$(function () {
+  var trueData = [],
+    forecastData = [],
     errorVMInstance;
 
-  var ErrorViewModel=function() {
-    this.meanAbsoluteError=ko.observable(0);
-    this.percentError=ko.observable(0);
-    this.confidenceHigh=ko.observable(0);
-    this.confidenceLow=ko.observable(0);
-    this.entries=ko.observableArray([]);
-    this.status = ko.observable('Off');
+  ko.bindingHandlers.knob = {
+    init: function (element, valueAccessor) {
+      var value = valueAccessor()();
+      $(element).knob({ min: -100, max: 100, angleArc: 200, angleOffset: -90, width: 140, height: 140, inputColor: '#fff', fgColor: '#12b0c5', readOnly: true });
+    },
+    update: function (element, valueAccessor, allBindingsAccessor) {
+      var value = valueAccessor()();
+      $(element).val(parseFloat(value)).trigger('change');
+    }
   };
 
-  $(document).bind('deck.change', function(event, from, to) {
+  var ErrorViewModel = function () {
+    this.meanAbsoluteError = ko.observable(0);
+    this.percentError = ko.observable(0);
+    this.confidenceHigh = ko.observable(0);
+    this.confidenceLow = ko.observable(0);
+    this.entries = ko.observableArray([]);
+    this.status = ko.observable('Off');
+    this.statusClass = ko.computed(function () {
+      return this.status() === 'Off' ? "green" : "red";
+    }, this);
+  };
+
+  $(document).bind('deck.change', function (event, from, to) {
     errorVMInstance = new ErrorViewModel();
   });
-  
-  var init=function() {
+
+  var init = function () {
     //gridster initialization
     $(".gridster > ul").gridster({
-      widget_margins: [10,10],
-      widget_base_dimensions: [140,140],
-      extra_cols: 4
+      widget_margins: [10, 10],
+      widget_base_dimensions: [260, 260],
+      min_cols: 8
     });
 
     // Deck initialization
     $.deck('.slide');
 
     //model init
-    errorVMInstance=new ErrorViewModel();
+    errorVMInstance = new ErrorViewModel();
     ko.applyBindings(errorVMInstance);
 
     //setup graphs
-    setupGraph('naieve','.naieveGraphContainer');
+    setupGraph('naieve', '.naieveGraphContainer');
 
     $.connection.hub.start();
   };
 
-  var setupHub=function(name,sendValueCallback) {
+  var setupHub = function (name, sendValueCallback) {
     //setup the hub objects
-    var hubName=name+'DataHub';
+    var hubName = name + 'DataHub';
 
     // Add a client-side hub method that the server will call
-    $.connection[hubName].client.sendValue=sendValueCallback;
+    $.connection[hubName].client.sendValue = sendValueCallback;
 
-    $("."+name+"TickerStart").click(function() {
+    $("." + name + "TickerStart").click(function () {
       //clear data before starting
-      trueData=[];
-      forecastData=[];
+      trueData = [];
+      forecastData = [];
       errorVMInstance.status('On');
       $.connection[hubName].server.start();
     });
-    $("."+name+"TickerStop").click(function() {
+    $("." + name + "TickerStop").click(function () {
       errorVMInstance.status('Off');
       $.connection[hubName].server.stop();
     });
   };
 
-  var setupGraph=function(name,container) {
-    var n=30,isInit,x,y,trueLine,forecastLine,svg,truePath,forecastPath,margin;
+  var setupGraph = function (name, container) {
+    var n = 15, isInit, x, y, trueLine, forecastLine, svg, truePath, forecastPath, margin;
+    var period = 0;
+    var xAxis;
+    var margin = { top: 30, right: 30, bottom: 20, left: 80 },
+              width = 850 - margin.left - margin.right,
+              height = 780 - margin.top - margin.bottom;
+    var startX = 0;
+    var endX = n - 1;
+    var startXRange = 0;
+    var endXRange = width;
 
-    var initGraph=function() {
-      margin={ top: 10,right: 10,bottom: 20,left: 40 },
-              width=740-margin.left-margin.right,
-              height=450-margin.top-margin.bottom;
+    var initGraph = function () {
+      x = d3.scale.linear()
+          .domain([startX, endX])
+          .range([startXRange, endXRange]);
 
-      x=d3.scale.linear()
-          .domain([0,n-1])
-          .range([0,width]);
+      y = d3.scale.linear()
+          .domain([800, 2700])
+          .range([height, 0]);
 
-      y=d3.scale.linear()
-          .domain([800,2700])
-          .range([height,0]);
+      trueLine = d3.svg.line()
+          .x(function (d, i) { return x(i); })
+          .y(function (d, i) { return y(d); });
 
-      trueLine=d3.svg.line()
-          .x(function(d,i) { return x(i); })
-          .y(function(d,i) { return y(d); });
-      forecastLine=d3.svg.line()
-          .x(function(d,i) { return x(i); })
-          .y(function(d,i) { return y(d); });
+      forecastLine = d3.svg.line()
+          .x(function (d, i) {
+            console.log(x(i)); return x(i);
+          })
+          .y(function (d, i) { return y(d); });
 
-      svg=d3.select(container).append("svg")
-          .attr("width",width+margin.left+margin.right)
-          .attr("height",height+margin.top+margin.bottom)
+      svg = d3.select(container).append("svg")
+          .attr("width", width + margin.left + margin.right)
+          .attr("height", height + margin.top + margin.bottom + 20)
           .append("g")
-          .attr("transform","translate("+margin.left+","+margin.top+")");
+          .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
       svg.append("defs").append("clipPath")
-          .attr("id","clip")
+          .attr("id", "clip")
           .append("rect")
-          .attr("width",width)
-          .attr("height",height);
+          .attr("width", width)
+          .attr("height", height);
+
+      xAxis = d3.svg.axis().scale(x).orient("bottom");
+      svg.append("g")
+          .attr("class", "x axis")
+          .attr("transform", "translate(0," + height + ")")
+          .call(xAxis);
 
       svg.append("g")
-          .attr("class","x axis")
-          .attr("transform","translate(0,"+height+")")
-          .call(d3.svg.axis().scale(x).orient("bottom"));
-
-      svg.append("g")
-          .attr("class","y axis")
+          .attr("class", "y axis")
           .call(d3.svg.axis().scale(y).orient("left"));
 
-      truePath=svg.append("g")
-          .attr("clip-path","url(#clip)")
+      truePath = svg.append("g")
+          .attr("clip-path", "url(#clip)")
           .append("path")
           .data([trueData])
-          .attr("class","line")
-          .attr("class","trueLine")
-          .attr("d",trueLine);
+          .attr("class", "line")
+          .attr("class", "trueLine")
+          .attr("d", trueLine);
 
-      forecastPath=svg.append("g")
-          .attr("clip-path","url(#clip)")
+      forecastPath = svg.append("g")
+          .attr("clip-path", "url(#clip)")
           .append("path")
           .data([forecastData])
-          .attr("class","line")
-          .attr("class","forecastLine")
-          .attr("d",forecastLine);
+          .attr("class", "line")
+          .attr("class", "forecastLine")
+          .attr("d", forecastLine);
     };
 
     // Add a client-side hub method that the server will call
-    var sendValue=function(value) {
-
+    var sendValue = function (value) {
+      period++;
       value.DataEntry.Value = value.DataEntry.Value.toFixed(0);
       value.ForecastValue = value.ForecastValue.toFixed(0);
-      
+
       //update model
       errorVMInstance.entries.push(value);
 
-      //cause it to shift if over 5
-      if(errorVMInstance.entries().length>3)
+      //cause it to shift if over 3
+      if (errorVMInstance.entries().length > 3)
         errorVMInstance.entries.shift();
 
       errorVMInstance.confidenceLow(value.ConfidenceIntervalLow.toFixed(0));
       errorVMInstance.confidenceHigh(value.ConfidenceIntervalHigh.toFixed(0));
       errorVMInstance.meanAbsoluteError(value.ModelMeanAbsoluteError.toFixed(0));
-      errorVMInstance.percentError(value.ModelPercentError.toFixed(2));
+      errorVMInstance.percentError((value.ModelPercentError * 100).toFixed(2));
 
-      if(!isInit) {
-        isInit=true;
+      if (!isInit) {
+        isInit = true;
         initGraph();
       }
+
+      if (trueData.length > n)
+        trueData.shift();
 
       //update true graph line
       trueData.push(value.DataEntry.Value);
 
-      truePath
-        .attr("d",trueLine)
-        .attr("transform",null)
-        .transition()
-        .duration(500)
-        .ease("linear");
-
-      if(trueData.length>n)
-        truePath.attr("transform","translate("+x(-1)+")");
-
-      if(trueData.length>n)
-        trueData.shift();
+      if (forecastData.length > n)
+        forecastData.shift();
 
       //update forecast graph
       forecastData.push(value.ForecastValue);
 
-      forecastPath
-        .attr("d",forecastLine)
-        .attr("transform",null)
+      if (period > n) {
+        startX += 1;
+        endX += 1;
+
+        x.domain([startX, endX]).range([startXRange, endXRange]);
+        var t = svg.transition().duration(500);
+        t.select(".x.axis").call(xAxis);
+
+        trueLine.x(function(d, i) {
+          console.log(x(i)); return x(i); });
+        forecastLine.x(function(d, i) { return x(i); });
+      }
+
+      truePath
+        .attr("d", trueLine)
+        .attr("transform", null)
         .transition()
         .duration(500)
         .ease("linear");
 
-      if(forecastData.length>n)
-        forecastPath.attr("transform","translate("+x(-1)+")");
+      forecastPath
+        .attr("d", forecastLine)
+        .attr("transform", null)
+        .transition()
+        .duration(500)
+        .ease("linear");
 
-      if(forecastData.length>n)
-        forecastData.shift();
     };
 
-    setupHub(name,sendValue);
+    setupHub(name, sendValue);
   };
 
   init();

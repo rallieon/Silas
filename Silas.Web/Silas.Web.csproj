@@ -149,6 +149,7 @@
     </Compile>
     <Compile Include="Hubs\TripleExponentialSmoothingDataHub.cs" />
     <Compile Include="Hubs\MovingAverageDataHub.cs" />
+    <Content Include="Scripts\jquery.knob.js" />
     <Compile Include="Tickers\DoubleExponentialSmoothingDataTicker.cs">
       <SubType>Code</SubType>
     </Compile>

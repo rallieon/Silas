@@ -9,77 +9,72 @@
     <link rel="stylesheet" href="Css/horizontal-slide.css">
     <link rel="stylesheet" href="Css/jquery.gridster.min.css">
     <link rel="stylesheet" href="Css/silas.css">
+    <link href='http://fonts.googleapis.com/css?family=Cabin' rel='stylesheet' type='text/css'>
 </head>
 <body>
     <article class="deck-container">
         <section class="slide">
-            <h2>Naieve</h2>
-            <div class="gridster">
-                <ul>
-                    <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
-                        <div class="red">
-                            <span data-bind="visible: status() === 'Off'">
-                                <span class="icon-background icon-start naieveTickerStart"></span>
-                            </span>
-                            <span data-bind="visible: status() === 'On'">
-                                <span class="icon-background icon-stop naieveTickerStop"></span>
-                            </span>
-                        </div>
-                    </li>
-                    <li data-row="1" data-col="2" data-sizex="1" data-sizey="1">
-                        <div class="teal">
-                            <h2>
+            <div class="header">
+                <div class="leftside"><h2>Naieve</h2></div>
+                
+                <div class="rightside" style="padding-top: 2em;">
+                    <input type="button" class="button naieveTickerStart" value="Start"></input>
+                    <input type="button" class="button naieveTickerStop" value="Stop"></input>
+                </div>
+            </div>
+            <div class="content">
+                <div class="gridster">
+                    <ul>
+                        <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
+                            <div class="teal">
                                 <label>MAE</label><br />
-                                <span data-bind="text: meanAbsoluteError"></span>
-                            </h2>
-                        </div>
-                    </li>
-                    <li data-row="2" data-col="1" data-sizex="1" data-sizey="1">
-                        <div class="orange">
-                            <h2>
-                                <label>% Error</label><br />
-                                <span data-bind="text: percentError"></span>
-                            </h2>
-                        </div>
-                    </li>
-                    <li data-row="2" data-col="2" data-sizex="1" data-sizey="1">
-                        <div class="purple">
-                            <h2>
-                                <label>High</label><br />
-                                <span data-bind="text: confidenceHigh"></span>
-                            </h2>
-                        </div>
-                    </li>
-                    <li data-row="2" data-col="3" data-sizex="1" data-sizey="1">
-                        <div class="green">
-                            <h2>
-                                <label>Low</label><br />
-                                <span data-bind="text: confidenceLow"></span>
-                            </h2>
-                        </div>
-                    </li>
-                    <li data-row="1" data-col="4" data-sizex="5" data-sizey="4">
-                        <div class="naieveGraphContainer white"></div>
-                    </li>
-                    <li data-row="1" data-col="3" data-sizex="3" data-sizey="2">
-                        <div class="teal">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th><h2>Real</h2></th>
-                                        <th><h2>Forecast</h2></th>
-                                    </tr>
-                                </thead>
-                                <tbody data-bind="foreach: entries">
-                                    <tr>
-                                        <td data-bind="text: DataEntry.Value"></td>
-                                        <td data-bind="text: ForecastValue"></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </li>
-                </ul>
+                                <span class="datatext" data-bind="text: meanAbsoluteError"></span>
+                            </div>
+                        </li>
+                        <li data-row="1" data-col="2" data-sizex="1" data-sizey="1">
+                            <div class="orange knob">
+                                <label>Error</label><br />
+                                <input class="datatext" type="text" data-bind="knob: percentError" />
+                            </div>
+                        </li>
+                        <li data-row="2" data-col="1" data-sizex="1" data-sizey="1">
+                            <div class="purple">
+                                <label>CI High</label><br />
+                                <span class="datatext" data-bind="text: confidenceHigh"></span>
+
+                            </div>
+                        </li>
+                        <li data-row="2" data-col="2" data-sizex="1" data-sizey="1">
+                            <div class="lightteal">
+                                <label>CI Low</label><br />
+                                <span class="datatext" data-bind="text: confidenceLow"></span>
+                            </div>
+                        </li>
+                        <li data-row="1" data-col="3" data-sizex="4" data-sizey="3">
+                            <div class="naieveGraphContainer teal"></div>
+                        </li>
+                        <li data-row="3" data-col="1" data-sizex="2" data-sizey="1">
+                            <div class="red">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Period</th>
+                                            <th>Real</th>
+                                            <th>Forecast</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody data-bind="foreach: entries">
+                                        <tr>
+                                            <td class="datatext" data-bind="text: DataEntry.Period"></td>
+                                            <td class="datatext" data-bind="text: DataEntry.Value"></td>
+                                            <td class="datatext" data-bind="text: ForecastValue"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </section>
         <section class="slide demo">
@@ -93,8 +88,12 @@
                         <table>
                             <thead>
                                 <tr>
-                                    <th><h2>Real</h2></th>
-                                    <th><h2>Forecast</h2></th>
+                                    <th>
+                                        <h2>Real</h2>
+                                    </th>
+                                    <th>
+                                        <h2>Forecast</h2>
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody data-bind="foreach: entries">
@@ -130,6 +129,7 @@
     <script src="Scripts/jquery-1.8.2.min.js" type="text/javascript"> </script>
     <script src="Scripts/jquery.gridster.min.js" type="text/javascript"> </script>
     <script src="Scripts/jquery.signalR-1.0.1.min.js" type="text/javascript"> </script>
+    <script src="Scripts/jquery.knob.js" type="text/javascript"> </script>
     <script src="Scripts/d3.v3.min.js" type="text/javascript"> </script>
     <script src="Scripts/deck.core.js" type="text/javascript"> </script>
     <script src="Scripts/knockout-2.2.0.js" type="text/javascript"> </script>

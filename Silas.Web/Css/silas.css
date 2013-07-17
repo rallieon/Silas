@@ -4,43 +4,69 @@
 
 .slide h2 {
     color: #fff;
-    border-bottom: 2px solid #fff;
+    border: none;
 }
 
 svg {
-    font: 10px sans-serif;
+    font-family: 'Cabin', sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+    fill: #222;
 }
 
 .trueLine {
     fill: none;
-    stroke: #000;
-    stroke-width: 1.5px;
+    stroke: #fff;
+    stroke-width: 4px;
 }
 
 .forecastLine {
     fill: none;
-    stroke: #b22222;
-    stroke-width: 1.5px;
+    stroke: #dc5945;
+    stroke-width: 4px;
 }
 
 .axis path, .axis line {
     fill: none;
     shape-rendering: crispEdges;
-    stroke: #000;
+    stroke: #222;
+    color: #222;
+    stroke-width: 3px;
 }
 
 ul, ol {
     list-style: none;
 }
 
-.gridster h2 {
-    text-transform: uppercase;
-    font-size: 40px;
-    font-weight: 700;
+.knob div {
+    margin-left: -5em;
+}
+
+.gridster label {
+    margin-top: 3em;
+}
+.gridster label, .gridster th {
+    font-family: 'Cabin', sans-serif;
+    font-size: 36px;
+    color: white;
+    border: none;
+    padding: 0;
+    opacity: 0.7;
+    text-align: center;
+}
+
+.gridster span, .gridster td {
+    font-family: 'Cabin', sans-serif;
+    font-size: 44px;
     color: white;
     border: none;
     padding: 0;
     text-align: center;
+}
+
+.gridster table {
+    border-spacing: 1em 0em;
+    border-collapse: separate;
 }
 
 .white {
@@ -71,28 +97,67 @@ ul, ol {
     background-color: #96bf48;
 }
 
-.icon-start {
-    background-image:url("/Images/Play.png");
+.header {
+    width: 100%;
+    border-bottom: 2px solid #fff;
+}
+.content {
+    float: left;
 }
 
-.icon-stop {
-    background-image:url("/Images/Stop.png");
+.button {
+    display: inline-block;
+    padding: 4px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    line-height: 20px;
+    color: #333333;
+    text-align: center;
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+    vertical-align: middle;
+    cursor: pointer;
+    background-color: #f5f5f5;
+    background-image: -moz-linear-gradient(top, #ffffff, #e6e6e6);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#e6e6e6));
+    background-image: -webkit-linear-gradient(top, #ffffff, #e6e6e6);
+    background-image: -o-linear-gradient(top, #ffffff, #e6e6e6);
+    background-image: linear-gradient(to bottom, #ffffff, #e6e6e6);
+    background-repeat: repeat-x;
+    border: 1px solid #cccccc;
+    border-color: #e6e6e6 #e6e6e6 #bfbfbf;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+    border-bottom-color: #b3b3b3;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffe6e6e6', GradientType=0);
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+    -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
-.icon-background {
-width: 100% !important;
-height: 100%;
-position: absolute;
-left: 0;
-top: 0;
-opacity: 0.1;
+.rightside {
+    width: 50%;
+    height: 100%;
+    float: left;
+    text-align: right;
 }
 
+.leftside {
+    width: 50%;
+    height: 100%;
+    float: left;
+    text-align: left;
+}
 /* Gridster styles */
 .gridster li div {
     position: absolute;
     height: 100%;
     width: 100%;
+    text-align: center;
+    width: 100%;
+    display: table-cell;
 }
 
 .demo {

@@ -72,9 +72,8 @@
   };
 
   var setupGraph = function (name, container) {
-    var n = 15, isInit, x, y, trueLine, forecastLine, svg, truePath, forecastPath, margin;
+    var n = 15, isInit, x, y, trueLine, forecastLine, svg, truePath, forecastPath, xAxis;
     var period = 0;
-    var xAxis;
     var margin = { top: 30, right: 30, bottom: 20, left: 80 },
               width = 850 - margin.left - margin.right,
               height = 780 - margin.top - margin.bottom;
@@ -97,9 +96,7 @@
           .y(function (d, i) { return y(d); });
 
       forecastLine = d3.svg.line()
-          .x(function (d, i) {
-            console.log(x(i)); return x(i);
-          })
+          .x(function (d, i) { return x(i); })
           .y(function (d, i) { return y(d); });
 
       svg = d3.select(container).append("svg")
@@ -115,6 +112,7 @@
           .attr("height", height);
 
       xAxis = d3.svg.axis().scale(x).orient("bottom");
+      
       svg.append("g")
           .attr("class", "x axis")
           .attr("transform", "translate(0," + height + ")")
@@ -141,9 +139,44 @@
           .attr("d", forecastLine);
     };
 
+    var updateGraph = function() {
+      if (trueData.length > n) {
+        trueData.shift();
+        forecastData.shift();
+      }
+
+      if (period > n) {
+        startX += 1;
+        endX += 1;
+        x.domain([startX, endX]).range(startXRange, endXRange);
+        xAxis = d3.svg.axis().scale(x).orient("bottom");
+        svg.select(".x.axis").transition().duration(500).ease("linear").call(xAxis);
+        trueLine.x(function(d, i) { return x(i); });
+        forecastLine.x(function(d, i) { return x(i); });
+        //truePath.attr("transform","translate("+x(-1)+")");
+        //forecastPath.attr("transform","translate("+x(-1)+")");
+      }
+      
+      truePath
+        .attr("d", trueLine)
+        .attr("transform", null)
+        .transition()
+        .duration(500)
+        .ease("linear");
+
+      forecastPath
+        .attr("d", forecastLine)
+        .attr("transform", null)
+        .transition()
+        .duration(500)
+        .ease("linear");
+
+    };
+    
     // Add a client-side hub method that the server will call
     var sendValue = function (value) {
       period++;
+      
       value.DataEntry.Value = value.DataEntry.Value.toFixed(0);
       value.ForecastValue = value.ForecastValue.toFixed(0);
 
@@ -163,46 +196,10 @@
         isInit = true;
         initGraph();
       }
-
-      if (trueData.length > n)
-        trueData.shift();
-
-      //update true graph line
+      
       trueData.push(value.DataEntry.Value);
-
-      if (forecastData.length > n)
-        forecastData.shift();
-
-      //update forecast graph
       forecastData.push(value.ForecastValue);
-
-      if (period > n) {
-        startX += 1;
-        endX += 1;
-
-        x.domain([startX, endX]).range([startXRange, endXRange]);
-        var t = svg.transition().duration(500);
-        t.select(".x.axis").call(xAxis);
-
-        trueLine.x(function(d, i) {
-          console.log(x(i)); return x(i); });
-        forecastLine.x(function(d, i) { return x(i); });
-      }
-
-      truePath
-        .attr("d", trueLine)
-        .attr("transform", null)
-        .transition()
-        .duration(500)
-        .ease("linear");
-
-      forecastPath
-        .attr("d", forecastLine)
-        .attr("transform", null)
-        .transition()
-        .duration(500)
-        .ease("linear");
-
+      updateGraph();
     };
 
     setupHub(name, sendValue);

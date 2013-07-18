@@ -29,13 +29,20 @@
   };
 
   $(document).bind('deck.change', function (event, from, to) {
-    errorVMInstance = new ErrorViewModel();
+    errorVMInstance.meanAbsoluteError(0);
+    errorVMInstance.percentError(0);
+    errorVMInstance.confidenceHigh(0);
+    errorVMInstance.confidenceLow(0);
+    errorVMInstance.entries([{ DataEntry: { Period: 0, Value: 0 }, ForecastValue: 0 }, 
+                                       { DataEntry: { Period: 0, Value: 0 }, ForecastValue: 0 }, 
+                                       { DataEntry: { Period: 0, Value: 0 }, ForecastValue: 0 }]);
+    errorVMInstance.status('Off');
   });
 
   var init = function () {
     //gridster initialization
     $(".gridster > ul").gridster({
-      widget_margins: [10, 10],
+      widget_margins: [5, 5],
       widget_base_dimensions: [260, 260],
       min_cols: 8,
       width: 1280

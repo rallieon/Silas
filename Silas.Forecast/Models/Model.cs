@@ -15,6 +15,7 @@ namespace Silas.Forecast.Models
         private dynamic _parameters;
         private int _numberOfForecasts = 0;
         private double _absoluteErrorTotal = 0;
+        private double _percentAbsoluteErrorTotal = 0;
 
         public Model(IForecastStrategy forecast, IEnumerable<DataEntry> initialDataEntries, dynamic strategyParameters)
         {
@@ -44,7 +45,8 @@ namespace Silas.Forecast.Models
             _absoluteErrorTotal += entry.AbsError;
 
             entry.ModelMeanAbsoluteError = _absoluteErrorTotal/_numberOfForecasts;
-            entry.ModelPercentError += (entry.ForecastValue - entry.DataEntry.Value)/entry.ForecastValue;
+            _percentAbsoluteErrorTotal += (entry.AbsError) / entry.ForecastValue;
+            entry.ModelPercentError = _percentAbsoluteErrorTotal/_numberOfForecasts;
 
             return entry;
         }

@@ -6,7 +6,7 @@
   ko.bindingHandlers.knob = {
     init: function (element, valueAccessor) {
       var value = valueAccessor()();
-      $(element).knob({ min: -100, max: 100, angleArc: 200, angleOffset: -90, width: 140, height: 140, inputColor: '#fff', fgColor: '#12b0c5', readOnly: true });
+      $(element).knob({ width: 200, height: 140, inputColor: '#fff', fgColor: '#12b0c5', min: 0, max: 100, angleArc: 100, angleOffset: -50, readOnly: true });
     },
     update: function (element, valueAccessor, allBindingsAccessor) {
       var value = valueAccessor()();
@@ -19,7 +19,9 @@
     this.percentError = ko.observable(0);
     this.confidenceHigh = ko.observable(0);
     this.confidenceLow = ko.observable(0);
-    this.entries = ko.observableArray([]);
+    this.entries = ko.observableArray([{ DataEntry: { Period: 0, Value: 0 }, ForecastValue: 0 }, 
+                                       { DataEntry: { Period: 0, Value: 0 }, ForecastValue: 0 }, 
+                                       { DataEntry: { Period: 0, Value: 0 }, ForecastValue: 0 }]);
     this.status = ko.observable('Off');
     this.statusClass = ko.computed(function () {
       return this.status() === 'Off' ? "green" : "red";
@@ -35,7 +37,8 @@
     $(".gridster > ul").gridster({
       widget_margins: [10, 10],
       widget_base_dimensions: [260, 260],
-      min_cols: 8
+      min_cols: 8,
+      width: 1280
     });
 
     // Deck initialization
@@ -73,7 +76,7 @@
     var period = 0;
     var margin = { top: 30, right: 30, bottom: 20, left: 80 },
               width = 850 - margin.left - margin.right,
-              height = 780 - margin.top - margin.bottom;
+              height = 700 - margin.top - margin.bottom;
     var startX = 0;
     var endX = n - 1;
     var startXRange = 0;

@@ -38,35 +38,8 @@ ul, ol {
     list-style: none;
 }
 
-.knob div {
-    margin-left: -5em;
-}
-
-.gridster label {
-    margin-top: 3em;
-}
-.gridster label, .gridster th {
-    font-family: 'Cabin', sans-serif;
-    font-size: 36px;
-    color: white;
-    border: none;
-    padding: 0;
-    opacity: 0.7;
-    text-align: center;
-}
-
-.gridster span, .gridster td {
-    font-family: 'Cabin', sans-serif;
-    font-size: 44px;
-    color: white;
-    border: none;
-    padding: 0;
-    text-align: center;
-}
-
-.gridster table {
-    border-spacing: 1em 0em;
-    border-collapse: separate;
+.knob canvas {
+    margin-top: 1em;
 }
 
 .white {
@@ -102,7 +75,7 @@ ul, ol {
     border-bottom: 2px solid #fff;
 }
 .content {
-    float: left;
+    margin-top: 5em;
 }
 
 .button {
@@ -150,14 +123,17 @@ ul, ol {
     float: left;
     text-align: left;
 }
-/* Gridster styles */
-.gridster li div {
-    position: absolute;
-    height: 100%;
-    width: 100%;
+
+.widget {
+    padding: 25px 12px;
     text-align: center;
     width: 100%;
     display: table-cell;
+    vertical-align: middle;
+}
+
+.baseline {
+    vertical-align: baseline;
 }
 
 .demo {
@@ -165,11 +141,56 @@ ul, ol {
     padding: 7.5em 0 5.5em;
 }
 
-.gridster {
-    width: 940px;
-    margin: 0 auto;
+.widget .smalltext {
+    font-family: 'Cabin', sans-serif;
+    font-size: 18px;
+    color: white;
+    border: none;
+    padding: 0;
+    opacity: 0.7;
+    text-align: center;
+    padding-top: 3em;
 }
 
-.gridster .gs_w {
-    cursor: pointer;
+.widget label, .widget th, .widget h2 {
+    font-family: 'Cabin', sans-serif;
+    font-size: 36px;
+    color: white;
+    border: none;
+    padding: 0;
+    opacity: 0.7;
+    text-align: center;
+}
+
+.widget .datatext {
+    font-family: 'Cabin', sans-serif;
+    font-size: 60px;
+    color: white;
+    border: none;
+    padding-top: 0.5em;
+    text-align: center;
+}
+
+.widget .tabletext {
+    font-family: 'Cabin', sans-serif;
+    font-size: 48px;
+    color: white;
+    border: none;
+    text-align: center;
+}
+
+.widget table {
+    border-spacing: 1em 0em;
+    border-collapse: separate;
+    width: 100%;
+}
+
+table  .smalltext {
+    font-family: 'Cabin', sans-serif;
+    font-size: 18px;
+    color: white;
+    border: none;
+    padding: 0;
+    opacity: 0.7;
+    text-align: center;
 }

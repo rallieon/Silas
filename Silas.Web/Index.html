@@ -22,39 +22,45 @@
                     <input type="button" class="button naieveTickerStop" value="Stop"></input>
                 </div>
             </div>
-            <div class="content">
+            <div class="content" style="padding-top: 5em;">
                 <div class="gridster">
                     <ul>
                         <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
-                            <div class="teal">
-                                <label>MAE</label><br />
-                                <span class="datatext" data-bind="text: meanAbsoluteError"></span>
+                            <div class="teal widget">
+                                <label>MAE</label>
+                                <div class="datatext" data-bind="text: meanAbsoluteError"></div>
+                                <div class="smalltext">Mean Average Error</div>
                             </div>
                         </li>
                         <li data-row="1" data-col="2" data-sizex="1" data-sizey="1">
-                            <div class="orange knob">
-                                <label>Error</label><br />
-                                <input class="datatext" type="text" data-bind="knob: percentError" />
+                            <div class="orange knob widget">
+                                <label>Error</label>
+                                <input class="datatext" type="text" value="0" data-bind="knob: percentError" />
+                                <div class="smalltext" style="padding: 0">Total Percentage of Error Rate</div>
                             </div>
                         </li>
                         <li data-row="2" data-col="1" data-sizex="1" data-sizey="1">
-                            <div class="purple">
-                                <label>CI High</label><br />
-                                <span class="datatext" data-bind="text: confidenceHigh"></span>
+                            <div class="purple widget">
+                                <label>CI High</label>
+                                <div class="datatext" data-bind="text: confidenceHigh"></div>
+                                <div class="smalltext">CI = Confidence Interval</div>
 
                             </div>
                         </li>
                         <li data-row="2" data-col="2" data-sizex="1" data-sizey="1">
-                            <div class="lightteal">
-                                <label>CI Low</label><br />
-                                <span class="datatext" data-bind="text: confidenceLow"></span>
+                            <div class="lightteal widget">
+                                <label>CI Low</label>
+                                <div class="datatext" data-bind="text: confidenceLow"></div>
+                                <div class="smalltext">Number of Hits</div>
                             </div>
                         </li>
                         <li data-row="1" data-col="3" data-sizex="4" data-sizey="3">
-                            <div class="naieveGraphContainer teal"></div>
+                            <div class="naieveGraphContainer teal widget baseline">
+                                <h2>Forecast Graph</h2>
+                            </div>
                         </li>
                         <li data-row="3" data-col="1" data-sizex="2" data-sizey="1">
-                            <div class="red">
+                            <div class="red widget baseline">
                                 <table>
                                     <thead>
                                         <tr>
@@ -65,12 +71,13 @@
                                     </thead>
                                     <tbody data-bind="foreach: entries">
                                         <tr>
-                                            <td class="datatext" data-bind="text: DataEntry.Period"></td>
-                                            <td class="datatext" data-bind="text: DataEntry.Value"></td>
-                                            <td class="datatext" data-bind="text: ForecastValue"></td>
+                                            <td class="tabletext" data-bind="text: DataEntry.Period"></td>
+                                            <td class="tabletext" data-bind="text: DataEntry.Value"></td>
+                                            <td class="tabletext" data-bind="text: ForecastValue"></td>
                                         </tr>
                                     </tbody>
                                 </table>
+                                <div class="smalltext" style="padding: 0">Number of Hits</div>
                             </div>
                         </li>
                     </ul>

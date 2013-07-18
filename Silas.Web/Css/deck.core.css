@@ -44,7 +44,6 @@ body.deck-container {
   border: 0;
   font-size: 100%;
   font: inherit;
-  vertical-align: baseline;
 }
 .deck-container article, .deck-container aside, .deck-container details, .deck-container figcaption, .deck-container figure,
 .deck-container footer, .deck-container header, .deck-container hgroup, .deck-container menu, .deck-container nav, .deck-container section {

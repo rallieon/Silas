@@ -42,6 +42,7 @@ namespace Silas.Web.Tickers
             _parameters.Beta = 0.15;
             _parameters.Gamma = 0.128;
             _parameters.PeriodsPerSeason = 12;
+            _parameters.SeasonsForRegression = 3;
             _model = new Model(new TripleExponentialSmoothingStrategy(), _entries.Values, _parameters);
             _timer = new Timer(NextValue, null, Timeout.Infinite, Timeout.Infinite);
         }

@@ -74,6 +74,7 @@ ul, ol {
     width: 100%;
     border-bottom: 2px solid #fff;
 }
+
 .content {
     margin-top: 5em;
 }
@@ -136,11 +137,6 @@ ul, ol {
     vertical-align: baseline;
 }
 
-.demo {
-    margin: 3em 0;
-    padding: 7.5em 0 5.5em;
-}
-
 .widget .smalltext {
     font-family: 'Cabin', sans-serif;
     font-size: 18px;
@@ -185,7 +181,7 @@ ul, ol {
     width: 100%;
 }
 
-table  .smalltext {
+table .smalltext {
     font-family: 'Cabin', sans-serif;
     font-size: 18px;
     color: white;

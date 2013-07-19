@@ -15,8 +15,10 @@
     <article class="deck-container">
         <section class="slide">
             <div class="header">
-                <div class="leftside"><h2>Naieve</h2></div>
-                
+                <div class="leftside">
+                    <h2>Naieve</h2>
+                </div>
+
                 <div class="rightside" style="padding-top: 2em;">
                     <input type="button" class="button naieveTickerStart" value="Start"></input>
                     <input type="button" class="button naieveTickerStop" value="Stop"></input>
@@ -84,51 +86,296 @@
                 </div>
             </div>
         </section>
-        <section class="slide demo">
-            <h2>Moving Average</h2>
-            <div class="gridster">
-                <ul>
-                    <li data-row="1" data-col="1" data-sizex="5" data-sizey="3">
-                        <div class="movingAverageGraphContainer"></div>
-                    </li>
-                    <li data-row="4" data-col="1" data-sizex="5" data-sizey="1">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>
-                                        <h2>Real</h2>
-                                    </th>
-                                    <th>
-                                        <h2>Forecast</h2>
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody data-bind="foreach: entries">
-                                <tr>
-                                    <td data-bind="text: DataEntry.Value"></td>
-                                    <td data-bind="text: ForecastValue"></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </li>
-                    <li data-row="1" data-col="6" data-sizex="3" data-sizey="1">
-                        <div class="">
-                            <button class="movingAverageTickerStart startButton button">Start</button>
-                            <button class="movingAverageTickerStop stopButton button">Stop</button>
-                        </div>
-                    </li>
-                    <li data-row="2" data-col="6" data-sizex="3" data-sizey="1">Mean Absolute Error
-                            <span data-bind="text: meanAbsoluteError"></span>
-                    </li>
-                    <li data-row="3" data-col="6" data-sizex="3" data-sizey="1">Percentage Error
-                            <span data-bind="text: percentError"></span>
-                    </li>
-                    <li data-row="4" data-col="6" data-sizex="3" data-sizey="1">Low
-                            <span data-bind="text: confidenceLow"></span>
-                        High
-                            <span data-bind="text: confidenceHigh"></span>
-                    </li>
-                </ul>
+        <section class="slide">
+            <div class="header">
+                <div class="leftside">
+                    <h2>Moving Average</h2>
+                </div>
+
+                <div class="rightside" style="padding-top: 2em;">
+                    <input type="button" class="button movingAverageTickerStart" value="Start"></input>
+                    <input type="button" class="button movingAverageTickerStop" value="Stop"></input>
+                </div>
+            </div>
+            <div class="content" style="padding-top: 5em;">
+                <div class="gridster">
+                    <ul>
+                        <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
+                            <div class="teal widget">
+                                <label>MAE</label>
+                                <div class="datatext" data-bind="text: meanAbsoluteError"></div>
+                                <div class="smalltext">Mean Average Error</div>
+                            </div>
+                        </li>
+                        <li data-row="1" data-col="2" data-sizex="1" data-sizey="1">
+                            <div class="orange knob widget">
+                                <label>Error</label>
+                                <input class="datatext" type="text" value="0" data-bind="knob: percentError" />
+                                <div class="smalltext" style="padding: 0">Total Percentage of Error Rate</div>
+                            </div>
+                        </li>
+                        <li data-row="2" data-col="1" data-sizex="1" data-sizey="1">
+                            <div class="purple widget">
+                                <label>CI High</label>
+                                <div class="datatext" data-bind="text: confidenceHigh"></div>
+                                <div class="smalltext">CI = Confidence Interval</div>
+
+                            </div>
+                        </li>
+                        <li data-row="2" data-col="2" data-sizex="1" data-sizey="1">
+                            <div class="lightteal widget">
+                                <label>CI Low</label>
+                                <div class="datatext" data-bind="text: confidenceLow"></div>
+                                <div class="smalltext">Number of Hits</div>
+                            </div>
+                        </li>
+                        <li data-row="1" data-col="3" data-sizex="4" data-sizey="3">
+                            <div class="movingAverageGraphContainer teal widget baseline">
+                                <h2>Forecast Graph</h2>
+                            </div>
+                        </li>
+                        <li data-row="3" data-col="1" data-sizex="2" data-sizey="1">
+                            <div class="red widget baseline">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Period</th>
+                                            <th>Real</th>
+                                            <th>Forecast</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody data-bind="foreach: entries">
+                                        <tr>
+                                            <td class="tabletext" data-bind="text: DataEntry.Period"></td>
+                                            <td class="tabletext" data-bind="text: DataEntry.Value"></td>
+                                            <td class="tabletext" data-bind="text: ForecastValue"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="smalltext" style="padding: 0">Number of Hits</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <section class="slide">
+            <div class="header">
+                <div class="leftside">
+                    <h2>Single Exponential Smoothing</h2>
+                </div>
+
+                <div class="rightside" style="padding-top: 2em;">
+                    <input type="button" class="button singleExponentialSmoothingTickerStart" value="Start"></input>
+                    <input type="button" class="button singleExponentialSmoothingTickerStop" value="Stop"></input>
+                </div>
+            </div>
+            <div class="content" style="padding-top: 5em;">
+                <div class="gridster">
+                    <ul>
+                        <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
+                            <div class="teal widget">
+                                <label>MAE</label>
+                                <div class="datatext" data-bind="text: meanAbsoluteError"></div>
+                                <div class="smalltext">Mean Average Error</div>
+                            </div>
+                        </li>
+                        <li data-row="1" data-col="2" data-sizex="1" data-sizey="1">
+                            <div class="orange knob widget">
+                                <label>Error</label>
+                                <input class="datatext" type="text" value="0" data-bind="knob: percentError" />
+                                <div class="smalltext" style="padding: 0">Total Percentage of Error Rate</div>
+                            </div>
+                        </li>
+                        <li data-row="2" data-col="1" data-sizex="1" data-sizey="1">
+                            <div class="purple widget">
+                                <label>CI High</label>
+                                <div class="datatext" data-bind="text: confidenceHigh"></div>
+                                <div class="smalltext">CI = Confidence Interval</div>
+
+                            </div>
+                        </li>
+                        <li data-row="2" data-col="2" data-sizex="1" data-sizey="1">
+                            <div class="lightteal widget">
+                                <label>CI Low</label>
+                                <div class="datatext" data-bind="text: confidenceLow"></div>
+                                <div class="smalltext">Number of Hits</div>
+                            </div>
+                        </li>
+                        <li data-row="1" data-col="3" data-sizex="4" data-sizey="3">
+                            <div class="singleExponentialSmoothingGraphContainer teal widget baseline">
+                                <h2>Forecast Graph</h2>
+                            </div>
+                        </li>
+                        <li data-row="3" data-col="1" data-sizex="2" data-sizey="1">
+                            <div class="red widget baseline">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Period</th>
+                                            <th>Real</th>
+                                            <th>Forecast</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody data-bind="foreach: entries">
+                                        <tr>
+                                            <td class="tabletext" data-bind="text: DataEntry.Period"></td>
+                                            <td class="tabletext" data-bind="text: DataEntry.Value"></td>
+                                            <td class="tabletext" data-bind="text: ForecastValue"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="smalltext" style="padding: 0">Number of Hits</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <section class="slide">
+            <div class="header">
+                <div class="leftside">
+                    <h2>Double Exponential Smoothing</h2>
+                </div>
+
+                <div class="rightside" style="padding-top: 2em;">
+                    <input type="button" class="button doubleExponentialSmoothingTickerStart" value="Start"></input>
+                    <input type="button" class="button doubleExponentialSmoothingTickerStop" value="Stop"></input>
+                </div>
+            </div>
+            <div class="content" style="padding-top: 5em;">
+                <div class="gridster">
+                    <ul>
+                        <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
+                            <div class="teal widget">
+                                <label>MAE</label>
+                                <div class="datatext" data-bind="text: meanAbsoluteError"></div>
+                                <div class="smalltext">Mean Average Error</div>
+                            </div>
+                        </li>
+                        <li data-row="1" data-col="2" data-sizex="1" data-sizey="1">
+                            <div class="orange knob widget">
+                                <label>Error</label>
+                                <input class="datatext" type="text" value="0" data-bind="knob: percentError" />
+                                <div class="smalltext" style="padding: 0">Total Percentage of Error Rate</div>
+                            </div>
+                        </li>
+                        <li data-row="2" data-col="1" data-sizex="1" data-sizey="1">
+                            <div class="purple widget">
+                                <label>CI High</label>
+                                <div class="datatext" data-bind="text: confidenceHigh"></div>
+                                <div class="smalltext">CI = Confidence Interval</div>
+
+                            </div>
+                        </li>
+                        <li data-row="2" data-col="2" data-sizex="1" data-sizey="1">
+                            <div class="lightteal widget">
+                                <label>CI Low</label>
+                                <div class="datatext" data-bind="text: confidenceLow"></div>
+                                <div class="smalltext">Number of Hits</div>
+                            </div>
+                        </li>
+                        <li data-row="1" data-col="3" data-sizex="4" data-sizey="3">
+                            <div class="doubleExponentialSmoothingGraphContainer teal widget baseline">
+                                <h2>Forecast Graph</h2>
+                            </div>
+                        </li>
+                        <li data-row="3" data-col="1" data-sizex="2" data-sizey="1">
+                            <div class="red widget baseline">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Period</th>
+                                            <th>Real</th>
+                                            <th>Forecast</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody data-bind="foreach: entries">
+                                        <tr>
+                                            <td class="tabletext" data-bind="text: DataEntry.Period"></td>
+                                            <td class="tabletext" data-bind="text: DataEntry.Value"></td>
+                                            <td class="tabletext" data-bind="text: ForecastValue"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="smalltext" style="padding: 0">Number of Hits</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <section class="slide">
+            <div class="header">
+                <div class="leftside">
+                    <h2>Triple Exponential Smoothing</h2>
+                </div>
+
+                <div class="rightside" style="padding-top: 2em;">
+                    <input type="button" class="button tripleExponentialSmoothingTickerStart" value="Start"></input>
+                    <input type="button" class="button tripleExponentialSmoothingTickerStop" value="Stop"></input>
+                </div>
+            </div>
+            <div class="content" style="padding-top: 5em;">
+                <div class="gridster">
+                    <ul>
+                        <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
+                            <div class="teal widget">
+                                <label>MAE</label>
+                                <div class="datatext" data-bind="text: meanAbsoluteError"></div>
+                                <div class="smalltext">Mean Average Error</div>
+                            </div>
+                        </li>
+                        <li data-row="1" data-col="2" data-sizex="1" data-sizey="1">
+                            <div class="orange knob widget">
+                                <label>Error</label>
+                                <input class="datatext" type="text" value="0" data-bind="knob: percentError" />
+                                <div class="smalltext" style="padding: 0">Total Percentage of Error Rate</div>
+                            </div>
+                        </li>
+                        <li data-row="2" data-col="1" data-sizex="1" data-sizey="1">
+                            <div class="purple widget">
+                                <label>CI High</label>
+                                <div class="datatext" data-bind="text: confidenceHigh"></div>
+                                <div class="smalltext">CI = Confidence Interval</div>
+
+                            </div>
+                        </li>
+                        <li data-row="2" data-col="2" data-sizex="1" data-sizey="1">
+                            <div class="lightteal widget">
+                                <label>CI Low</label>
+                                <div class="datatext" data-bind="text: confidenceLow"></div>
+                                <div class="smalltext">Number of Hits</div>
+                            </div>
+                        </li>
+                        <li data-row="1" data-col="3" data-sizex="4" data-sizey="3">
+                            <div class="tripleExponentialSmoothingGraphContainer teal widget baseline">
+                                <h2>Forecast Graph</h2>
+                            </div>
+                        </li>
+                        <li data-row="3" data-col="1" data-sizex="2" data-sizey="1">
+                            <div class="red widget baseline">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Period</th>
+                                            <th>Real</th>
+                                            <th>Forecast</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody data-bind="foreach: entries">
+                                        <tr>
+                                            <td class="tabletext" data-bind="text: DataEntry.Period"></td>
+                                            <td class="tabletext" data-bind="text: DataEntry.Value"></td>
+                                            <td class="tabletext" data-bind="text: ForecastValue"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="smalltext" style="padding: 0">Number of Hits</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </section>
     </article>

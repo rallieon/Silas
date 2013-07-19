@@ -1,7 +1,5 @@
 ﻿$(function () {
-  var trueData = [],
-    forecastData = [],
-    errorVMInstance;
+  var errorVMInstance;
 
   ko.bindingHandlers.knob = {
     init: function (element, valueAccessor) {
@@ -19,8 +17,8 @@
     this.percentError = ko.observable(0);
     this.confidenceHigh = ko.observable(0);
     this.confidenceLow = ko.observable(0);
-    this.entries = ko.observableArray([{ DataEntry: { Period: 0, Value: 0 }, ForecastValue: 0 }, 
-                                       { DataEntry: { Period: 0, Value: 0 }, ForecastValue: 0 }, 
+    this.entries = ko.observableArray([{ DataEntry: { Period: 0, Value: 0 }, ForecastValue: 0 },
+                                       { DataEntry: { Period: 0, Value: 0 }, ForecastValue: 0 },
                                        { DataEntry: { Period: 0, Value: 0 }, ForecastValue: 0 }]);
     this.status = ko.observable('Off');
     this.statusClass = ko.computed(function () {
@@ -33,8 +31,8 @@
     errorVMInstance.percentError(0);
     errorVMInstance.confidenceHigh(0);
     errorVMInstance.confidenceLow(0);
-    errorVMInstance.entries([{ DataEntry: { Period: 0, Value: 0 }, ForecastValue: 0 }, 
-                                       { DataEntry: { Period: 0, Value: 0 }, ForecastValue: 0 }, 
+    errorVMInstance.entries([{ DataEntry: { Period: 0, Value: 0 }, ForecastValue: 0 },
+                                       { DataEntry: { Period: 0, Value: 0 }, ForecastValue: 0 },
                                        { DataEntry: { Period: 0, Value: 0 }, ForecastValue: 0 }]);
     errorVMInstance.status('Off');
   });
@@ -57,6 +55,10 @@
 
     //setup graphs
     setupGraph('naieve', '.naieveGraphContainer');
+    setupGraph('movingAverage', '.movingAverageGraphContainer');
+    setupGraph('singleExponentialSmoothing', '.singleExponentialSmoothingGraphContainer');
+    setupGraph('doubleExponentialSmoothing', '.doubleExponentialSmoothingGraphContainer');
+    setupGraph('tripleExponentialSmoothing', '.tripleExponentialSmoothingGraphContainer');
 
     $.connection.hub.start();
   };
@@ -76,9 +78,15 @@
       errorVMInstance.status('Off');
       $.connection[hubName].server.stop();
     });
+
+    //when changing slides make sure to stop the current hub
+    $(document).bind('deck.change', function (event, from, to) {
+      $.connection[hubName].server.stop();
+    });
   };
 
   var setupGraph = function (name, container) {
+    var trueData = [], forecastData = [];
     var n = 15, isInit, x, y, trueLine, forecastLine, svg, truePath, forecastPath, xAxis;
     var period = 0;
     var margin = { top: 30, right: 30, bottom: 20, left: 80 },

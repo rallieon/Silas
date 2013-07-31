@@ -90,8 +90,8 @@
     var n = 15, isInit, x, y, trueLine, forecastLine, svg, truePath, forecastPath, xAxis;
     var period = 0;
     var margin = { top: 30, right: 30, bottom: 20, left: 80 },
-              width = 850 - margin.left - margin.right,
-              height = 700 - margin.top - margin.bottom;
+              width = 800 - margin.left - margin.right,
+              height = 650 - margin.top - margin.bottom;
     var startX = 0;
     var endX = n - 1;
     var startXRange = 0;

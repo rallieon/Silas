@@ -38,9 +38,9 @@ namespace Silas.Web.Tickers
             _entries = new ConcurrentDictionary<int, DataEntry>();
             _dataClient.GetData().ToList().ForEach(e => _entries.TryAdd(e.Id, e));
             _parameters = new ExpandoObject();
-            _parameters.Alpha = 0.022;
-            _parameters.Beta = 0.15;
-            _parameters.Gamma = 0.128;
+            _parameters.Alpha = 0.0223259097162289;
+            _parameters.Beta = 0.149874116913357;
+            _parameters.Gamma = 0.12791654697988;
             _parameters.PeriodsPerSeason = 12;
             _parameters.SeasonsForRegression = 3;
             _model = new Model(new TripleExponentialSmoothingStrategy(), _entries.Values, _parameters);

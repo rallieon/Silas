@@ -38,7 +38,7 @@ namespace Silas.Web.Tickers
             _entries = new ConcurrentDictionary<int, DataEntry>();
             _dataClient.GetData().ToList().ForEach(e => _entries.TryAdd(e.Id, e));
             _parameters = new ExpandoObject();
-            _parameters.Alpha = 0.3;
+            _parameters.Alpha = 0.0223259097162289;
             _model = new Model(new SingleExponentialSmoothingStrategy(), _entries.Values, _parameters);
             _timer = new Timer(NextValue, null, Timeout.Infinite, Timeout.Infinite);
         }

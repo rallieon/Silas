@@ -39,7 +39,7 @@ namespace Silas.Web.Tickers
             _dataClient.GetData().ToList().ForEach(e => _entries.TryAdd(e.Id, e));
             _timer = new Timer(NextValue, null, Timeout.Infinite, Timeout.Infinite);
             _parameters = new ExpandoObject();
-            _parameters.PeriodCount = 2;
+            _parameters.PeriodCount = 4;
 
             _model = new Model(new MovingAverageStrategy(), _entries.Values, _parameters);
         }

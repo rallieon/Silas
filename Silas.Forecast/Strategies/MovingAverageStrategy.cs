@@ -21,9 +21,11 @@ namespace Silas.Forecast.Strategies
                 throw new ArgumentException("The number of periods can not be greater than the number of entries.");
 
             double value;
-            
+
             if (dataEntries.Count() == 1 || period == 1)
                 value = dataEntries.ElementAt(0).Value;
+            else if (period < numberOfPeriods)
+                value = dataEntries.ElementAt(period - 1).Value;
             else if (dataEntries.Count() > 1 && period <= dataEntries.Count() + 1)
                 value = dataEntries.Take(period - 1).Reverse().Take(numberOfPeriods).Reverse().Sum(entry => (entry.Value)) / numberOfPeriods;
             else

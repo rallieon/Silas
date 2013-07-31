@@ -166,7 +166,10 @@ namespace Silas.Forecast.Strategies
                 lastFt = currentFt;
                 lastTt = currentTt;
                 lastSt = currentSt;
-                lastActual = dataEntries.ElementAt(currPeriod + currSeasonIndex - 2).Value;
+                if (currPeriod + currSeasonIndex - 2 >= dataEntries.Count())
+                    lastActual = dataEntries.Last().Value;
+                else
+                    lastActual = dataEntries.ElementAt(currPeriod + currSeasonIndex - 2).Value;
             }
 
             return newSeason;

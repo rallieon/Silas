@@ -7,8 +7,33 @@
     border: none;
 }
 
+.slide h1 {
+    color: #fff;
+}
+
+.slide h1 .emphasis {
+    color: #12b0c5;
+}
+
+.slide h1 .emphasisred {
+    color: red;
+}
+
+.slide ul {
+    padding: 0 48px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    color: #fff;
+    font-size: 35px;
+}
+
+.expanded {
+    width: 100%;
+}
+
 svg {
-    font-family: 'Cabin', sans-serif;
+    font-family: 'Ariel', sans-serif;
     font-size: 24px;
     font-weight: bold;
     fill: #222;
@@ -138,7 +163,7 @@ ul, ol {
 }
 
 .widget .smalltext {
-    font-family: 'Cabin', sans-serif;
+    font-family: 'Ariel', sans-serif;
     font-size: 18px;
     color: white;
     border: none;
@@ -149,7 +174,7 @@ ul, ol {
 }
 
 .widget label, .widget th, .widget h2 {
-    font-family: 'Cabin', sans-serif;
+    font-family: 'Ariel', sans-serif;
     font-size: 36px;
     color: white;
     border: none;
@@ -159,7 +184,7 @@ ul, ol {
 }
 
 .widget .datatext {
-    font-family: 'Cabin', sans-serif;
+    font-family: 'Ariel', sans-serif;
     font-size: 60px;
     color: white;
     border: none;
@@ -168,7 +193,7 @@ ul, ol {
 }
 
 .widget .tabletext {
-    font-family: 'Cabin', sans-serif;
+    font-family: 'Ariel', sans-serif;
     font-size: 48px;
     color: white;
     border: none;
@@ -182,7 +207,7 @@ ul, ol {
 }
 
 table .smalltext {
-    font-family: 'Cabin', sans-serif;
+    font-family: 'Ariel', sans-serif;
     font-size: 18px;
     color: white;
     border: none;

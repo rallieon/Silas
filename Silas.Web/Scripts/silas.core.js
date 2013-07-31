@@ -41,9 +41,9 @@
     //gridster initialization
     $(".gridster > ul").gridster({
       widget_margins: [5, 5],
-      widget_base_dimensions: [260, 260],
+      widget_base_dimensions: [250, 250],
       min_cols: 8,
-      width: 1280
+      width: 1200
     });
 
     // Deck initialization
@@ -90,7 +90,7 @@
     var n = 15, isInit, x, y, trueLine, forecastLine, svg, truePath, forecastPath, xAxis;
     var period = 0;
     var margin = { top: 30, right: 30, bottom: 20, left: 80 },
-              width = 950 - margin.left - margin.right,
+              width = 850 - margin.left - margin.right,
               height = 700 - margin.top - margin.bottom;
     var startX = 0;
     var endX = n - 1;

@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Silas.Forecast", "Silas.Forecast\Silas.Forecast.csproj", "{541B9E7F-1E5A-4D10-8781-6DE018819140}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Silas.DataFeed", "Silas.DataFeed\Silas.DataFeed.csproj", "{0B0427DE-5FE1-44EA-AA90-4725AB4B510C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Silas.Client", "Silas.Client\Silas.Client.csproj", "{0B0427DE-5FE1-44EA-AA90-4725AB4B510C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Silas.Web", "Silas.Web\Silas.Web.csproj", "{047FE9BC-03C2-4F8C-B938-5EEE318FB053}"
 EndProject
@@ -53,8 +53,5 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(Performance) = preSolution
-		HasPerformanceSessions = true
 	EndGlobalSection
 EndGlobal

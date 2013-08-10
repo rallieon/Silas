@@ -8,7 +8,7 @@ using System.Threading;
 using CsvHelper;
 using Silas.Forecast.Models;
 
-namespace Silas.DataFeed
+namespace Silas.Client
 {
     internal class Program
     {

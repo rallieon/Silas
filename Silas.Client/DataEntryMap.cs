@@ -1,7 +1,7 @@
 ﻿using CsvHelper.Configuration;
 using Silas.Forecast.Models;
 
-namespace Silas.DataFeed
+namespace Silas.Client
 {
     class DataEntryMap : CsvClassMap<DataEntry>
     {

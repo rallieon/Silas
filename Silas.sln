@@ -5,8 +5,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Silas.Forecast", "Silas.For
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Silas.Client", "Silas.Client\Silas.Client.csproj", "{0B0427DE-5FE1-44EA-AA90-4725AB4B510C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Silas.Web", "Silas.Web\Silas.Web.csproj", "{047FE9BC-03C2-4F8C-B938-5EEE318FB053}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{5289B7AF-536C-44D6-9CB3-49556C452ED0}"
 	ProjectSection(SolutionItems) = preProject
 		.nuget\NuGet.Config = .nuget\NuGet.Config
@@ -38,10 +36,6 @@ Global
 		{0B0427DE-5FE1-44EA-AA90-4725AB4B510C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0B0427DE-5FE1-44EA-AA90-4725AB4B510C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0B0427DE-5FE1-44EA-AA90-4725AB4B510C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{047FE9BC-03C2-4F8C-B938-5EEE318FB053}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{047FE9BC-03C2-4F8C-B938-5EEE318FB053}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{047FE9BC-03C2-4F8C-B938-5EEE318FB053}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{047FE9BC-03C2-4F8C-B938-5EEE318FB053}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FE4AB3A7-98AA-4D8C-A227-4140C88C816A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FE4AB3A7-98AA-4D8C-A227-4140C88C816A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FE4AB3A7-98AA-4D8C-A227-4140C88C816A}.Release|Any CPU.ActiveCfg = Release|Any CPU

@@ -60,6 +60,7 @@
     setupGraph('doubleExponentialSmoothing', '.doubleExponentialSmoothingGraphContainer');
     setupGraph('tripleExponentialSmoothing', '.tripleExponentialSmoothingGraphContainer');
 
+    $.connection.hub.url = "http://localhost:8080/signalr";
     $.connection.hub.start();
   };
 

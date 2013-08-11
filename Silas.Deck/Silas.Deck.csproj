@@ -14,7 +14,7 @@
     <RootNamespace>Silas.Deck</RootNamespace>
     <AssemblyName>Silas.Deck</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -77,32 +77,16 @@
     <Content Include="Images\tripleequation.png" />
     <Content Include="Images\twitter.png" />
     <Content Include="Index.html" />
-    <Content Include="Scripts\d3.v3.js" />
-    <Content Include="Scripts\d3.v3.min.js" />
-    <Content Include="Scripts\deck.core.js" />
+    <Content Include="Scripts\Vendor\d3.v3.min.js" />
+    <Content Include="Scripts\Vendor\deck.core.js" />
     <Content Include="Images\autoscalememe.pdn" />
     <Content Include="Images\GirlBar.pdn" />
-    <None Include="Scripts\jquery-1.8.2.intellisense.js" />
-    <Content Include="Scripts\jquery-1.8.2.js" />
-    <Content Include="Scripts\jquery-1.8.2.min.js" />
-    <Content Include="Scripts\jquery-ui-1.9.2.js" />
-    <Content Include="Scripts\jquery-ui-1.9.2.min.js" />
-    <Content Include="Scripts\jquery.gridster.min.js" />
-    <Content Include="Scripts\jquery.knob.js" />
-    <Content Include="Scripts\jquery.signalR-1.0.1.js" />
-    <Content Include="Scripts\jquery.signalR-1.0.1.min.js" />
-    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
-    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
-    <None Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\knockout-2.2.0.debug.js" />
-    <Content Include="Scripts\knockout-2.2.0.js" />
-    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\Vendor\jquery-1.8.2.min.js" />
+    <Content Include="Scripts\Vendor\jquery.gridster.min.js" />
+    <Content Include="Scripts\Vendor\jquery.knob.js" />
+    <Content Include="Scripts\Vendor\jquery.signalR-1.0.1.min.js" />
+    <Content Include="Scripts\Vendor\knockout-2.2.0.js" />
     <Content Include="Scripts\silas.core.js" />
-    <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -127,16 +111,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
-          <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>0</DevelopmentServerPort>
-          <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:57999/</IISUrl>
-          <NTLMAuthentication>False</NTLMAuthentication>
-          <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>
-          </CustomServerUrl>
-          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+          <SaveServerSettingsInUserFile>True</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
     </VisualStudio>

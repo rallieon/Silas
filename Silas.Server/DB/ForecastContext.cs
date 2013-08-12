@@ -6,7 +6,7 @@ namespace Silas.Server.DB
     public class ForecastContext : DbContext
     {
         public ForecastContext()
-            : base("LiveDataConnection")
+            : base("ForecastDataConnection")
         {
         }
 

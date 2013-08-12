@@ -5,44 +5,39 @@ using System.Linq;
 using System.Threading;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
+using Repositories.Interfaces;
 using Silas.Forecast.Models;
 using Silas.Forecast.Strategies;
-using Silas.Web.Clients;
-using Silas.Web.Hubs;
+using Silas.Server.Hubs;
 
-namespace Silas.Web.Tickers
+namespace Silas.Server.Tickers
 {
-    public class SingleExponentialSmoothingDataTicker : IDataTicker
+    public class ForecastingDataTicker : IDataTicker
     {
         // Singleton instance
-        private static readonly Lazy<SingleExponentialSmoothingDataTicker> _instance =
-            new Lazy<SingleExponentialSmoothingDataTicker>(
+        private static readonly Lazy<ForecastingDataTicker> _instance =
+            new Lazy<ForecastingDataTicker>(
                 () =>
-                new SingleExponentialSmoothingDataTicker(
-                    GlobalHost.ConnectionManager.GetHubContext<SingleExponentialSmoothingDataHub>().Clients));
+                new ForecastingDataTicker(
+                    GlobalHost.ConnectionManager.GetHubContext<ForecastingDataHub>().Clients));
 
-        private readonly LiveDataClient _dataClient = new LiveDataClient();
-
-        private readonly ConcurrentDictionary<int, DataEntry> _entries = new ConcurrentDictionary<int, DataEntry>();
+        private ConcurrentDictionary<int, DataEntry> _entries = new ConcurrentDictionary<int, DataEntry>();
         private readonly object _forecastLock = new object();
-        private readonly Model _model;
-        private readonly dynamic _parameters;
+        private Model _model;
+        private dynamic _parameters;
         private readonly Timer _timer;
         private readonly TimeSpan _updateInterval = TimeSpan.FromMilliseconds(1000);
         private int _currentPeriod = 1;
+        private readonly IRepository _repository;
 
-        private SingleExponentialSmoothingDataTicker(IHubConnectionContext clients)
+        private ForecastingDataTicker(IHubConnectionContext clients, IRepository repository)
         {
             Clients = clients;
-            _entries = new ConcurrentDictionary<int, DataEntry>();
-            _dataClient.GetData().ToList().ForEach(e => _entries.TryAdd(e.Id, e));
-            _parameters = new ExpandoObject();
-            _parameters.Alpha = 0.0223259097162289;
-            _model = new Model(new SingleExponentialSmoothingStrategy(), _entries.Values, _parameters);
+            _repository = repository;
             _timer = new Timer(NextValue, null, Timeout.Infinite, Timeout.Infinite);
         }
 
-        public static SingleExponentialSmoothingDataTicker Instance
+        public static ForecastingDataTicker Instance
         {
             get { return _instance.Value; }
         }
@@ -53,6 +48,9 @@ namespace Silas.Web.Tickers
         {
             lock (_forecastLock)
             {
+                _parameters = new ExpandoObject();
+                _parameters.Alpha = 0.0223259097162289;
+                _model = new Model(new SingleExponentialSmoothingStrategy(), _repository.Get<DataEntry>(), _parameters);
                 ForecastEntry value = _model.Forecast(_currentPeriod);
                 _currentPeriod++;
                 SendValue(value);

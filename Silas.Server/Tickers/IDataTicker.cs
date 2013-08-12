@@ -1,6 +1,6 @@
 ﻿using Silas.Forecast.Models;
 
-namespace Silas.Web.Tickers
+namespace Silas.Server.Tickers
 {
     internal interface IDataTicker
     {

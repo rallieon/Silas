@@ -1,42 +1,32 @@
-﻿body {
-    background-color: #222;
-}
+﻿body { background-color: #222; }
 
 .slide h2 {
-    color: #fff;
     border: none;
-}
-
-.slide h1 {
     color: #fff;
 }
 
-.slide h1 .emphasis {
-    color: #12b0c5;
-}
+.slide h1 { color: #fff; }
 
-.slide h1 .emphasisred {
-    color: red;
-}
+.slide h1 .emphasis { color: #12b0c5; }
+
+.slide h1 .emphasisred { color: red; }
 
 .slide ul {
-    padding: 0 48px;
-    position: absolute;
-    left: 0;
-    right: 0;
     color: #fff;
     font-size: 35px;
+    left: 0;
+    padding: 0 48px;
+    position: absolute;
+    right: 0;
 }
 
-.expanded {
-    width: 100%;
-}
+.expanded { width: 100%; }
 
 svg {
+    fill: #222;
     font-family: 'Ariel', sans-serif;
     font-size: 24px;
     font-weight: bold;
-    fill: #222;
 }
 
 .trueLine {
@@ -52,69 +42,43 @@ svg {
 }
 
 .axis path, .axis line {
+    color: #222;
     fill: none;
     shape-rendering: crispEdges;
     stroke: #222;
-    color: #222;
     stroke-width: 3px;
 }
 
-ul, ol {
-    list-style: none;
-}
+ul, ol { list-style: none; }
 
-.knob canvas {
-    margin-top: 1em;
-}
+.knob canvas { margin-top: 1em; }
 
-.white {
-    background-color: white;
-}
+.white { background-color: white; }
 
-.red {
-    background-color: #dc5945;
-}
+.red { background-color: #dc5945; }
 
-.orange {
-    background-color: #ec663c;
-}
+.orange { background-color: #ec663c; }
 
-.teal {
-    background-color: #12b0c5;
-}
+.teal { background-color: #12b0c5; }
 
-.lightteal {
-    background-color: #47bbb3;
-}
+.lightteal { background-color: #47bbb3; }
 
-.purple {
-    background-color: #9c4274;
-}
+.purple { background-color: #9c4274; }
 
-.green {
-    background-color: #96bf48;
-}
+.green { background-color: #96bf48; }
 
 .header {
-    width: 100%;
     border-bottom: 2px solid #fff;
+    width: 100%;
 }
 
-.content {
-    margin-top: 5em;
-}
+.content { margin-top: 5em; }
 
 .button {
-    display: inline-block;
-    padding: 4px 12px;
-    margin-bottom: 0;
-    font-size: 14px;
-    line-height: 20px;
-    color: #333333;
-    text-align: center;
-    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
-    vertical-align: middle;
-    cursor: pointer;
+    -moz-border-radius: 4px;
+    -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+    -webkit-border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
     background-color: #f5f5f5;
     background-image: -moz-linear-gradient(top, #ffffff, #e6e6e6);
     background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#e6e6e6));
@@ -123,95 +87,99 @@ ul, ol {
     background-image: linear-gradient(to bottom, #ffffff, #e6e6e6);
     background-repeat: repeat-x;
     border: 1px solid #cccccc;
+    border-bottom-color: #b3b3b3;
     border-color: #e6e6e6 #e6e6e6 #bfbfbf;
     border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-    border-bottom-color: #b3b3b3;
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
     border-radius: 4px;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+    color: #333333;
+    cursor: pointer;
+    display: inline-block;
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffe6e6e6', GradientType=0);
     filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
-    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
-    -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
-}
-
-.rightside {
-    width: 50%;
-    height: 100%;
-    float: left;
-    text-align: right;
-}
-
-.leftside {
-    width: 50%;
-    height: 100%;
-    float: left;
-    text-align: left;
-}
-
-.widget {
-    padding: 25px 12px;
+    font-size: 14px;
+    line-height: 20px;
+    margin-bottom: 0;
+    padding: 4px 12px;
     text-align: center;
-    width: 100%;
-    display: table-cell;
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
     vertical-align: middle;
 }
 
-.baseline {
-    vertical-align: baseline;
+.rightside {
+    float: left;
+    height: 100%;
+    text-align: right;
+    width: 50%;
 }
 
+.leftside {
+    float: left;
+    height: 100%;
+    text-align: left;
+    width: 50%;
+}
+
+.widget {
+    display: table-cell;
+    padding: 25px 12px;
+    text-align: center;
+    vertical-align: middle;
+    width: 100%;
+}
+
+.baseline { vertical-align: baseline; }
+
 .widget .smalltext {
+    border: none;
+    color: white;
     font-family: 'Ariel', sans-serif;
     font-size: 18px;
-    color: white;
-    border: none;
-    padding: 0;
     opacity: 0.7;
-    text-align: center;
+    padding: 0;
     padding-top: 3em;
+    text-align: center;
 }
 
 .widget label, .widget th, .widget h2 {
+    border: none;
+    color: white;
     font-family: 'Ariel', sans-serif;
     font-size: 36px;
-    color: white;
-    border: none;
-    padding: 0;
     opacity: 0.7;
+    padding: 0;
     text-align: center;
 }
 
 .widget .datatext {
+    border: none;
+    color: white;
     font-family: 'Ariel', sans-serif;
     font-size: 60px;
-    color: white;
-    border: none;
     padding-top: 0.5em;
     text-align: center;
 }
 
 .widget .tabletext {
+    border: none;
+    color: white;
     font-family: 'Ariel', sans-serif;
     font-size: 40px;
-    color: white;
-    border: none;
     text-align: center;
 }
 
 .widget table {
-    border-spacing: 1em 0em;
     border-collapse: separate;
+    border-spacing: 1em 0em;
     width: 100%;
 }
 
 table .smalltext {
+    border: none;
+    color: white;
     font-family: 'Ariel', sans-serif;
     font-size: 18px;
-    color: white;
-    border: none;
-    padding: 0;
     opacity: 0.7;
+    padding: 0;
     text-align: center;
 }

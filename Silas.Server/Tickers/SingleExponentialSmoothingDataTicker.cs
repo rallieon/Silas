@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
 using System.Threading;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
-using Silas.Forecast;
 using Silas.Forecast.Models;
 using Silas.Forecast.Strategies;
 using Silas.Web.Clients;
@@ -23,14 +21,15 @@ namespace Silas.Web.Tickers
                 new SingleExponentialSmoothingDataTicker(
                     GlobalHost.ConnectionManager.GetHubContext<SingleExponentialSmoothingDataHub>().Clients));
 
-        private readonly Model _model;
+        private readonly LiveDataClient _dataClient = new LiveDataClient();
+
         private readonly ConcurrentDictionary<int, DataEntry> _entries = new ConcurrentDictionary<int, DataEntry>();
         private readonly object _forecastLock = new object();
+        private readonly Model _model;
+        private readonly dynamic _parameters;
         private readonly Timer _timer;
         private readonly TimeSpan _updateInterval = TimeSpan.FromMilliseconds(1000);
-        private readonly LiveDataClient _dataClient = new LiveDataClient();
         private int _currentPeriod = 1;
-        private readonly dynamic _parameters;
 
         private SingleExponentialSmoothingDataTicker(IHubConnectionContext clients)
         {

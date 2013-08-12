@@ -87,6 +87,7 @@
     <Content Include="Scripts\Vendor\jquery.signalR-1.0.1.min.js" />
     <Content Include="Scripts\Vendor\knockout-2.2.0.js" />
     <Content Include="Scripts\silas.core.js" />
+    <Content Include="Scripts\Vendor\modernizr-2.6.2.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

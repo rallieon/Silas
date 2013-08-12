@@ -3,7 +3,7 @@ using Silas.Forecast.Models;
 
 namespace Silas.Client
 {
-    class DataEntryMap : CsvClassMap<DataEntry>
+    internal class DataEntryMap : CsvClassMap<DataEntry>
     {
         public DataEntryMap()
         {

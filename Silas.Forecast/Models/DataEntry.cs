@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Silas.Forecast.Models
+﻿namespace Silas.Forecast.Models
 {
     public class DataEntry
     {

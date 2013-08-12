@@ -26,7 +26,7 @@ namespace Silas.Forecast.Strategies
                     ForecastValue = value,
                     ConfidenceIntervalLow = value,
                     ConfidenceIntervalHigh = value,
-                    IsHoldout = period > dataEntries.Count() * 0.70  //holdout data is always 70 percent
+                    IsHoldout = period > dataEntries.Count()*0.70 //holdout data is always 70 percent
                 };
         }
     }

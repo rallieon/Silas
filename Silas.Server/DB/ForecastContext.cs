@@ -3,9 +3,9 @@ using Silas.Forecast.Models;
 
 namespace Silas.Server.DB
 {
-    public class LiveDataContext : DbContext
+    public class ForecastContext : DbContext
     {
-        public LiveDataContext()
+        public ForecastContext()
             : base("LiveDataConnection")
         {
         }

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Silas.Forecast.Strategies;
 
 namespace Silas.Forecast.Models
@@ -10,12 +8,12 @@ namespace Silas.Forecast.Models
     public class Model
     {
         private readonly IForecastStrategy _forecast;
-        private IEnumerable<DataEntry> _originalDataEntries;
-        private ICollection<dynamic> _forecastEntries;
-        private dynamic _parameters;
-        private int _numberOfForecasts = 0;
-        private double _absoluteErrorTotal = 0;
-        private double _percentageTotal = 0;
+        private readonly ICollection<dynamic> _forecastEntries;
+        private readonly IEnumerable<DataEntry> _originalDataEntries;
+        private readonly dynamic _parameters;
+        private double _absoluteErrorTotal;
+        private int _numberOfForecasts;
+        private double _percentageTotal;
 
         public Model(IForecastStrategy forecast, IEnumerable<DataEntry> initialDataEntries, dynamic strategyParameters)
         {
@@ -46,7 +44,7 @@ namespace Silas.Forecast.Models
 
             entry.ModelMeanAbsoluteError = _absoluteErrorTotal/_numberOfForecasts;
             _percentageTotal += Math.Abs(entry.AbsError/entry.DataEntry.Value);
-            entry.ModelPercentError = _percentageTotal / _numberOfForecasts;
+            entry.ModelPercentError = _percentageTotal/_numberOfForecasts;
 
             return entry;
         }

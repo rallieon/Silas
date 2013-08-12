@@ -10,20 +10,18 @@ using Silas.Server.DB;
 
 namespace Silas.API.Controllers
 {
-    public class LiveDataController : ApiController
+    public class ForecastController : ApiController
     {
-        private readonly LiveDataContext db = new LiveDataContext();
+        private readonly ForecastContext db = new ForecastContext();
 
-        // GET api/MutableDataEntry
         public IEnumerable<DataEntry> Get()
         {
             return db.Entries.AsEnumerable();
         }
 
-        // GET api/MutableDataEntry/5
-        public DataEntry Get(int id)
+        public DataEntry Get(int period)
         {
-            DataEntry dataentry = db.Entries.FirstOrDefault(e => e.Period == id);
+            DataEntry dataentry = db.Entries.FirstOrDefault(e => e.Period == period);
             if (dataentry == null)
             {
                 throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
@@ -32,7 +30,6 @@ namespace Silas.API.Controllers
             return dataentry;
         }
 
-        // POST api/MutableDataEntry
         public HttpResponseMessage Post(DataEntry dataentry)
         {
             if (ModelState.IsValid)

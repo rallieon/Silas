@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using Microsoft.AspNet.SignalR;
@@ -19,12 +18,13 @@ namespace Silas.Web.Tickers
             new Lazy<NaieveDataTicker>(
                 () => new NaieveDataTicker(GlobalHost.ConnectionManager.GetHubContext<NaieveDataHub>().Clients));
 
-        private readonly Model _model;
+        private readonly LiveDataClient _dataClient = new LiveDataClient();
+
         private readonly ConcurrentDictionary<int, DataEntry> _entries = new ConcurrentDictionary<int, DataEntry>();
         private readonly object _forecastLock = new object();
+        private readonly Model _model;
         private readonly Timer _timer;
         private readonly TimeSpan _updateInterval = TimeSpan.FromMilliseconds(1000);
-        private readonly LiveDataClient _dataClient = new LiveDataClient();
         private int _currentPeriod = 1;
 
         private NaieveDataTicker(IHubConnectionContext clients)

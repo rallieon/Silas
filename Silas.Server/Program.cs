@@ -26,11 +26,10 @@ namespace Silas.Server
                 var signalRConfig = new HubConfiguration { EnableCrossDomain = true, EnableDetailedErrors = true};
                 app.MapHubs(signalRConfig);
 
-                // Configure Web API for self-host. 
                 HttpConfiguration webAPIConfig = new HttpConfiguration();
                 webAPIConfig.Routes.MapHttpRoute(
                     name: "DefaultApi",
-                    routeTemplate: "api/{controller}/{id}",
+                    routeTemplate: "api/{controller}/{period}",
                     defaults: new { id = RouteParameter.Optional }
                 );
 

@@ -1,14 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.IO;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Threading;
-using CsvHelper;
 using Microsoft.AspNet.SignalR.Client;
 using Microsoft.AspNet.SignalR.Client.Hubs;
-using Silas.Forecast.Models;
 
 namespace Silas.Client
 {
@@ -17,7 +9,6 @@ namespace Silas.Client
         private static void Main(string[] args)
         {
             Initialize();
-            
         }
 
         private static void Initialize()

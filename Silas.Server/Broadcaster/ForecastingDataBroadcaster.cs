@@ -80,7 +80,30 @@ namespace Silas.Server.Broadcasters
             {
                 if (forecast.State == FORECAST_STATE.STARTED)
                 {
-                    var model = new Model(forecast.Parameters.Strategy, forecast.Set.Entries, forecast.Parameters);
+                    FORECAST_STRATEGY strategyType = forecast.Parameters.Strategy;
+                    IForecastStrategy strategy;
+                    switch (strategyType)
+                    {
+                        case FORECAST_STRATEGY.Naive:
+                            strategy = new NaieveStrategy();
+                            break;
+                        case FORECAST_STRATEGY.MovingAverage:
+                            strategy = new MovingAverageStrategy();
+                            break;
+                        case FORECAST_STRATEGY.SingleExp:
+                            strategy = new SingleExponentialSmoothingStrategy();
+                            break;
+                        case FORECAST_STRATEGY.DoubleExp:
+                            strategy = new DoubleExponentialSmoothingStrategy();
+                            break;
+                        case FORECAST_STRATEGY.TripleExp:
+                            strategy = new TripleExponentialSmoothingStrategy();
+                            break;
+                        default:
+                            strategy = new NaieveStrategy();
+                            break;
+                    }
+                    var model = new Model(strategy, forecast.Set.Entries, forecast.Parameters);
                     var value = model.Forecast(forecast.Set.CurrentPeriod);
                     Clients.Group(set.Name).sendValue(value);
                     forecast.Set.CurrentPeriod++;

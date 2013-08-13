@@ -32,7 +32,7 @@ namespace Silas.Server
                 var resolver = new NinjectSignalRDependencyResolver(kernel);
 
                 kernel.Bind<IForecastingDataBroadcaster>()
-                    .To<Silas.Server.Broadcasters.ForecastingDataBroadcaster>()
+                    .To<ForecastingDataBroadcaster>()
                     .InSingletonScope();
 
                 kernel.Bind<IHubConnectionContext>().ToMethod(context =>
@@ -40,8 +40,12 @@ namespace Silas.Server
                             GetHubContext<ForecastingDataHub>().Clients
                     ).WhenInjectedInto<IForecastingDataBroadcaster>();
 
-                var signalRConfig = new HubConfiguration {EnableCrossDomain = true, EnableDetailedErrors = true};
-                signalRConfig.Resolver = resolver;
+                var signalRConfig = new HubConfiguration
+                    {
+                        EnableCrossDomain = true,
+                        EnableDetailedErrors = true,
+                        Resolver = resolver
+                    };
                 app.MapHubs(signalRConfig);
 
                 var webAPIConfig = new HttpConfiguration();

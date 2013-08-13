@@ -24,6 +24,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Silas.Forecast.Test", "Sila
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Silas.Deck", "Silas.Deck\Silas.Deck.csproj", "{C5EF63F3-3B42-4E52-83EE-81B3E4F53C49}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Silas.Utility", "Silas.Utility\Silas.Utility.csproj", "{4EBCED40-429D-42C2-A0E6-F650E427354D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -50,6 +52,10 @@ Global
 		{C5EF63F3-3B42-4E52-83EE-81B3E4F53C49}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C5EF63F3-3B42-4E52-83EE-81B3E4F53C49}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C5EF63F3-3B42-4E52-83EE-81B3E4F53C49}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4EBCED40-429D-42C2-A0E6-F650E427354D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4EBCED40-429D-42C2-A0E6-F650E427354D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4EBCED40-429D-42C2-A0E6-F650E427354D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4EBCED40-429D-42C2-A0E6-F650E427354D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

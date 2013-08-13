@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Web.Http;
-using Autofac;
 using Microsoft.AspNet.SignalR;
+using Microsoft.AspNet.SignalR.Hubs;
+using Microsoft.AspNet.SignalR.Infrastructure;
 using Microsoft.Owin.Hosting;
+using Ninject;
 using Owin;
+using Silas.Server.Broadcasters;
+using Silas.Server.Hubs;
 
 namespace Silas.Server
 {
@@ -24,7 +28,20 @@ namespace Silas.Server
         {
             public void Configuration(IAppBuilder app)
             {
+                var kernel = new StandardKernel();
+                var resolver = new NinjectSignalRDependencyResolver(kernel);
+
+                kernel.Bind<IForecastingDataBroadcaster>()
+                    .To<Silas.Server.Broadcasters.ForecastingDataBroadcaster>()
+                    .InSingletonScope();
+
+                kernel.Bind<IHubConnectionContext>().ToMethod(context =>
+                        resolver.Resolve<IConnectionManager>().
+                            GetHubContext<ForecastingDataHub>().Clients
+                    ).WhenInjectedInto<IForecastingDataBroadcaster>();
+
                 var signalRConfig = new HubConfiguration {EnableCrossDomain = true, EnableDetailedErrors = true};
+                signalRConfig.Resolver = resolver;
                 app.MapHubs(signalRConfig);
 
                 var webAPIConfig = new HttpConfiguration();
@@ -34,10 +51,6 @@ namespace Silas.Server
                     );
 
                 app.UseWebApi(webAPIConfig);
-
-                //setup DI
-                var builder = new ContainerBuilder();
-                builder.Reg
             }
         }
     }

@@ -10,6 +10,7 @@ namespace Silas.Server.DB
         {
         }
 
-        public DbSet<DataEntry> Entries { get; set; }
+        public DbSet<DataEntry> DataEntries { get; set; }
+        public DbSet<DataSet> DataSets { get; set; }
     }
 }

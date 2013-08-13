@@ -14,12 +14,12 @@ namespace Silas.API.Controllers
 
         public IEnumerable<DataEntry> Get()
         {
-            return db.Entries.AsEnumerable();
+            return db.DataEntries.AsEnumerable();
         }
 
         public DataEntry Get(int period)
         {
-            DataEntry dataentry = db.Entries.FirstOrDefault(e => e.Period == period);
+            DataEntry dataentry = db.DataEntries.FirstOrDefault(e => e.Period == period);
             if (dataentry == null)
             {
                 throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
@@ -32,7 +32,7 @@ namespace Silas.API.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entries.Add(dataentry);
+                db.DataEntries.Add(dataentry);
                 db.SaveChanges();
 
                 HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created, dataentry);

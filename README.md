@@ -8,7 +8,10 @@ Forecasting data, whether it be website traffic or retail sales, is considered b
 ##Roadmap
 1. Update Tickers to read data directly.
    Use DI to inject EF context
+   Add Service Tier for interacting with Repo
 2. Update Tickers to allow for injecting parameters values.
+3. Allow them to set when to start sending historical data vs future data?
+4. Work out update paradigm of live data?
 3. Use official .NET dashing?
 4. Make more intelligent by picking strategy and parameters on the fly.
 5. Fix Confidence Intervals

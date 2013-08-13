@@ -15,7 +15,7 @@ namespace Silas.Server
     {
         private static void Main(string[] args)
         {
-            string url = "http://localhost:8080";
+            var url = "http://localhost:8080";
 
             using (WebApp.Start<Startup>(url))
             {
@@ -32,12 +32,12 @@ namespace Silas.Server
                 var resolver = new NinjectSignalRDependencyResolver(kernel);
 
                 kernel.Bind<IForecastingDataBroadcaster>()
-                    .To<ForecastingDataBroadcaster>()
-                    .InSingletonScope();
+                      .To<ForecastingDataBroadcaster>()
+                      .InSingletonScope();
 
                 kernel.Bind<IHubConnectionContext>().ToMethod(context =>
-                        resolver.Resolve<IConnectionManager>().
-                            GetHubContext<ForecastingDataHub>().Clients
+                                                              resolver.Resolve<IConnectionManager>().
+                                                                       GetHubContext<ForecastingDataHub>().Clients
                     ).WhenInjectedInto<IForecastingDataBroadcaster>();
 
                 var signalRConfig = new HubConfiguration

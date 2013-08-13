@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.AspNet.SignalR;
 using Ninject;
 
@@ -11,6 +9,7 @@ namespace Silas.Server
     internal class NinjectSignalRDependencyResolver : DefaultDependencyResolver
     {
         private readonly IKernel _kernel;
+
         public NinjectSignalRDependencyResolver(IKernel kernel)
         {
             _kernel = kernel;

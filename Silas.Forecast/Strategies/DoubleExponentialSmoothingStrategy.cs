@@ -44,12 +44,12 @@ namespace Silas.Forecast.Strategies
         private double GenerateForecast(int startPeriod, int endPeriod, double alpha, double beta,
                                         IEnumerable<DataEntry> dataEntries, double currForecast, double currTrend)
         {
-            double adjustedForecast = currForecast + currTrend;
+            var adjustedForecast = currForecast + currTrend;
 
-            for (int currPeriod = 3; currPeriod <= endPeriod; currPeriod++)
+            for (var currPeriod = 3; currPeriod <= endPeriod; currPeriod++)
             {
                 //need to store temp current forecast since trend calcuation is dependent on it
-                double tempCurrForecast = currForecast;
+                var tempCurrForecast = currForecast;
 
                 //sub two since list is 0 index based and we want to go back one period
                 currForecast = (alpha*dataEntries.ElementAt(currPeriod - 2).Value) +

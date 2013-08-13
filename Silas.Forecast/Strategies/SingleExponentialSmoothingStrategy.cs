@@ -39,7 +39,7 @@ namespace Silas.Forecast.Strategies
         private double GenerateForecast(int startPeriod, int endPeriod, double alpha, IEnumerable<DataEntry> dataEntries,
                                         double currForecast)
         {
-            for (int currPeriod = startPeriod; currPeriod <= endPeriod; currPeriod++)
+            for (var currPeriod = startPeriod; currPeriod <= endPeriod; currPeriod++)
             {
                 //sub two since list is 0 index based and we want to go back one period
                 currForecast = (alpha*dataEntries.ElementAt(currPeriod - 2).Value) + ((1 - alpha)*currForecast);

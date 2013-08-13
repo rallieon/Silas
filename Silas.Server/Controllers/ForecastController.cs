@@ -19,7 +19,7 @@ namespace Silas.API.Controllers
 
         public DataEntry Get(int period)
         {
-            DataEntry dataentry = db.DataEntries.FirstOrDefault(e => e.Period == period);
+            var dataentry = db.DataEntries.FirstOrDefault(e => e.Period == period);
             if (dataentry == null)
             {
                 throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
@@ -35,7 +35,7 @@ namespace Silas.API.Controllers
                 db.DataEntries.Add(dataentry);
                 db.SaveChanges();
 
-                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created, dataentry);
+                var response = Request.CreateResponse(HttpStatusCode.Created, dataentry);
                 return response;
             }
             else

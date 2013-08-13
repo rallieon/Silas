@@ -49,7 +49,7 @@ namespace Silas.Forecast.Strategies
                 throw new ArgumentException("You cannot forecast more than one future ahead.");
 
             //first setup the seasonal indices
-            IList<SeasonalIndex> seasonalIndices = BuildSeasonalIndices(dataEntries);
+            var seasonalIndices = BuildSeasonalIndices(dataEntries);
             double value;
 
             if (dataEntries.Count() < 3 || period < 3)
@@ -77,8 +77,8 @@ namespace Silas.Forecast.Strategies
         {
             IList<TripleExponentialEntry> currSeason = new List<TripleExponentialEntry>();
             int currPeriod;
-            bool calculateForecastSeason = false;
-            int periodToForecast = endPeriod;
+            var calculateForecastSeason = false;
+            var periodToForecast = endPeriod;
 
             //determine true endPeriod
             if (endPeriod > dataEntries.Count())
@@ -111,21 +111,21 @@ namespace Silas.Forecast.Strategies
                                                               IEnumerable<DataEntry> dataEntries, int currPeriod)
         {
             //building the last season is similar to NextSeason, but uses the same Ft and Tt once calculated for the first entry.
-            double currentFt = currSeason.Last().Ft;
-            double currentTt = currSeason.Last().Tt;
+            var currentFt = currSeason.Last().Ft;
+            var currentTt = currSeason.Last().Tt;
             double currentSt = currSeason.Last().St, lastSt = currSeason.Last().St;
-            double lastActual = dataEntries.Last().Value;
+            var lastActual = dataEntries.Last().Value;
             IList<TripleExponentialEntry> newSeason = new List<TripleExponentialEntry>();
 
             currentFt = (_alpha*(lastActual/lastSt)) + ((1 - _alpha)*(currentTt + currentFt));
             currentTt = (_beta*(currentFt - currSeason.Last().Ft)) + ((1 - _beta)*currentTt);
 
-            for (int currSeasonIndex = 1; currSeasonIndex <= _periodsPerSeason; currSeasonIndex++)
+            for (var currSeasonIndex = 1; currSeasonIndex <= _periodsPerSeason; currSeasonIndex++)
             {
-                double lastPeriodActual =
+                var lastPeriodActual =
                     dataEntries.ElementAt((currPeriod + currSeasonIndex) - _periodsPerSeason - 2).Value;
-                double lastPeriodFt = currSeason.ElementAt(currSeasonIndex - 1).Ft;
-                double lastPeriodSt = currSeason.ElementAt(currSeasonIndex - 1).St;
+                var lastPeriodFt = currSeason.ElementAt(currSeasonIndex - 1).Ft;
+                var lastPeriodSt = currSeason.ElementAt(currSeasonIndex - 1).St;
 
                 currentSt = (_gamma*(lastPeriodActual/lastPeriodFt)) + ((1 - _gamma)*lastPeriodSt);
 
@@ -147,18 +147,18 @@ namespace Silas.Forecast.Strategies
             double currentFt = currSeason.Last().Ft, lastFt = currSeason.Last().Ft;
             double currentTt = currSeason.Last().Tt, lastTt = currSeason.Last().Tt;
             double currentSt = currSeason.Last().St, lastSt = currSeason.Last().St;
-            double lastActual = dataEntries.ElementAt(currPeriod - 2).Value;
+            var lastActual = dataEntries.ElementAt(currPeriod - 2).Value;
             IList<TripleExponentialEntry> newSeason = new List<TripleExponentialEntry>();
 
-            for (int currSeasonIndex = 1; currSeasonIndex <= _periodsPerSeason; currSeasonIndex++)
+            for (var currSeasonIndex = 1; currSeasonIndex <= _periodsPerSeason; currSeasonIndex++)
             {
                 currentFt = (_alpha*(lastActual/lastSt)) + ((1 - _alpha)*(lastTt + lastFt));
                 currentTt = (_beta*(currentFt - lastFt)) + ((1 - _beta)*lastTt);
 
-                double lastPeriodActual =
+                var lastPeriodActual =
                     dataEntries.ElementAt((currPeriod + currSeasonIndex) - _periodsPerSeason - 2).Value;
-                double lastPeriodFt = currSeason.ElementAt(currSeasonIndex - 1).Ft;
-                double lastPeriodSt = currSeason.ElementAt(currSeasonIndex - 1).St;
+                var lastPeriodFt = currSeason.ElementAt(currSeasonIndex - 1).Ft;
+                var lastPeriodSt = currSeason.ElementAt(currSeasonIndex - 1).St;
 
                 currentSt = (_gamma*(lastPeriodActual/lastPeriodFt)) + ((1 - _gamma)*lastPeriodSt);
 
@@ -190,11 +190,11 @@ namespace Silas.Forecast.Strategies
             //Tt is the slope of the trend line
             IList<TripleExponentialEntry> season = new List<TripleExponentialEntry>();
 
-            for (int currSeasonIndex = 1; currSeasonIndex <= _periodsPerSeason; currSeasonIndex++)
+            for (var currSeasonIndex = 1; currSeasonIndex <= _periodsPerSeason; currSeasonIndex++)
             {
-                double currentFt = seasonalIndices.First(e => e.Period == (currSeasonIndex + _periodsPerSeason)).Base;
-                double currentTt = _a;
-                double currentSt =
+                var currentFt = seasonalIndices.First(e => e.Period == (currSeasonIndex + _periodsPerSeason)).Base;
+                var currentTt = _a;
+                var currentSt =
                     seasonalIndices.Where(
                         i =>
                         ((i.Period%_periodsPerSeason) == 0 ? _periodsPerSeason : (i.Period%_periodsPerSeason)) ==
@@ -231,7 +231,7 @@ namespace Silas.Forecast.Strategies
 
             //build index for each value
             IList<SeasonalIndex> indices = new List<SeasonalIndex>();
-            foreach (DataEntry entry in dataEntries.Take(_periodsPerSeason*(_seasonsForRegression - 1)))
+            foreach (var entry in dataEntries.Take(_periodsPerSeason*(_seasonsForRegression - 1)))
             {
                 indices.Add(new SeasonalIndex
                     {
@@ -247,13 +247,13 @@ namespace Silas.Forecast.Strategies
 
         private void Regression(int[] xValues, double[] yValues, out double a, out double b)
         {
-            double xAvg = xValues.Average();
-            double yAvg = yValues.Average();
+            var xAvg = xValues.Average();
+            var yAvg = yValues.Average();
 
             double v1 = 0;
             double v2 = 0;
 
-            for (int x = 0; x < yValues.Length; x++)
+            for (var x = 0; x < yValues.Length; x++)
             {
                 v1 += (x - xAvg)*(yValues[x] - yAvg);
                 v2 += Math.Pow(x - xAvg, 2);

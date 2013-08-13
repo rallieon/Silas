@@ -59,9 +59,9 @@ that use the API provided by core.
 		});
 		*/
             initialize: 'deck.init'
-        },	
+        },
         options = {},
-        $d = $(document),	
+        $d = $(document),
         /*
 	Internal function. Updates slide and container classes based on which
 	slide is the current slide.
@@ -111,9 +111,9 @@ that use the API provided by core.
                     el.addClass(oc.after);
                 });
             }
-        },	
+        },
         /* Methods exposed in the jQuery.deck namespace */
-        methods = {		
+        methods = {
             /*
 		jQuery.deck(selector, options)
 		

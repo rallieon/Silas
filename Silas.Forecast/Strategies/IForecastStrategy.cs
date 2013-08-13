@@ -11,6 +11,7 @@ namespace Silas.Forecast.Strategies
         DoubleExp,
         TripleExp
     }
+
     public interface IForecastStrategy
     {
         ForecastEntry Forecast(IEnumerable<DataEntry> dataEntries, int period, dynamic strategyParameters);

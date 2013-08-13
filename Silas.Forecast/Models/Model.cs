@@ -27,7 +27,7 @@ namespace Silas.Forecast.Models
         private void BuildModel()
         {
             //go through and build forecast entry for each period in the model.
-            for (int period = 1; period <= _originalDataEntries.Count(); period++)
+            for (var period = 1; period <= _originalDataEntries.Count(); period++)
             {
                 _forecastEntries.Add(_forecast.Forecast(_originalDataEntries, period, _parameters));
             }

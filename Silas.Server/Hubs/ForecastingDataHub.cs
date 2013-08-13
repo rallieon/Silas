@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using Microsoft.AspNet.SignalR;
 using Repositories.Interfaces;
 using Silas.Forecast.Models;
@@ -17,7 +16,7 @@ namespace Silas.Server.Hubs
             _repository = repository;
             _broadcaster = broadcaster;
         }
-         
+
 
         public void Init(DataSet set, dynamic parameters)
         {

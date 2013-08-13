@@ -1,21 +1,16 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.Dynamic;
-using System.Linq;
-using System.Threading;
-using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
 using Repositories.Interfaces;
 using Silas.Forecast.Models;
 using Silas.Forecast.Strategies;
-using Silas.Server.Hubs;
 
 namespace Silas.Server.Broadcasters
 {
     public class ForecastingDataBroadcaster : IForecastingDataBroadcaster
     {
+        private readonly ConcurrentDictionary<string, ActiveForecast> _runningForecasts;
         private IRepository _repository;
-        private ConcurrentDictionary<string, ActiveForecast> _runningForecasts;
 
         public ForecastingDataBroadcaster(IHubConnectionContext clients)
         {
@@ -38,7 +33,7 @@ namespace Silas.Server.Broadcasters
         public void Init(DataSet set, dynamic parameters)
         {
             _runningForecasts.TryAdd(set.Name,
-                                     new ActiveForecast()
+                                     new ActiveForecast
                                          {
                                              Parameters = parameters,
                                              Set = set,

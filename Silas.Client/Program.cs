@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Dynamic;
 using System.IO;
+using System.Threading;
 using CsvHelper;
 using Microsoft.AspNet.SignalR.Client.Hubs;
 using Silas.Forecast.Models;
@@ -40,7 +41,8 @@ namespace Silas.Client
         {
             foreach (var entry in GetData())
             {
-                _proxySender.Invoke("AddEntry", entry).Wait();
+                _proxySender.Invoke("AddEntry", _set, entry).Wait();
+                Console.WriteLine("Adding entry: " + entry.Value);
             }
 
             Console.WriteLine("Finished sending historical data.");
@@ -48,6 +50,11 @@ namespace Silas.Client
 
         private static void SendLiveData()
         {
+            foreach (var entry in GetData())
+            {
+                _proxySender.Invoke("AddEntry", _set, entry).Wait();
+                Thread.Sleep(1000);
+            }
             Console.WriteLine("Begin sending live data.");
         }
 

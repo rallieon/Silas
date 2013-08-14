@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Data.Entity;
+using System.IO;
 using System.Web.Http;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
@@ -6,7 +8,10 @@ using Microsoft.AspNet.SignalR.Infrastructure;
 using Microsoft.Owin.Hosting;
 using Ninject;
 using Owin;
+using Repositories;
+using Repositories.Interfaces;
 using Silas.Server.Broadcasters;
+using Silas.Server.DB;
 using Silas.Server.Hubs;
 
 namespace Silas.Server
@@ -40,12 +45,24 @@ namespace Silas.Server
                                                                        GetHubContext<ForecastingDataHub>().Clients
                     ).WhenInjectedInto<IForecastingDataBroadcaster>();
 
+                kernel.Bind<DbContext>()
+                      .To<ForecastContext>()
+                      .InSingletonScope();
+
+                kernel.Bind<IRepository>()
+                     .To<EntityFrameworkRepository>()
+                     .InSingletonScope();
+
+                //setup data directory
+                AppDomain.CurrentDomain.SetData("DataDirectory", Directory.GetCurrentDirectory());
+
                 var signalRConfig = new HubConfiguration
-                    {
-                        EnableCrossDomain = true,
-                        EnableDetailedErrors = true,
-                        Resolver = resolver
-                    };
+                {
+                    EnableCrossDomain = true,
+                    EnableDetailedErrors = true,
+                    Resolver = resolver
+                };
+
                 app.MapHubs(signalRConfig);
 
                 var webAPIConfig = new HttpConfiguration();

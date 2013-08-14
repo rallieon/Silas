@@ -7,8 +7,8 @@
     <ProjectGuid>{0B0427DE-5FE1-44EA-AA90-4725AB4B510C}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Silas.DataFeed</RootNamespace>
-    <AssemblyName>Silas.DataFeed</AssemblyName>
+    <RootNamespace>Silas.Client</RootNamespace>
+    <AssemblyName>Silas.Client</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>

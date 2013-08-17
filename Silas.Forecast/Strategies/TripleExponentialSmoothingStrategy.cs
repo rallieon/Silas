@@ -20,21 +20,6 @@ namespace Silas.Forecast.Strategies
             if (period - 1 < 0)
                 return null;
 
-            if (!((IDictionary<String, object>) strategyParameters).ContainsKey("Alpha"))
-                throw new ArgumentException("The strategy parameters must include Alpha");
-
-            if (!((IDictionary<String, object>) strategyParameters).ContainsKey("Beta"))
-                throw new ArgumentException("The strategy parameters must include Beta");
-
-            if (!((IDictionary<String, object>) strategyParameters).ContainsKey("Gamma"))
-                throw new ArgumentException("The strategy parameters must include Gamma");
-
-            if (!((IDictionary<String, object>) strategyParameters).ContainsKey("PeriodsPerSeason"))
-                throw new ArgumentException("The strategy parameters must include PeriodsPerSeason");
-
-            if (!((IDictionary<String, object>) strategyParameters).ContainsKey("SeasonsForRegression"))
-                throw new ArgumentException("The strategy parameters must include SeasonsForRegression");
-
             _alpha = strategyParameters.Alpha;
             _beta = strategyParameters.Beta;
             _gamma = strategyParameters.Gamma;

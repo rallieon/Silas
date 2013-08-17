@@ -5,12 +5,11 @@ namespace Silas.Server.Broadcasters
 {
     public interface IForecastingDataBroadcaster
     {
-        void SetRepository(IRepository repository);
-        void Init(DataSet set, dynamic parameters);
+        void Init(DataSet set, IRepository repository, dynamic parameters);
         void Start(DataSet set);
         void Stop(DataSet set);
         void Pause(DataSet set);
         void SendForecast(DataSet set);
-        void ModifyParameters(DataSet set, object parameters);
+        void ModifyParameters(DataSet set, dynamic parameters);
     }
 }

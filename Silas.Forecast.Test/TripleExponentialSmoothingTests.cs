@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Dynamic;
+using Microsoft.CSharp.RuntimeBinder;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Silas.Forecast.Models;
 using Silas.Forecast.Strategies;
@@ -100,7 +101,7 @@ namespace Silas.Forecast.Test
         }
 
         [TestMethod]
-        [ExpectedException(typeof (ArgumentException), "The strategy parameters must include Alpha")]
+        [ExpectedException(typeof(RuntimeBinderException))]
         public void TestForecastMissingAlpha()
         {
             dynamic testParameters = new ExpandoObject();
@@ -108,7 +109,7 @@ namespace Silas.Forecast.Test
         }
 
         [TestMethod]
-        [ExpectedException(typeof (ArgumentException), "The strategy parameters must include Beta")]
+        [ExpectedException(typeof(RuntimeBinderException))]
         public void TestForecastMissingBeta()
         {
             dynamic testParameters = new ExpandoObject();
@@ -117,7 +118,7 @@ namespace Silas.Forecast.Test
         }
 
         [TestMethod]
-        [ExpectedException(typeof (ArgumentException), "The strategy parameters must include Gamma")]
+        [ExpectedException(typeof(RuntimeBinderException))]
         public void TestForecastMissingGamma()
         {
             dynamic testParameters = new ExpandoObject();
@@ -127,7 +128,7 @@ namespace Silas.Forecast.Test
         }
 
         [TestMethod]
-        [ExpectedException(typeof (ArgumentException), "The strategy parameters must include PeriodsPerSeason")]
+        [ExpectedException(typeof(RuntimeBinderException))]
         public void TestForecastMissingPeriodsPerSeason()
         {
             dynamic testParameters = new ExpandoObject();
@@ -138,7 +139,7 @@ namespace Silas.Forecast.Test
         }
 
         [TestMethod]
-        [ExpectedException(typeof (ArgumentException), "The strategy parameters must include SeasonsForRegression")]
+        [ExpectedException(typeof(RuntimeBinderException))]
         public void TestForecastMissingSeasonsForRegression()
         {
             dynamic testParameters = new ExpandoObject();

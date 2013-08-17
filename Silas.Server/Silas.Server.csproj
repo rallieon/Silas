@@ -104,6 +104,7 @@
     <Compile Include="Controllers\ForecastController.cs" />
     <Compile Include="DB\ForecastContext.cs" />
     <Compile Include="Hubs\ForecastingDataHub.cs" />
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="NinjectSignalRDependencyResolver.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -120,10 +121,6 @@
     <ProjectReference Include="..\Silas.Forecast\Silas.Forecast.csproj">
       <Project>{541b9e7f-1e5a-4d10-8781-6de018819140}</Project>
       <Name>Silas.Forecast</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Silas.Utility\Silas.Utility.csproj">
-      <Project>{4ebced40-429d-42c2-a0e6-f650e427354d}</Project>
-      <Name>Silas.Utility</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

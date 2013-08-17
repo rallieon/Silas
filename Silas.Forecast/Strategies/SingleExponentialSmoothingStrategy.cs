@@ -12,9 +12,6 @@ namespace Silas.Forecast.Strategies
             if (period - 1 < 0)
                 return null;
 
-            if (!((IDictionary<String, object>) strategyParameters).ContainsKey("Alpha"))
-                throw new ArgumentException("The strategy parameters must include Alpha");
-
             double alpha = strategyParameters.Alpha;
             double value;
 

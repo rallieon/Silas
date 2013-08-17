@@ -12,9 +12,6 @@ namespace Silas.Forecast.Strategies
             if (period - 1 < 0)
                 return null;
 
-            if (!((IDictionary<String, object>) strategyParameters).ContainsKey("PeriodCount"))
-                throw new ArgumentException("The strategy parameters must include PeriodCount");
-
             int numberOfPeriods = strategyParameters.PeriodCount;
 
             if (numberOfPeriods > dataEntries.Count())

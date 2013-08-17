@@ -18,17 +18,23 @@ namespace Silas.Client
         private static HubConnection _retrieverConnection;
         private static IHubProxy _proxyRetriever;
         private static DataSet _set;
+        private static int _currentPeriod;
+        private static bool _initialized = false;
         private static dynamic _parameters;
 
         private static void Main(string[] args)
         {
-            _set = new DataSet {CurrentPeriod = 1, Entries = null, Name = "SalesForecast", Id = 1};
+            _set = new DataSet();
             _parameters = new ExpandoObject();
-            _parameters.Strategy = FORECAST_STRATEGY.SingleExp;
+            _parameters.Strategy = FORECAST_STRATEGY.Naive;
             _parameters.Alpha = 0.0223259097162289;
 
             //Setup initial dataset
             InitializeClients();
+
+            //pause so everything gets init.
+            while (!_initialized){}
+
             SendHistoricalData();
 
             _proxySender.Invoke("Start", _set).Wait();
@@ -41,6 +47,7 @@ namespace Silas.Client
         {
             foreach (var entry in GetData())
             {
+                _currentPeriod = entry.Period;
                 _proxySender.Invoke("AddEntry", _set, entry).Wait();
                 Console.WriteLine("Adding entry: " + entry.Value);
             }
@@ -50,12 +57,14 @@ namespace Silas.Client
 
         private static void SendLiveData()
         {
+            Console.WriteLine("Begin sending live data.");
             foreach (var entry in GetData())
             {
+                entry.Period = ++_currentPeriod;
                 _proxySender.Invoke("AddEntry", _set, entry).Wait();
+                Console.WriteLine("Added Live Entry: " + entry.Value);
                 Thread.Sleep(1000);
             }
-            Console.WriteLine("Begin sending live data.");
         }
 
         private static IEnumerable<DataEntry> GetData()
@@ -76,9 +85,9 @@ namespace Silas.Client
             _senderConnection = new HubConnection("http://localhost:8080/");
             _proxySender = _senderConnection.CreateHubProxy("ForecastingDataHub");
             _senderConnection.Start().Wait();
-            _proxySender.Invoke("Init", _set, _parameters).Wait();
+            var set = await _proxySender.Invoke("Init", _parameters);
 
-
+            _set = new DataSet {CurrentPeriod = set.CurrentPeriod, Token = set.Token };
             _retrieverConnection = new HubConnection("http://localhost:8080/");
             _proxyRetriever = _retrieverConnection.CreateHubProxy("ForecastingDataHub");
             _retrieverConnection.Start().Wait();
@@ -88,6 +97,7 @@ namespace Silas.Client
                                               Console.WriteLine("The amount of hits for the period {0} will be {1}",
                                                                 forecast.Period, forecast.ForecastValue));
 
+            _initialized = true;
             Console.WriteLine("Finished the initialization of the clients.");
         }
     }

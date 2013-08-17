@@ -1,4 +1,6 @@
-﻿namespace Silas.Forecast.Models
+﻿using Newtonsoft.Json;
+
+namespace Silas.Forecast.Models
 {
     public class DataEntry
     {
@@ -7,6 +9,7 @@
         public double Value { get; set; }
         public int DataSetId { get; set; }
 
-        public virtual DataSet DataSet { get; set; }
+        [JsonIgnore]
+        public DataSet Set { get; set; }
     }
 }

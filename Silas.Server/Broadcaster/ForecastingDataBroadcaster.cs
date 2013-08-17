@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using Microsoft.AspNet.SignalR.Hubs;
+using Newtonsoft.Json.Linq;
 using Repositories.Interfaces;
 using Silas.Forecast.Models;
 using Silas.Forecast.Strategies;
@@ -25,14 +26,10 @@ namespace Silas.Server.Broadcasters
 
         private IHubConnectionContext Clients { get; set; }
 
-        public void SetRepository(IRepository repository)
+        public void Init(DataSet set, IRepository repository, dynamic parameters)
         {
             _repository = repository;
-        }
-
-        public void Init(DataSet set, dynamic parameters)
-        {
-            _runningForecasts.TryAdd(set.Name,
+            _runningForecasts.TryAdd(set.Token,
                                      new ActiveForecast
                                          {
                                              Parameters = parameters,
@@ -44,7 +41,7 @@ namespace Silas.Server.Broadcasters
         public void Start(DataSet set)
         {
             ActiveForecast forecast;
-            if (_runningForecasts.TryGetValue(set.Name, out forecast))
+            if (_runningForecasts.TryGetValue(set.Token, out forecast))
             {
                 forecast.State = FORECAST_STATE.STARTED;
             }
@@ -53,7 +50,7 @@ namespace Silas.Server.Broadcasters
         public void Stop(DataSet set)
         {
             ActiveForecast forecast;
-            if (_runningForecasts.TryGetValue(set.Name, out forecast))
+            if (_runningForecasts.TryGetValue(set.Token, out forecast))
             {
                 forecast.State = FORECAST_STATE.STOPPED;
             }
@@ -62,7 +59,7 @@ namespace Silas.Server.Broadcasters
         public void Pause(DataSet set)
         {
             ActiveForecast forecast;
-            if (_runningForecasts.TryGetValue(set.Name, out forecast))
+            if (_runningForecasts.TryGetValue(set.Token, out forecast))
             {
                 forecast.State = FORECAST_STATE.PAUSED;
             }
@@ -71,7 +68,7 @@ namespace Silas.Server.Broadcasters
         public void SendForecast(DataSet set)
         {
             ActiveForecast forecast;
-            if (_runningForecasts.TryGetValue(set.Name, out forecast))
+            if (_runningForecasts.TryGetValue(set.Token, out forecast))
             {
                 if (forecast.State == FORECAST_STATE.STARTED)
                 {
@@ -100,7 +97,7 @@ namespace Silas.Server.Broadcasters
                     }
                     var model = new Model(strategy, forecast.Set.Entries, forecast.Parameters);
                     var value = model.Forecast(forecast.Set.CurrentPeriod);
-                    Clients.Group(set.Name).sendValue(value);
+                    Clients.Group(set.Token).sendValue(value);
                     forecast.Set.CurrentPeriod++;
                     _repository.Update(forecast.Set);
                 }
@@ -110,7 +107,7 @@ namespace Silas.Server.Broadcasters
         public void ModifyParameters(DataSet set, object parameters)
         {
             ActiveForecast forecast;
-            if (_runningForecasts.TryGetValue(set.Name, out forecast))
+            if (_runningForecasts.TryGetValue(set.Token, out forecast))
             {
                 forecast.Parameters = parameters;
             }

@@ -62,11 +62,9 @@
                 <div class="header">
                     <div class="leftside">
                         <h2>Naive</h2>
-                    </div>
-
-                    <div class="rightside" style="padding-top: 2em;">
-                        <input type="button" class="button naieveTickerStart" value="Start"></input>
-                        <input type="button" class="button naieveTickerStop" value="Stop"></input>
+                        <label>Token</label><input type="text" data-bind="value: parameters.token"/>
+                        <input type="button" value="Start" data-bind="click: parameters.start"/>
+                        <input type="button" value="Stop" data-bind="click: parameters.stop"/>
                     </div>
                 </div>
                 <div class="content" style="padding-top: 5em;">
@@ -102,7 +100,7 @@
                                 </div>
                             </li>
                             <li data-row="1" data-col="3" data-sizex="4" data-sizey="3">
-                                <div class="naieveGraphContainer teal widget baseline">
+                                <div class="graphContainer teal widget baseline">
                                     <h2>Forecast Graph</h2>
                                 </div>
                             </li>
@@ -145,8 +143,8 @@
                     </div>
 
                     <div class="rightside" style="padding-top: 2em;">
-                        <input type="button" class="button movingAverageTickerStart" value="Start"></input>
-                        <input type="button" class="button movingAverageTickerStop" value="Stop"></input>
+                        <input type="button" class="button tickerStart" value="Start"></input>
+                        <input type="button" class="button tickerStop" value="Stop"></input>
                     </div>
                 </div>
                 <div class="content" style="padding-top: 5em;">
@@ -182,7 +180,7 @@
                                 </div>
                             </li>
                             <li data-row="1" data-col="3" data-sizex="4" data-sizey="3">
-                                <div class="movingAverageGraphContainer teal widget baseline">
+                                <div class="graphContainer teal widget baseline">
                                     <h2>Forecast Graph</h2>
                                 </div>
                             </li>
@@ -222,8 +220,8 @@
                     </div>
 
                     <div class="rightside" style="padding-top: 2em;">
-                        <input type="button" class="button singleExponentialSmoothingTickerStart" value="Start"></input>
-                        <input type="button" class="button singleExponentialSmoothingTickerStop" value="Stop"></input>
+                        <input type="button" class="button tickerStart" value="Start"></input>
+                        <input type="button" class="button tickerStop" value="Stop"></input>
                     </div>
                 </div>
                 <div class="content" style="padding-top: 5em;">
@@ -259,7 +257,7 @@
                                 </div>
                             </li>
                             <li data-row="1" data-col="3" data-sizex="4" data-sizey="3">
-                                <div class="singleExponentialSmoothingGraphContainer teal widget baseline">
+                                <div class="graphContainer teal widget baseline">
                                     <h2>Forecast Graph</h2>
                                 </div>
                             </li>
@@ -307,8 +305,8 @@
                     </div>
 
                     <div class="rightside" style="padding-top: 2em;">
-                        <input type="button" class="button doubleExponentialSmoothingTickerStart" value="Start"></input>
-                        <input type="button" class="button doubleExponentialSmoothingTickerStop" value="Stop"></input>
+                        <input type="button" class="button tickerStart" value="Start"></input>
+                        <input type="button" class="button tickerStop" value="Stop"></input>
                     </div>
                 </div>
                 <div class="content" style="padding-top: 5em;">
@@ -344,7 +342,7 @@
                                 </div>
                             </li>
                             <li data-row="1" data-col="3" data-sizex="4" data-sizey="3">
-                                <div class="doubleExponentialSmoothingGraphContainer teal widget baseline">
+                                <div class="graphContainer teal widget baseline">
                                     <h2>Forecast Graph</h2>
                                 </div>
                             </li>
@@ -384,8 +382,8 @@
                     </div>
 
                     <div class="rightside" style="padding-top: 2em;">
-                        <input type="button" class="button tripleExponentialSmoothingTickerStart" value="Start"></input>
-                        <input type="button" class="button tripleExponentialSmoothingTickerStop" value="Stop"></input>
+                        <input type="button" class="button tickerStart" value="Start"></input>
+                        <input type="button" class="button tickerStop" value="Stop"></input>
                     </div>
                 </div>
                 <div class="content" style="padding-top: 5em;">
@@ -421,7 +419,7 @@
                                 </div>
                             </li>
                             <li data-row="1" data-col="3" data-sizex="4" data-sizey="3">
-                                <div class="tripleExponentialSmoothingGraphContainer teal widget baseline">
+                                <div class="graphContainer teal widget baseline">
                                     <h2>Forecast Graph</h2>
                                 </div>
                             </li>

@@ -27,7 +27,6 @@ namespace Silas.Client
             _set = new DataSet();
             _parameters = new ExpandoObject();
             _parameters.Strategy = FORECAST_STRATEGY.Naive;
-            _parameters.Alpha = 0.0223259097162289;
 
             //Setup initial dataset
             InitializeClients();
@@ -39,8 +38,10 @@ namespace Silas.Client
 
             _proxySender.Invoke("Start", _set).Wait();
 
-            //begin feeding live data.
-            SendLiveData();
+            //begin feeding live data constantly
+            Console.WriteLine("Begin sending live data.");
+            while(true)
+                SendLiveData();
         }
 
         private static void SendHistoricalData()
@@ -49,7 +50,6 @@ namespace Silas.Client
             {
                 _currentPeriod = entry.Period;
                 _proxySender.Invoke("AddEntry", _set, entry).Wait();
-                Console.WriteLine("Adding entry: " + entry.Value);
             }
 
             Console.WriteLine("Finished sending historical data.");
@@ -57,12 +57,10 @@ namespace Silas.Client
 
         private static void SendLiveData()
         {
-            Console.WriteLine("Begin sending live data.");
             foreach (var entry in GetData())
             {
                 entry.Period = ++_currentPeriod;
                 _proxySender.Invoke("AddEntry", _set, entry).Wait();
-                Console.WriteLine("Added Live Entry: " + entry.Value);
                 Thread.Sleep(1000);
             }
         }
@@ -98,7 +96,7 @@ namespace Silas.Client
                                                                 forecast.Period, forecast.ForecastValue));
 
             _initialized = true;
-            Console.WriteLine("Finished the initialization of the clients.");
+            Console.WriteLine("Finished the initialization of the clients. \nYour token is: " + set.Token);
         }
     }
 }

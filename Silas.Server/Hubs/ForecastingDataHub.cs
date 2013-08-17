@@ -42,6 +42,11 @@ namespace Silas.Server.Hubs
             Groups.Add(Context.ConnectionId, set.Token);
         }
 
+        public void Unregister(DataSet set)
+        {
+            Groups.Remove(Context.ConnectionId, set.Token);
+        }
+
         public void AddEntry(DataSet set, DataEntry entry)
         {
             var setToAddTo = _repository.Get<DataSet>().FirstOrDefault(s => s.Token == set.Token);

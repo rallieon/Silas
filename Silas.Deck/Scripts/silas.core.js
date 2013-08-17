@@ -12,7 +12,30 @@
         }
     };
 
-    var ErrorViewModel = function() {
+    var ParametersViewModel = function () {
+        var self = this;
+        this.token = ko.observable("");
+        this.strategy = ko.observable("Naieve");
+        this.alpha = ko.observable(0);
+        this.beta = ko.observable(0);
+        this.gamma = ko.observable(0);
+        this.periodsPerSeason = ko.observable(0);
+        this.seasonsPerPeriod = ko.observable(0);
+        this.start = function() {
+            $.connection.forecastingDataHub.server.register({
+                Token: self.token()
+            });
+        };
+        this.stop = function () {
+            $.connection.forecastingDataHub.server.unregister({
+                Token: self.token()
+            });
+        };
+        return this;
+    };
+    
+    var ErrorViewModel = function () {
+        this.parameters = ParametersViewModel();
         this.meanAbsoluteError = ko.observable(0);
         this.percentError = ko.observable(0);
         this.confidenceHigh = ko.observable(0);
@@ -53,40 +76,18 @@
         errorVMInstance = new ErrorViewModel();
         ko.applyBindings(errorVMInstance);
 
-        //setup graphs
-        setupGraph('naieve', '.naieveGraphContainer');
-        setupGraph('movingAverage', '.movingAverageGraphContainer');
-        setupGraph('singleExponentialSmoothing', '.singleExponentialSmoothingGraphContainer');
-        setupGraph('doubleExponentialSmoothing', '.doubleExponentialSmoothingGraphContainer');
-        setupGraph('tripleExponentialSmoothing', '.tripleExponentialSmoothingGraphContainer');
+        setupGraph('.graphContainer');
 
         $.connection.hub.url = "http://localhost:8080/signalr";
         $.connection.hub.start();
     };
 
-    var setupHub = function(name, sendValueCallback) {
-        //setup the hub objects
-        var hubName = name + 'DataHub';
-
+    var setupHub = function(hubName, sendValueCallback) {
         // Add a client-side hub method that the server will call
         $.connection[hubName].client.sendValue = sendValueCallback;
-
-        $("." + name + "TickerStart").click(function() {
-            errorVMInstance.status('On');
-            $.connection[hubName].server.start();
-        });
-        $("." + name + "TickerStop").click(function() {
-            errorVMInstance.status('Off');
-            $.connection[hubName].server.stop();
-        });
-
-        //when changing slides make sure to stop the current hub
-        $(document).bind('deck.change', function(event, from, to) {
-            $.connection[hubName].server.stop();
-        });
     };
 
-    var setupGraph = function(name, container) {
+    var setupGraph = function(container) {
         var trueData = [], forecastData = [];
         var n = 15, isInit, x, y, trueLine, forecastLine, svg, truePath, forecastPath, xAxis;
         var period = 0;
@@ -178,7 +179,8 @@
         };
 
         // Add a client-side hub method that the server will call
-        var sendValue = function(value) {
+        var sendValue = function (value) {
+            console.log(value);
             period++;
 
             value.DataEntry.Value = value.DataEntry.Value.toFixed(0);
@@ -205,8 +207,8 @@
             forecastData.push([period, value.ForecastValue]);
             updateGraph();
         };
-
-        setupHub(name, sendValue);
+        
+        setupHub('forecastingDataHub', sendValue);
     };
 
     init();

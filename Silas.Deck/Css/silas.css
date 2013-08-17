@@ -11,6 +11,15 @@
 
 .slide h1 .emphasisred { color: red; }
 
+.slide .leftside h2 { display: inline-block; }
+
+.slide .leftside input { margin-top: -8px; }
+.slide .leftside label {
+    font-size: 20px;
+color: white;
+margin-left: 5em;
+margin-right: 0.5em;
+}
 .slide ul {
     color: #fff;
     font-size: 35px;

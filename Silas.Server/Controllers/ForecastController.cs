@@ -3,6 +3,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using Repositories.Interfaces;
 using Silas.Forecast.Models;
 using Silas.Server.DB;
 
@@ -10,16 +11,21 @@ namespace Silas.API.Controllers
 {
     public class ForecastController : ApiController
     {
-        private readonly ForecastContext db = new ForecastContext();
+        private readonly IRepository _repository;
+
+        public ForecastController(IRepository repository)
+        {
+            _repository = repository;
+        }
 
         public IEnumerable<DataEntry> Get()
         {
-            return db.DataEntries.AsEnumerable();
+            return _repository.Get<DataEntry>();
         }
 
         public DataEntry Get(int period)
         {
-            var dataentry = db.DataEntries.FirstOrDefault(e => e.Period == period);
+            var dataentry = _repository.Get<DataEntry>().FirstOrDefault(e => e.Period == period);
             if (dataentry == null)
             {
                 throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
@@ -32,22 +38,14 @@ namespace Silas.API.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.DataEntries.Add(dataentry);
-                db.SaveChanges();
-
-                var response = Request.CreateResponse(HttpStatusCode.Created, dataentry);
-                return response;
+                _repository.Create(dataentry);
+              
+                return Request.CreateResponse(HttpStatusCode.Created, dataentry);
             }
             else
             {
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
             }
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            db.Dispose();
-            base.Dispose(disposing);
         }
     }
 }

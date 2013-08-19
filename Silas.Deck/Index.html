@@ -13,6 +13,9 @@
     <body>
         <article class="deck-container">
             <section class="slide">
+                <label>Token</label><input type="text" data-bind="value: parameters.token"/>
+            </section>
+            <section class="slide">
                 <h1><span class="emphasis">Forecasting</span> using SignalR and WebAPI</h1>
             </section>
             <section class="slide" style="padding: 0;">
@@ -127,8 +130,8 @@
                 </div>
                 <div class="parameters">
                     <label>Token</label><input type="text" data-bind="value: parameters.token"/>
-                        <input type="button" value="Start" data-bind="click: parameters.start"/>
-                        <input type="button" value="Stop" data-bind="click: parameters.stop"/>
+                    <input type="button" value="Start" data-bind="click: parameters.start"/>
+                    <input type="button" value="Stop" data-bind="click: parameters.stop"/>
                 </div>
             </section>
             <section class="slide">
@@ -212,9 +215,16 @@
                 </div>
                 <div class="parameters">
                     <label>Token</label><input type="text" data-bind="value: parameters.token"/><br/>
+                    <label>Strategy</label><select data-bind="value: parameters.strategy">
+                                               <option value="Naive">Naive</option>
+                                               <option value="MovingAverage">MovingAverage</option>
+                                               <option value="SingleExp">SingleExp</option>
+                                               <option value="DoubleExp">DoubleExp</option>
+                                               <option value="TripleExp">TripleExp</option>
+                                           </select><br/>
                     <label>Period Count</label><input type="text" data-bind="value: parameters.periodCount"/><br/>
-                        <input type="button" value="Start" data-bind="click: parameters.start"/>
-                        <input type="button" value="Stop" data-bind="click: parameters.stop"/>
+                    <input type="button" value="Start" data-bind="click: parameters.start"/>
+                    <input type="button" value="Stop" data-bind="click: parameters.stop"/>
                 </div>
             </section>
             <section class="slide" style="padding: 0;">
@@ -292,6 +302,19 @@
                             </li>
                         </ul>
                     </div>
+                </div>
+                <div class="parameters">
+                    <label>Token</label><input type="text" data-bind="value: parameters.token"/><br/>
+                    <label>Strategy</label><select data-bind="value: parameters.strategy">
+                                               <option value="Naive">Naive</option>
+                                               <option value="MovingAverage">MovingAverage</option>
+                                               <option value="SingleExp">SingleExp</option>
+                                               <option value="DoubleExp">DoubleExp</option>
+                                               <option value="TripleExp">TripleExp</option>
+                                           </select><br/>
+                    <label>Alpha</label><input type="text" data-bind="value: parameters.alpha"/><br/>
+                    <input type="button" value="Start" data-bind="click: parameters.start"/>
+                    <input type="button" value="Stop" data-bind="click: parameters.stop"/>
                 </div>
             </section>
             <section class="slide" style="padding: 0;">
@@ -378,6 +401,20 @@
                         </ul>
                     </div>
                 </div>
+                <div class="parameters">
+                    <label>Token</label><input type="text" data-bind="value: parameters.token"/><br/>
+                    <label>Strategy</label><select data-bind="value: parameters.strategy">
+                                               <option value="Naive">Naive</option>
+                                               <option value="MovingAverage">MovingAverage</option>
+                                               <option value="SingleExp">SingleExp</option>
+                                               <option value="DoubleExp">DoubleExp</option>
+                                               <option value="TripleExp">TripleExp</option>
+                                           </select><br/>
+                    <label>Alpha</label><input type="text" data-bind="value: parameters.alpha"/><br/>
+                    <label>Beta</label><input type="text" data-bind="value: parameters.beta"/><br/>
+                    <input type="button" value="Start" data-bind="click: parameters.start"/>
+                    <input type="button" value="Stop" data-bind="click: parameters.stop"/>
+                </div>
             </section>
             <section class="slide" style="padding: 0;">
                 <h2 style="padding-left: 2em;">Triple Exponential Smoothing</h2>
@@ -454,6 +491,23 @@
                             </li>
                         </ul>
                     </div>
+                </div>
+                <div class="parameters">
+                    <label>Token</label><input type="text" data-bind="value: parameters.token"/><br/>
+                    <label>Strategy</label><select data-bind="value: parameters.strategy">
+                                               <option value="Naive">Naive</option>
+                                               <option value="MovingAverage">MovingAverage</option>
+                                               <option value="SingleExp">SingleExp</option>
+                                               <option value="DoubleExp">DoubleExp</option>
+                                               <option value="TripleExp">TripleExp</option>
+                                           </select><br/>
+                    <label>Alpha</label><input type="text" data-bind="value: parameters.alpha"/><br/>
+                    <label>Beta</label><input type="text" data-bind="value: parameters.beta"/><br/>
+                    <label>Gamma</label><input type="text" data-bind="value: parameters.gamma"/><br/>
+                    <label>Periods Per Season</label><input type="text" data-bind="value: parameters.periodsPerSeason"/><br/>
+                    <label>Seasons For Regression</label><input type="text" data-bind="value: parameters.seasonsForRegression"/><br/>
+                    <input type="button" value="Start" data-bind="click: parameters.start"/>
+                    <input type="button" value="Stop" data-bind="click: parameters.stop"/>
                 </div>
             </section>
             <section class="slide" style="padding: 0;">

@@ -60,6 +60,7 @@ namespace Silas.Client
             foreach (var entry in GetData())
             {
                 entry.Period = ++_currentPeriod;
+                Console.WriteLine("The true value for period {0} will be {1}", entry.Period, entry.Value);
                 _proxySender.Invoke("AddEntry", _set, entry).Wait();
                 Thread.Sleep(1000);
             }

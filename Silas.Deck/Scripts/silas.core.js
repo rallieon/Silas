@@ -21,11 +21,25 @@
         this.beta = ko.observable(0);
         this.gamma = ko.observable(0);
         this.periodsPerSeason = ko.observable(0);
-        this.seasonsPerPeriod = ko.observable(0);
+        this.seasonsForRegression = ko.observable(0);
         this.start = function() {
             $.connection.forecastingDataHub.server.register({
                 Token: self.token()
             });
+            $.connection.forecastingDataHub.server.modifyParameters(
+                {
+                    Token: self.token()
+                },
+                {
+                    Strategy: strategy(),
+                    PeriodCount: periodCount(),
+                    Alpha: alpha(),
+                    Beta: beta(),
+                    Gamma: gamma(),
+                    PeriodsPerSeason: periodsPerSeason(),
+                    SeasonsForRegression: seasonsForRegression(),
+                    State: 'Started'
+                });
         };
         this.stop = function () {
             $.connection.forecastingDataHub.server.unregister({
@@ -117,7 +131,8 @@
                 .x(function(d, i) { return x(d[0] - 1); })
                 .y(function(d, i) { return y(d[1]); });
 
-            svg = d3.select(container).append("svg")
+            svg = d3.select(".deck-current " + container).append("svg")
+                .attr("id", "forecastGraph")
                 .attr("width", width + margin.left + margin.right)
                 .attr("height", height + margin.top + margin.bottom + 20)
                 .append("g")
@@ -212,8 +227,8 @@
         setupHub('forecastingDataHub', sendValue);
         
         $(document).bind('deck.change', function (event, from, to) {
-            isInit = false;
-            
+            d3.selectAll("#forecastGraph").remove();
+            isInit = false; 
         });
     };
 

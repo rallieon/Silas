@@ -62,9 +62,6 @@
                 <div class="header">
                     <div class="leftside">
                         <h2>Naive</h2>
-                        <label>Token</label><input type="text" data-bind="value: parameters.token"/>
-                        <input type="button" value="Start" data-bind="click: parameters.start"/>
-                        <input type="button" value="Stop" data-bind="click: parameters.stop"/>
                     </div>
                 </div>
                 <div class="content" style="padding-top: 5em;">
@@ -81,7 +78,7 @@
                                 <div class="orange knob widget">
                                     <label>Error</label>
                                     <input class="datatext" type="text" value="0" data-bind="knob: percentError" />
-                                    <div class="smalltext" style="padding: 0">Total Percentage of Error Rate</div>
+                                    <div class="smalltext" style="padding: 0">Error Rate</div>
                                 </div>
                             </li>
                             <li data-row="2" data-col="1" data-sizex="1" data-sizey="1">
@@ -127,6 +124,11 @@
                             </li>
                         </ul>
                     </div>
+                </div>
+                <div class="parameters">
+                    <label>Token</label><input type="text" data-bind="value: parameters.token"/>
+                        <input type="button" value="Start" data-bind="click: parameters.start"/>
+                        <input type="button" value="Stop" data-bind="click: parameters.stop"/>
                 </div>
             </section>
             <section class="slide">
@@ -161,7 +163,7 @@
                                 <div class="orange knob widget">
                                     <label>Error</label>
                                     <input class="datatext" type="text" value="0" data-bind="knob: percentError" />
-                                    <div class="smalltext" style="padding: 0">Total Percentage of Error Rate</div>
+                                    <div class="smalltext" style="padding: 0">Error Rate</div>
                                 </div>
                             </li>
                             <li data-row="2" data-col="1" data-sizex="1" data-sizey="1">
@@ -208,6 +210,12 @@
                         </ul>
                     </div>
                 </div>
+                <div class="parameters">
+                    <label>Token</label><input type="text" data-bind="value: parameters.token"/><br/>
+                    <label>Period Count</label><input type="text" data-bind="value: parameters.periodCount"/><br/>
+                        <input type="button" value="Start" data-bind="click: parameters.start"/>
+                        <input type="button" value="Stop" data-bind="click: parameters.stop"/>
+                </div>
             </section>
             <section class="slide" style="padding: 0;">
                 <h2 style="padding-left: 2em;">Simple Exponential Smoothing</h2>
@@ -238,7 +246,7 @@
                                 <div class="orange knob widget">
                                     <label>Error</label>
                                     <input class="datatext" type="text" value="0" data-bind="knob: percentError" />
-                                    <div class="smalltext" style="padding: 0">Total Percentage of Error Rate</div>
+                                    <div class="smalltext" style="padding: 0">Error Rate</div>
                                 </div>
                             </li>
                             <li data-row="2" data-col="1" data-sizex="1" data-sizey="1">
@@ -323,7 +331,7 @@
                                 <div class="orange knob widget">
                                     <label>Error</label>
                                     <input class="datatext" type="text" value="0" data-bind="knob: percentError" />
-                                    <div class="smalltext" style="padding: 0">Total Percentage of Error Rate</div>
+                                    <div class="smalltext" style="padding: 0">Error Rate</div>
                                 </div>
                             </li>
                             <li data-row="2" data-col="1" data-sizex="1" data-sizey="1">
@@ -400,7 +408,7 @@
                                 <div class="orange knob widget">
                                     <label>Error</label>
                                     <input class="datatext" type="text" value="0" data-bind="knob: percentError" />
-                                    <div class="smalltext" style="padding: 0">Total Percentage of Error Rate</div>
+                                    <div class="smalltext" style="padding: 0">Error Rate</div>
                                 </div>
                             </li>
                             <li data-row="2" data-col="1" data-sizex="1" data-sizey="1">

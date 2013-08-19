@@ -3,6 +3,11 @@
 .slide h2 {
     border: none;
     color: #fff;
+    font-size: 1.75em;
+}
+
+.deck-container ul {
+    margin: 0;    
 }
 
 .slide h1 { color: #fff; }
@@ -14,11 +19,14 @@
 .slide .leftside h2 { display: inline-block; }
 
 .slide .leftside input { margin-top: -8px; }
-.slide .leftside label {
+
+.slide .parameters {
+    margin-top: 1em;
+}
+.slide .parameters label {
     font-size: 20px;
-color: white;
-margin-left: 5em;
-margin-right: 0.5em;
+    color: white;
+    margin-right: 0.5em;
 }
 .slide ul {
     color: #fff;
@@ -34,7 +42,7 @@ margin-right: 0.5em;
 svg {
     fill: #222;
     font-family: 'Ariel', sans-serif;
-    font-size: 24px;
+    font-size: 18px;
     font-weight: bold;
 }
 
@@ -60,7 +68,7 @@ svg {
 
 ul, ol { list-style: none; }
 
-.knob canvas { margin-top: 1em; }
+.knob canvas { margin-top: 0.1em; }
 
 .white { background-color: white; }
 
@@ -126,7 +134,7 @@ ul, ol { list-style: none; }
     float: left;
     height: 100%;
     text-align: left;
-    width: 50%;
+    width: 100%;
 }
 
 .widget {
@@ -143,10 +151,10 @@ ul, ol { list-style: none; }
     border: none;
     color: white;
     font-family: 'Ariel', sans-serif;
-    font-size: 18px;
+    font-size: 15px;
     opacity: 0.7;
     padding: 0;
-    padding-top: 3em;
+    padding-top: 0.2em;
     text-align: center;
 }
 
@@ -154,7 +162,7 @@ ul, ol { list-style: none; }
     border: none;
     color: white;
     font-family: 'Ariel', sans-serif;
-    font-size: 36px;
+    font-size: 22px;
     opacity: 0.7;
     padding: 0;
     text-align: center;
@@ -164,8 +172,8 @@ ul, ol { list-style: none; }
     border: none;
     color: white;
     font-family: 'Ariel', sans-serif;
-    font-size: 60px;
-    padding-top: 0.5em;
+    font-size: 40px;
+    padding-top: 0.1em;
     text-align: center;
 }
 
@@ -173,13 +181,12 @@ ul, ol { list-style: none; }
     border: none;
     color: white;
     font-family: 'Ariel', sans-serif;
-    font-size: 40px;
+    font-size: 24px;
     text-align: center;
 }
 
 .widget table {
     border-collapse: separate;
-    border-spacing: 1em 0em;
     width: 100%;
 }
 
@@ -187,7 +194,7 @@ table .smalltext {
     border: none;
     color: white;
     font-family: 'Ariel', sans-serif;
-    font-size: 18px;
+    font-size: 15px;
     opacity: 0.7;
     padding: 0;
     text-align: center;

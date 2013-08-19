@@ -4,7 +4,7 @@
     ko.bindingHandlers.knob = {
         init: function(element, valueAccessor) {
             var value = valueAccessor()();
-            $(element).knob({ width: 200, height: 140, inputColor: '#fff', fgColor: '#12b0c5', min: 0, max: 100, angleArc: 100, angleOffset: -50, readOnly: true });
+            $(element).knob({ width: 120, height: 70, inputColor: '#fff', fgColor: '#12b0c5', min: 0, max: 100, angleArc: 100, angleOffset: -50, readOnly: true });
         },
         update: function(element, valueAccessor, allBindingsAccessor) {
             var value = valueAccessor()();
@@ -16,6 +16,7 @@
         var self = this;
         this.token = ko.observable("");
         this.strategy = ko.observable("Naieve");
+        this.periodCount = ko.observable(0);
         this.alpha = ko.observable(0);
         this.beta = ko.observable(0);
         this.gamma = ko.observable(0);
@@ -64,9 +65,9 @@
         //gridster initialization
         $(".gridster > ul").gridster({
             widget_margins: [5, 5],
-            widget_base_dimensions: [250, 250],
+            widget_base_dimensions: [150, 150],
             min_cols: 8,
-            width: 1200
+            width: 900
         });
 
         // Deck initialization
@@ -92,8 +93,8 @@
         var n = 15, isInit, x, y, trueLine, forecastLine, svg, truePath, forecastPath, xAxis;
         var period = 0;
         var margin = { top: 30, right: 30, bottom: 20, left: 80 },
-            width = 800 - margin.left - margin.right,
-            height = 650 - margin.top - margin.bottom;
+            width = 600 - margin.left - margin.right,
+            height = 400 - margin.top - margin.bottom;
         var startX = 0;
         var endX = n - 1;
         var startXRange = 0;
@@ -105,7 +106,7 @@
                 .range([startXRange, endXRange]);
 
             y = d3.scale.linear()
-                .domain([33000, 35000])
+                .domain([33500, 40000])
                 .range([height, 0]);
 
             trueLine = d3.svg.line()
@@ -209,6 +210,11 @@
         };
         
         setupHub('forecastingDataHub', sendValue);
+        
+        $(document).bind('deck.change', function (event, from, to) {
+            isInit = false;
+            
+        });
     };
 
     init();

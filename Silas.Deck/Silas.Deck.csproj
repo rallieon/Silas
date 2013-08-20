@@ -57,6 +57,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Css\bootstrap.min.css" />
     <Content Include="Css\deck.core.css" />
     <Content Include="Css\horizontal-slide.css" />
     <Content Include="Css\jquery.gridster.min.css" />

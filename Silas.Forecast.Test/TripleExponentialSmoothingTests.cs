@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Dynamic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.CSharp.RuntimeBinder;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Silas.Forecast.Models;
 using Silas.Forecast.Strategies;
@@ -13,10 +11,10 @@ namespace Silas.Forecast.Test
     [TestClass]
     public class TripleExponentialSmoothingTests
     {
-        private readonly TripleExponentialSmoothingStrategy _strategy = new TripleExponentialSmoothingStrategy();
-        private dynamic _parameters;
         private const double _customEpsilon = 0.001;
+        private readonly TripleExponentialSmoothingStrategy _strategy = new TripleExponentialSmoothingStrategy();
         private IList<DataEntry> _data;
+        private dynamic _parameters;
 
         [TestInitialize]
         public void Setup()
@@ -103,7 +101,7 @@ namespace Silas.Forecast.Test
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException), "The strategy parameters must include Alpha")]
+        [ExpectedException(typeof(RuntimeBinderException))]
         public void TestForecastMissingAlpha()
         {
             dynamic testParameters = new ExpandoObject();
@@ -111,7 +109,7 @@ namespace Silas.Forecast.Test
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException), "The strategy parameters must include Beta")]
+        [ExpectedException(typeof(RuntimeBinderException))]
         public void TestForecastMissingBeta()
         {
             dynamic testParameters = new ExpandoObject();
@@ -120,7 +118,7 @@ namespace Silas.Forecast.Test
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException), "The strategy parameters must include Gamma")]
+        [ExpectedException(typeof(RuntimeBinderException))]
         public void TestForecastMissingGamma()
         {
             dynamic testParameters = new ExpandoObject();
@@ -130,7 +128,7 @@ namespace Silas.Forecast.Test
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException), "The strategy parameters must include PeriodsPerSeason")]
+        [ExpectedException(typeof(RuntimeBinderException))]
         public void TestForecastMissingPeriodsPerSeason()
         {
             dynamic testParameters = new ExpandoObject();
@@ -141,7 +139,7 @@ namespace Silas.Forecast.Test
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException), "The strategy parameters must include SeasonsForRegression")]
+        [ExpectedException(typeof(RuntimeBinderException))]
         public void TestForecastMissingSeasonsForRegression()
         {
             dynamic testParameters = new ExpandoObject();
@@ -153,7 +151,8 @@ namespace Silas.Forecast.Test
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException), "You need at least three full seasons of data to build a data model.")]
+        [ExpectedException(typeof (ArgumentException),
+            "You need at least three full seasons of data to build a data model.")]
         public void TestForecastInvalidPeriodsPerSeason()
         {
             dynamic testParameters = new ExpandoObject();
@@ -166,7 +165,7 @@ namespace Silas.Forecast.Test
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException), "You cannot forecast more than one future ahead.")]
+        [ExpectedException(typeof (ArgumentException), "You cannot forecast more than one future ahead.")]
         public void TestForecastInvalidPeriodMoreThanOneSeasonAhead()
         {
             dynamic testParameters = new ExpandoObject();

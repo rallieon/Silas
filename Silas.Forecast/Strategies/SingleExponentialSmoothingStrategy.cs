@@ -12,9 +12,6 @@ namespace Silas.Forecast.Strategies
             if (period - 1 < 0)
                 return null;
 
-            if (!((IDictionary<String, object>)strategyParameters).ContainsKey("Alpha"))
-                throw new ArgumentException("The strategy parameters must include Alpha");
-
             double alpha = strategyParameters.Alpha;
             double value;
 
@@ -26,22 +23,23 @@ namespace Silas.Forecast.Strategies
                 value = GenerateForecast(3, dataEntries.Count() + 1, alpha, dataEntries, dataEntries.First().Value);
 
             return new ForecastEntry
-            {
-                Period = period,
-                DataEntry = period > dataEntries.Count() ? dataEntries.Last() : dataEntries.ElementAt(period - 1),
-                ForecastValue = value,
-                ConfidenceIntervalLow = value,
-                ConfidenceIntervalHigh = value,
-                IsHoldout = period > dataEntries.Count() * 0.7  //holdout data is always 70 percent
-            };
+                {
+                    Period = period,
+                    DataEntry = period > dataEntries.Count() ? dataEntries.Last() : dataEntries.ElementAt(period - 1),
+                    ForecastValue = value,
+                    ConfidenceIntervalLow = value,
+                    ConfidenceIntervalHigh = value,
+                    IsHoldout = period > dataEntries.Count()*0.7 //holdout data is always 70 percent
+                };
         }
 
-        private double GenerateForecast(int startPeriod, int endPeriod, double alpha, IEnumerable<DataEntry> dataEntries, double currForecast)
+        private double GenerateForecast(int startPeriod, int endPeriod, double alpha, IEnumerable<DataEntry> dataEntries,
+                                        double currForecast)
         {
-            for (int currPeriod = startPeriod; currPeriod <= endPeriod; currPeriod++)
+            for (var currPeriod = startPeriod; currPeriod <= endPeriod; currPeriod++)
             {
                 //sub two since list is 0 index based and we want to go back one period
-                currForecast = (alpha * dataEntries.ElementAt(currPeriod - 2).Value) + ((1 - alpha) * currForecast);
+                currForecast = (alpha*dataEntries.ElementAt(currPeriod - 2).Value) + ((1 - alpha)*currForecast);
             }
 
             return currForecast;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Dynamic;
+using Microsoft.CSharp.RuntimeBinder;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Silas.Forecast.Models;
 using Silas.Forecast.Strategies;
@@ -11,8 +12,8 @@ namespace Silas.Forecast.Test
     public class MovingAverageStrategyTests
     {
         private readonly MovingAverageStrategy _strategy = new MovingAverageStrategy();
-        private dynamic _parameters;
         private IList<DataEntry> _data;
+        private dynamic _parameters;
 
         [TestInitialize]
         public void Setup()
@@ -97,7 +98,7 @@ namespace Silas.Forecast.Test
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException), "The strategy parameters must include PeriodCount")]
+        [ExpectedException(typeof(RuntimeBinderException))]
         public void TestForecastMissingPeriodCount()
         {
             dynamic testParameters = new ExpandoObject();
@@ -105,7 +106,8 @@ namespace Silas.Forecast.Test
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException), "The number of periods can not be greater than the number of entries.")]
+        [ExpectedException(typeof (ArgumentException),
+            "The number of periods can not be greater than the number of entries.")]
         public void TestForecastInvalidPeriodCount()
         {
             dynamic testParameters = new ExpandoObject();

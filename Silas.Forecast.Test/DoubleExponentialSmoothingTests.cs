@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Dynamic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.CSharp.RuntimeBinder;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Silas.Forecast.Models;
 using Silas.Forecast.Strategies;
@@ -13,10 +11,10 @@ namespace Silas.Forecast.Test
     [TestClass]
     public class DoubleExponentialSmoothingStrategyTests
     {
-        private readonly DoubleExponentialSmoothingStrategy _strategy = new DoubleExponentialSmoothingStrategy();
-        private dynamic _parameters;
         private const double _customEpsilon = 0.01;
+        private readonly DoubleExponentialSmoothingStrategy _strategy = new DoubleExponentialSmoothingStrategy();
         private IList<DataEntry> _data;
+        private dynamic _parameters;
 
         [TestInitialize]
         public void Setup()
@@ -115,7 +113,7 @@ namespace Silas.Forecast.Test
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException), "The strategy parameters must include Alpha")]
+        [ExpectedException(typeof(RuntimeBinderException))]
         public void TestForecastMissingAlpha()
         {
             dynamic testParameters = new ExpandoObject();
@@ -123,7 +121,7 @@ namespace Silas.Forecast.Test
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException), "The strategy parameters must include Beta")]
+        [ExpectedException(typeof(RuntimeBinderException))]
         public void TestForecastMissingBeta()
         {
             dynamic testParameters = new ExpandoObject();

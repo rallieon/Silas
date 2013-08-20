@@ -1,0 +1,82 @@
+﻿.csstransitions.csstransforms { overflow-x: hidden; }
+
+.csstransitions.csstransforms .deck-container > .slide {
+    -moz-transition: -moz-transform 500ms ease-in-out;
+    -ms-transition: -ms-transform 500ms ease-in-out;
+    -o-transition: -o-transform 500ms ease-in-out;
+    -webkit-transition: -webkit-transform 500ms ease-in-out;
+    transition: transform 500ms ease-in-out;
+}
+
+.csstransitions.csstransforms .deck-container:not(.deck-menu) > .slide {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    left: 0;
+    padding: 0 48px;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+
+.csstransitions.csstransforms .deck-container:not(.deck-menu) > .slide .slide {
+    -moz-transition: -moz-transform 500ms ease-in-out, opacity 500ms ease-in-out;
+    -ms-transition: -ms-transform 500ms ease-in-out, opacity 500ms ease-in-out;
+    -o-transition: -o-transform 500ms ease-in-out, opacity 500ms ease-in-out;
+    -webkit-transition: -webkit-transform 500ms ease-in-out, opacity 500ms ease-in-out;
+    left: 0;
+    position: relative;
+    top: 0;
+    transition: -webkit-transform 500ms ease-in-out, opacity 500ms ease-in-out;
+}
+
+.csstransitions.csstransforms .deck-container:not(.deck-menu) > .slide .deck-next, .csstransitions.csstransforms .deck-container:not(.deck-menu) > .slide .deck-after {
+    -moz-transform: translate(200%, 0);
+    -ms-transform: translate(200%, 0);
+    -o-transform: translate(200%, 0);
+    -webkit-transform: translate3d(200%, 0, 0);
+    transform: translate3d(200%, 0, 0);
+    visibility: visible;
+}
+
+.csstransitions.csstransforms .deck-container:not(.deck-menu) > .deck-previous {
+    -moz-transform: translate(-200%, 0);
+    -ms-transform: translate(-200%, 0);
+    -o-transform: translate(-200%, 0);
+    -webkit-transform: translate3d(-200%, 0, 0);
+    transform: translate3d(-200%, 0, 0);
+}
+
+.csstransitions.csstransforms .deck-container:not(.deck-menu) > .deck-before {
+    -moz-transform: translate(-400%, 0);
+    -ms-transform: translate(-400%, 0);
+    -o-transform: translate(-400%, 0);
+    -webkit-transform: translate3d(-400%, 0, 0);
+    transform: translate3d(-400%, 0, 0);
+}
+
+.csstransitions.csstransforms .deck-container:not(.deck-menu) > .deck-next {
+    -moz-transform: translate(200%, 0);
+    -ms-transform: translate(200%, 0);
+    -o-transform: translate(200%, 0);
+    -webkit-transform: translate3d(200%, 0, 0);
+    transform: translate3d(200%, 0, 0);
+}
+
+.csstransitions.csstransforms .deck-container:not(.deck-menu) > .deck-after {
+    -moz-transform: translate(400%, 0);
+    -ms-transform: translate(400%, 0);
+    -o-transform: translate(400%, 0);
+    -webkit-transform: translate3d(400%, 0, 0);
+    transform: translate3d(400%, 0, 0);
+}
+
+.csstransitions.csstransforms .deck-container:not(.deck-menu) > .deck-before .slide, .csstransitions.csstransforms .deck-container:not(.deck-menu) > .deck-previous .slide { visibility: visible; }
+
+.csstransitions.csstransforms .deck-container:not(.deck-menu) > .deck-child-current {
+    -moz-transform: none;
+    -ms-transform: none;
+    -o-transform: none;
+    -webkit-transform: none;
+    transform: none;
+}

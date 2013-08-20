@@ -3,9 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Silas.Forecast", "Silas.Forecast\Silas.Forecast.csproj", "{541B9E7F-1E5A-4D10-8781-6DE018819140}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Silas.DataFeed", "Silas.DataFeed\Silas.DataFeed.csproj", "{0B0427DE-5FE1-44EA-AA90-4725AB4B510C}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Silas.Web", "Silas.Web\Silas.Web.csproj", "{047FE9BC-03C2-4F8C-B938-5EEE318FB053}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Silas.Client", "Silas.Client\Silas.Client.csproj", "{0B0427DE-5FE1-44EA-AA90-4725AB4B510C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{5289B7AF-536C-44D6-9CB3-49556C452ED0}"
 	ProjectSection(SolutionItems) = preProject
@@ -24,6 +22,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Silas.Forecast.Test", "Silas.Forecast.Test\Silas.Forecast.Test.csproj", "{F514CB95-1BEB-4B96-A06C-17975580DC5E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Silas.Deck", "Silas.Deck\Silas.Deck.csproj", "{C5EF63F3-3B42-4E52-83EE-81B3E4F53C49}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -38,10 +38,6 @@ Global
 		{0B0427DE-5FE1-44EA-AA90-4725AB4B510C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0B0427DE-5FE1-44EA-AA90-4725AB4B510C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0B0427DE-5FE1-44EA-AA90-4725AB4B510C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{047FE9BC-03C2-4F8C-B938-5EEE318FB053}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{047FE9BC-03C2-4F8C-B938-5EEE318FB053}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{047FE9BC-03C2-4F8C-B938-5EEE318FB053}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{047FE9BC-03C2-4F8C-B938-5EEE318FB053}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FE4AB3A7-98AA-4D8C-A227-4140C88C816A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FE4AB3A7-98AA-4D8C-A227-4140C88C816A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FE4AB3A7-98AA-4D8C-A227-4140C88C816A}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -50,11 +46,12 @@ Global
 		{F514CB95-1BEB-4B96-A06C-17975580DC5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F514CB95-1BEB-4B96-A06C-17975580DC5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F514CB95-1BEB-4B96-A06C-17975580DC5E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5EF63F3-3B42-4E52-83EE-81B3E4F53C49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5EF63F3-3B42-4E52-83EE-81B3E4F53C49}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5EF63F3-3B42-4E52-83EE-81B3E4F53C49}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5EF63F3-3B42-4E52-83EE-81B3E4F53C49}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(Performance) = preSolution
-		HasPerformanceSessions = true
 	EndGlobalSection
 EndGlobal

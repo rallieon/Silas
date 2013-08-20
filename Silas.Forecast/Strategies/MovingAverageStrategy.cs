@@ -12,12 +12,9 @@ namespace Silas.Forecast.Strategies
             if (period - 1 < 0)
                 return null;
 
-            if (!((IDictionary<String, object>)strategyParameters).ContainsKey("PeriodCount"))
-                throw new ArgumentException("The strategy parameters must include PeriodCount");
-
             int numberOfPeriods = strategyParameters.PeriodCount;
 
-            if(numberOfPeriods > dataEntries.Count())
+            if (numberOfPeriods > dataEntries.Count())
                 throw new ArgumentException("The number of periods can not be greater than the number of entries.");
 
             double value;
@@ -27,9 +24,12 @@ namespace Silas.Forecast.Strategies
             else if (period < numberOfPeriods)
                 value = dataEntries.ElementAt(period - 1).Value;
             else if (dataEntries.Count() > 1 && period <= dataEntries.Count() + 1)
-                value = dataEntries.Take(period - 1).Reverse().Take(numberOfPeriods).Reverse().Sum(entry => (entry.Value)) / numberOfPeriods;
+                value =
+                    dataEntries.Take(period - 1).Reverse().Take(numberOfPeriods).Reverse().Sum(entry => (entry.Value))/
+                    numberOfPeriods;
             else
-                value = dataEntries.Reverse().Take(numberOfPeriods).Reverse().Sum(entry => (entry.Value)) / numberOfPeriods;
+                value = dataEntries.Reverse().Take(numberOfPeriods).Reverse().Sum(entry => (entry.Value))/
+                        numberOfPeriods;
 
             return new ForecastEntry
                 {
@@ -38,7 +38,7 @@ namespace Silas.Forecast.Strategies
                     ForecastValue = value,
                     ConfidenceIntervalLow = value,
                     ConfidenceIntervalHigh = value,
-                    IsHoldout = period > dataEntries.Count() * 0.7  //holdout data is always 70 percent
+                    IsHoldout = period > dataEntries.Count()*0.7 //holdout data is always 70 percent
                 };
         }
     }

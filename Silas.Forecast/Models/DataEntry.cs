@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Newtonsoft.Json;
 
 namespace Silas.Forecast.Models
 {
@@ -7,5 +7,9 @@ namespace Silas.Forecast.Models
         public int Id { get; set; }
         public int Period { get; set; }
         public double Value { get; set; }
+        public int DataSetId { get; set; }
+
+        [JsonIgnore]
+        public DataSet Set { get; set; }
     }
 }

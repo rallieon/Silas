@@ -1,0 +1,596 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width" />
+        <title></title>
+        <script src="Scripts/Vendor/modernizr-2.6.2.js" type="text/javascript"> </script>
+        <link rel="stylesheet" href="Css/bootstrap.min.css">
+        <link rel="stylesheet" href="Css/deck.core.css">
+        <link rel="stylesheet" href="Css/horizontal-slide.css">
+        <link rel="stylesheet" href="Css/jquery.gridster.min.css">
+        <link rel="stylesheet" href="Css/silas.css">
+    </head>
+    <body>
+        <article class="deck-container">
+            <section class="slide">
+                <form>
+                  <fieldset class="form-inline">
+                    <input type="text" class="input-mini" placeholder="Token..." data-bind="value: parameters.token">
+                  </fieldset>
+                </form> 
+            </section>
+            <section class="slide">
+                <h1><span class="emphasis">Forecasting</span> using SignalR and WebAPI</h1>
+            </section>
+            <section class="slide" style="padding: 0;">
+                <img class="expanded" src="./Images/GirlBar.jpg" />
+            </section>
+            <section class="slide" style="padding: 0;">
+                <h1>@keithlaforce</h1>
+                <img src="./Images/twitter.png" />
+            </section>
+            <section class="slide">
+                <h2>He needs this</h2>
+                <img src="./Images/Rachel.jpg" />
+            </section>
+            <section class="slide">
+                <img src="./Images/sdw_logo_orange_markonly.png" style="padding-top: 10%; width: 50%;" />
+            </section>
+            <section class="slide">
+                <h1>That is <span class="emphasis">not</span> a rhetorical question.</h1>
+            </section>
+            <section class="slide">
+                <h1>&lt;Insert Muted Muttering Here&gt;</h1>
+            </section>
+            <section class="slide">
+                <img class="expanded" src="./Images/magic.jpg" />
+            </section>
+            <section class="slide">
+                <h1>Your forecasts will always be <span class="emphasisred">wrong</span>.</h1>
+            </section>
+            <section class="slide" style="padding: 0;">
+                <img class="expanded" src="./Images/autoscalememe.jpg" />
+            </section>
+            <section class="slide">
+                <h1>Silas</h1>
+            </section>
+            <section class="slide" style="padding: 0;">
+                <h2 style="padding-left: 2em;">WTF?</h2>
+                <img src="./Images/tripleequation.png" style="padding-top: 5%;" />
+            </section>
+            <section class="slide">
+                <h2 style="padding-left: 2em;">Naive</h2>
+                <img src="./Images/datatable.png" style="padding-top: 5%;" />
+            </section>
+            <section class="slide" style="margin: 0; padding: 0;">
+                <img class="expanded" src="./Images/milton.jpg" />
+            </section>
+            <section class="slide naieveslide">
+                <div class="header">
+                    <div class="leftside">
+                        <h2>Naive</h2>
+                    </div>
+                </div>
+                <div class="content" style="padding-top: 5em;">
+                    <div class="gridster">
+                        <ul>
+                            <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
+                                <div class="teal widget">
+                                    <label>MAE</label>
+                                    <div class="datatext" data-bind="text: meanAbsoluteError"></div>
+                                    <div class="smalltext">Mean Average Error</div>
+                                </div>
+                            </li>
+                            <li data-row="1" data-col="2" data-sizex="1" data-sizey="1">
+                                <div class="orange knob widget">
+                                    <label>Error</label>
+                                    <input class="datatext" type="text" value="0" data-bind="knob: percentError" />
+                                    <div class="smalltext" style="padding: 0">Error Rate</div>
+                                </div>
+                            </li>
+                            <li data-row="2" data-col="1" data-sizex="1" data-sizey="1">
+                                <div class="purple widget">
+                                    <label>CI High</label>
+                                    <div class="datatext" data-bind="text: confidenceHigh"></div>
+                                    <div class="smalltext">CI = Confidence Interval</div>
+
+                                </div>
+                            </li>
+                            <li data-row="2" data-col="2" data-sizex="1" data-sizey="1">
+                                <div class="lightteal widget">
+                                    <label>CI Low</label>
+                                    <div class="datatext" data-bind="text: confidenceLow"></div>
+                                    <div class="smalltext">Number of Hits</div>
+                                </div>
+                            </li>
+                            <li data-row="1" data-col="3" data-sizex="4" data-sizey="3">
+                                <div class="graphContainer teal widget baseline">
+                                    <h2>Forecast Graph</h2>
+                                </div>
+                            </li>
+                            <li data-row="3" data-col="1" data-sizex="2" data-sizey="1">
+                                <div class="red widget baseline">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Period</th>
+                                                <th>Real</th>
+                                                <th>Forecast</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody data-bind="foreach: entries">
+                                            <tr>
+                                                <td class="tabletext" data-bind="text: DataEntry.Period"></td>
+                                                <td class="tabletext" data-bind="text: DataEntry.Value"></td>
+                                                <td class="tabletext" data-bind="text: ForecastValue"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="smalltext" style="padding: 0">Number of Hits</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="parameters">
+                    <form>
+                        <fieldset class="form-inline">
+                            <input type="text" class="input-mini" placeholder="Token..." data-bind="value: parameters.token">
+                            <input type="button" class="btn" value="Start" data-bind="click: parameters.start"/>
+                            <input type="button" class="btn" value="Stop" data-bind="click: parameters.stop"/>
+                        </fieldset>
+                    </form>
+                </div>
+            </section>
+            <section class="slide">
+                <h1>You can only forecast ahead <span class="emphasis">one</span> period.</h1>
+            </section>
+            <section class="slide" style="padding: 0;">
+                <h2 style="padding-left: 2em;">Moving Average</h2>
+                <img src="./Images/movingaverageequation.png" style="padding-top: 10%;" />
+            </section>
+            <section class="slide movingaverageslide">
+                <div class="header">
+                    <div class="leftside">
+                        <h2>Moving Average</h2>
+                    </div>
+
+                    <div class="rightside" style="padding-top: 2em;">
+                        <input type="button" class="button tickerStart" value="Start"></input>
+                        <input type="button" class="button tickerStop" value="Stop"></input>
+                    </div>
+                </div>
+                <div class="content" style="padding-top: 5em;">
+                    <div class="gridster">
+                        <ul>
+                            <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
+                                <div class="teal widget">
+                                    <label>MAE</label>
+                                    <div class="datatext" data-bind="text: meanAbsoluteError"></div>
+                                    <div class="smalltext">Mean Average Error</div>
+                                </div>
+                            </li>
+                            <li data-row="1" data-col="2" data-sizex="1" data-sizey="1">
+                                <div class="orange knob widget">
+                                    <label>Error</label>
+                                    <input class="datatext" type="text" value="0" data-bind="knob: percentError" />
+                                    <div class="smalltext" style="padding: 0">Error Rate</div>
+                                </div>
+                            </li>
+                            <li data-row="2" data-col="1" data-sizex="1" data-sizey="1">
+                                <div class="purple widget">
+                                    <label>CI High</label>
+                                    <div class="datatext" data-bind="text: confidenceHigh"></div>
+                                    <div class="smalltext">CI = Confidence Interval</div>
+
+                                </div>
+                            </li>
+                            <li data-row="2" data-col="2" data-sizex="1" data-sizey="1">
+                                <div class="lightteal widget">
+                                    <label>CI Low</label>
+                                    <div class="datatext" data-bind="text: confidenceLow"></div>
+                                    <div class="smalltext">Number of Hits</div>
+                                </div>
+                            </li>
+                            <li data-row="1" data-col="3" data-sizex="4" data-sizey="3">
+                                <div class="graphContainer teal widget baseline">
+                                    <h2>Forecast Graph</h2>
+                                </div>
+                            </li>
+                            <li data-row="3" data-col="1" data-sizex="2" data-sizey="1">
+                                <div class="red widget baseline">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Period</th>
+                                                <th>Real</th>
+                                                <th>Forecast</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody data-bind="foreach: entries">
+                                            <tr>
+                                                <td class="tabletext" data-bind="text: DataEntry.Period"></td>
+                                                <td class="tabletext" data-bind="text: DataEntry.Value"></td>
+                                                <td class="tabletext" data-bind="text: ForecastValue"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="smalltext" style="padding: 0">Number of Hits</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="parameters">
+                    <form>
+                        <fieldset class="form-inline">
+                            <input type="text" class="input-mini" placeholder="Token..." data-bind="value: parameters.token">
+                            <select data-bind="value: parameters.strategy">
+                                <option value="Naive">Naive</option>
+                                <option value="MovingAverage">MovingAverage</option>
+                                <option value="SingleExp">SingleExp</option>
+                                <option value="DoubleExp">DoubleExp</option>
+                                <option value="TripleExp">TripleExp</option>
+                            </select>
+                            <input type="text" class="input-mini" placeholder="Period Count..." data-bind="value: parameters.periodCount">
+                            <input type="button" class="btn" value="Start" data-bind="click: parameters.start"/>
+                            <input type="button" class="btn" value="Stop" data-bind="click: parameters.stop"/>
+                        </fieldset>
+                    </form>
+                </div>
+            </section>
+            <section class="slide" style="padding: 0;">
+                <h2 style="padding-left: 2em;">Simple Exponential Smoothing</h2>
+                <img src="./Images/simpleequation.png" style="padding-top: 10%;" />
+            </section>
+            <section class="slide singleexponentialslide">
+                <div class="header">
+                    <div class="leftside">
+                        <h2>Simple Exponential Smoothing</h2>
+                    </div>
+
+                    <div class="rightside" style="padding-top: 2em;">
+                        <input type="button" class="button tickerStart" value="Start"></input>
+                        <input type="button" class="button tickerStop" value="Stop"></input>
+                    </div>
+                </div>
+                <div class="content" style="padding-top: 5em;">
+                    <div class="gridster">
+                        <ul>
+                            <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
+                                <div class="teal widget">
+                                    <label>MAE</label>
+                                    <div class="datatext" data-bind="text: meanAbsoluteError"></div>
+                                    <div class="smalltext">Mean Average Error</div>
+                                </div>
+                            </li>
+                            <li data-row="1" data-col="2" data-sizex="1" data-sizey="1">
+                                <div class="orange knob widget">
+                                    <label>Error</label>
+                                    <input class="datatext" type="text" value="0" data-bind="knob: percentError" />
+                                    <div class="smalltext" style="padding: 0">Error Rate</div>
+                                </div>
+                            </li>
+                            <li data-row="2" data-col="1" data-sizex="1" data-sizey="1">
+                                <div class="purple widget">
+                                    <label>CI High</label>
+                                    <div class="datatext" data-bind="text: confidenceHigh"></div>
+                                    <div class="smalltext">CI = Confidence Interval</div>
+
+                                </div>
+                            </li>
+                            <li data-row="2" data-col="2" data-sizex="1" data-sizey="1">
+                                <div class="lightteal widget">
+                                    <label>CI Low</label>
+                                    <div class="datatext" data-bind="text: confidenceLow"></div>
+                                    <div class="smalltext">Number of Hits</div>
+                                </div>
+                            </li>
+                            <li data-row="1" data-col="3" data-sizex="4" data-sizey="3">
+                                <div class="graphContainer teal widget baseline">
+                                    <h2>Forecast Graph</h2>
+                                </div>
+                            </li>
+                            <li data-row="3" data-col="1" data-sizex="2" data-sizey="1">
+                                <div class="red widget baseline">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Period</th>
+                                                <th>Real</th>
+                                                <th>Forecast</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody data-bind="foreach: entries">
+                                            <tr>
+                                                <td class="tabletext" data-bind="text: DataEntry.Period"></td>
+                                                <td class="tabletext" data-bind="text: DataEntry.Value"></td>
+                                                <td class="tabletext" data-bind="text: ForecastValue"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="smalltext" style="padding: 0">Number of Hits</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="parameters">
+                    <form>
+                        <fieldset class="form-inline">
+                            <input type="text" class="input-mini" placeholder="Token..." data-bind="value: parameters.token">
+                            <select data-bind="value: parameters.strategy">
+                                <option value="Naive">Naive</option>
+                                <option value="MovingAverage">MovingAverage</option>
+                                <option value="SingleExp">SingleExp</option>
+                                <option value="DoubleExp">DoubleExp</option>
+                                <option value="TripleExp">TripleExp</option>
+                            </select>
+                            <input type="text" class="input-mini" placeholder="Alpha..." data-bind="value: parameters.alpha">
+                            <input type="button" class="btn" value="Start" data-bind="click: parameters.start"/>
+                            <input type="button" class="btn" value="Stop" data-bind="click: parameters.stop"/>
+                        </fieldset>
+                    </form>
+                </div>
+            </section>
+            <section class="slide" style="padding: 0;">
+                <h2 style="padding-left: 2em;">Double Exponential Smoothing</h2>
+                <img src="./Images/doubleequation.png" style="padding-top: 10%;" />
+            </section>
+            <section class="slide" style="padding: 0;">
+                <h2 style="padding-left: 2em;">Trend</h2>
+                <img src="./Images/trendgraph.png" style="padding-top: 5%;" />
+            </section>
+            <section class="slide" style="padding: 0;">
+                <h2 style="padding-left: 2em;">Double Exponential Smoothing</h2>
+                <img src="./Images/doubleequation.png" style="padding-top: 10%;" />
+            </section>
+            <section class="slide doubleexponentialslide">
+                <div class="header">
+                    <div class="leftside">
+                        <h2>Double Exponential Smoothing</h2>
+                    </div>
+
+                    <div class="rightside" style="padding-top: 2em;">
+                        <input type="button" class="button tickerStart" value="Start"></input>
+                        <input type="button" class="button tickerStop" value="Stop"></input>
+                    </div>
+                </div>
+                <div class="content" style="padding-top: 5em;">
+                    <div class="gridster">
+                        <ul>
+                            <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
+                                <div class="teal widget">
+                                    <label>MAE</label>
+                                    <div class="datatext" data-bind="text: meanAbsoluteError"></div>
+                                    <div class="smalltext">Mean Average Error</div>
+                                </div>
+                            </li>
+                            <li data-row="1" data-col="2" data-sizex="1" data-sizey="1">
+                                <div class="orange knob widget">
+                                    <label>Error</label>
+                                    <input class="datatext" type="text" value="0" data-bind="knob: percentError" />
+                                    <div class="smalltext" style="padding: 0">Error Rate</div>
+                                </div>
+                            </li>
+                            <li data-row="2" data-col="1" data-sizex="1" data-sizey="1">
+                                <div class="purple widget">
+                                    <label>CI High</label>
+                                    <div class="datatext" data-bind="text: confidenceHigh"></div>
+                                    <div class="smalltext">CI = Confidence Interval</div>
+
+                                </div>
+                            </li>
+                            <li data-row="2" data-col="2" data-sizex="1" data-sizey="1">
+                                <div class="lightteal widget">
+                                    <label>CI Low</label>
+                                    <div class="datatext" data-bind="text: confidenceLow"></div>
+                                    <div class="smalltext">Number of Hits</div>
+                                </div>
+                            </li>
+                            <li data-row="1" data-col="3" data-sizex="4" data-sizey="3">
+                                <div class="graphContainer teal widget baseline">
+                                    <h2>Forecast Graph</h2>
+                                </div>
+                            </li>
+                            <li data-row="3" data-col="1" data-sizex="2" data-sizey="1">
+                                <div class="red widget baseline">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Period</th>
+                                                <th>Real</th>
+                                                <th>Forecast</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody data-bind="foreach: entries">
+                                            <tr>
+                                                <td class="tabletext" data-bind="text: DataEntry.Period"></td>
+                                                <td class="tabletext" data-bind="text: DataEntry.Value"></td>
+                                                <td class="tabletext" data-bind="text: ForecastValue"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="smalltext" style="padding: 0">Number of Hits</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="parameters">
+                    <form>
+                        <fieldset class="form-inline">
+                            <input type="text" class="input-mini" placeholder="Token..." data-bind="value: parameters.token">
+                            <select data-bind="value: parameters.strategy">
+                                <option value="Naive">Naive</option>
+                                <option value="MovingAverage">MovingAverage</option>
+                                <option value="SingleExp">SingleExp</option>
+                                <option value="DoubleExp">DoubleExp</option>
+                                <option value="TripleExp">TripleExp</option>
+                            </select>
+                            <input type="text" class="input-mini" placeholder="Alpha..." data-bind="value: parameters.alpha">
+                            <input type="text" class="input-mini" placeholder="Beta..." data-bind="value: parameters.beta">
+                            <input type="button" class="btn" value="Start" data-bind="click: parameters.start"/>
+                            <input type="button" class="btn" value="Stop" data-bind="click: parameters.stop"/>
+                        </fieldset>
+                    </form>
+                </div>
+            </section>
+            <section class="slide" style="padding: 0;">
+                <h2 style="padding-left: 2em;">Triple Exponential Smoothing</h2>
+                <img src="./Images/tripleequation.png" style="padding-top: 5%;" />
+            </section>
+            <section class="slide tripleexponentialslide">
+                <div class="header">
+                    <div class="leftside">
+                        <h2>Triple Exponential Smoothing</h2>
+                    </div>
+
+                    <div class="rightside" style="padding-top: 2em;">
+                        <input type="button" class="button tickerStart" value="Start"></input>
+                        <input type="button" class="button tickerStop" value="Stop"></input>
+                    </div>
+                </div>
+                <div class="content" style="padding-top: 5em;">
+                    <div class="gridster">
+                        <ul>
+                            <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
+                                <div class="teal widget">
+                                    <label>MAE</label>
+                                    <div class="datatext" data-bind="text: meanAbsoluteError"></div>
+                                    <div class="smalltext">Mean Average Error</div>
+                                </div>
+                            </li>
+                            <li data-row="1" data-col="2" data-sizex="1" data-sizey="1">
+                                <div class="orange knob widget">
+                                    <label>Error</label>
+                                    <input class="datatext" type="text" value="0" data-bind="knob: percentError" />
+                                    <div class="smalltext" style="padding: 0">Error Rate</div>
+                                </div>
+                            </li>
+                            <li data-row="2" data-col="1" data-sizex="1" data-sizey="1">
+                                <div class="purple widget">
+                                    <label>CI High</label>
+                                    <div class="datatext" data-bind="text: confidenceHigh"></div>
+                                    <div class="smalltext">CI = Confidence Interval</div>
+
+                                </div>
+                            </li>
+                            <li data-row="2" data-col="2" data-sizex="1" data-sizey="1">
+                                <div class="lightteal widget">
+                                    <label>CI Low</label>
+                                    <div class="datatext" data-bind="text: confidenceLow"></div>
+                                    <div class="smalltext">Number of Hits</div>
+                                </div>
+                            </li>
+                            <li data-row="1" data-col="3" data-sizex="4" data-sizey="3">
+                                <div class="graphContainer teal widget baseline">
+                                    <h2>Forecast Graph</h2>
+                                </div>
+                            </li>
+                            <li data-row="3" data-col="1" data-sizex="2" data-sizey="1">
+                                <div class="red widget baseline">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Period</th>
+                                                <th>Real</th>
+                                                <th>Forecast</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody data-bind="foreach: entries">
+                                            <tr>
+                                                <td class="tabletext" data-bind="text: DataEntry.Period"></td>
+                                                <td class="tabletext" data-bind="text: DataEntry.Value"></td>
+                                                <td class="tabletext" data-bind="text: ForecastValue"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="smalltext" style="padding: 0">Number of Hits</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="parameters">
+                    <form>
+                        <fieldset class="form-inline">
+                            <input type="text" class="input-mini" placeholder="Token..." data-bind="value: parameters.token">
+                            <select data-bind="value: parameters.strategy">
+                                <option value="Naive">Naive</option>
+                                <option value="MovingAverage">MovingAverage</option>
+                                <option value="SingleExp">SingleExp</option>
+                                <option value="DoubleExp">DoubleExp</option>
+                                <option value="TripleExp">TripleExp</option>
+                            </select>
+                            <input type="text" class="input-mini" placeholder="Alpha..." data-bind="value: parameters.alpha">
+                            <input type="text" class="input-mini" placeholder="Beta..." data-bind="value: parameters.beta">
+                            <input type="text" class="input-mini" placeholder="Gamma..." data-bind="value: parameters.gamma">
+                            <input type="text" class="input-mini" placeholder="Periods Per Season..." data-bind="value: parameters.periodsPerSeason">
+                            <input type="text" class="input-mini" placeholder="Seasons For Regression..." data-bind="value: parameters.seasonsForRegression">
+                            <input type="button" class="btn" value="Start" data-bind="click: parameters.start"/>
+                            <input type="button" class="btn" value="Stop" data-bind="click: parameters.stop"/>
+                        </fieldset>
+                    </form>
+                </div>
+            </section>
+            <section class="slide" style="padding: 0;">
+                <h2 style="padding-left: 2em;">Silas Architecture</h2>
+                <img src="./Images/silasarchitecture.png" style="padding-top: 2%; width: 750px;" />
+            </section>
+            <section class="slide" style="padding: 0;">
+                <h2 style="padding-left: 2em;">Roadmap</h2>
+                <ul style="list-style: disc">
+                    <li>More Friendly API</li>
+                    <li>Easier to Modify Parameter Values</li>
+                    <li>Auto Choose Forecast Model</li>
+                    <li>Auto Choose Forecast Parameters</li>
+                    <li>Flesh out Confidence Intervals</li>
+                </ul>
+            </section>
+            <section class="slide" style="padding: 0;">
+                <h2 style="padding-left: 2em;">That's It?</h2>
+                <ul style="list-style: disc">
+                    <li>Naive</li>
+                    <li>Moving Average</li>
+                    <li>Simple Exponential Smoothing</li>
+                    <li>Double Exponential Smoothing</li>
+                    <li>Triple Exponential Smoothing</li>
+                </ul>
+            </section>
+            <section class="slide">
+                <ul style="list-style: disc; position: relative">
+                    <li>Contact</li>
+                    <li style="list-style: none">
+                        <ul style="list-style: disc; position: relative">
+                            <li>@keithlaforce</li>
+                            <li>@skookum</li>
+                        </ul>
+                    </li>
+                    <li>References</li>
+                    <li style="list-style: none;">
+                        <ul style="list-style: disc; position: relative">
+                            <li>https://github.com/klaforce/Silas</li>
+                            <li>SignalR</li>
+                            <li>Dashing (Dashboard)</li>
+                        </ul>
+                    </li>
+                </ul>
+            </section>
+            <section class="slide">
+                <h1><span class="emphasis">Questions</span>?</h1>
+            </section>
+        </article>
+
+        <script src="Scripts/Vendor/jquery-1.8.2.min.js" type="text/javascript"> </script>
+        <script src="Scripts/Vendor/jquery.gridster.min.js" type="text/javascript"> </script>
+        <script src="Scripts/Vendor/jquery.signalR-1.0.1.min.js" type="text/javascript"> </script>
+        <script src="Scripts/Vendor/jquery.knob.js" type="text/javascript"> </script>
+        <script src="Scripts/Vendor/d3.v3.min.js" type="text/javascript"> </script>
+        <script src="Scripts/Vendor/deck.core.js" type="text/javascript"> </script>
+        <script src="Scripts/Vendor/knockout-2.2.0.js" type="text/javascript"> </script>
+        <script src="Scripts/silas.core.js" type="text/javascript"> </script>
+        <script src="http://localhost:8080/signalr/hubs" type="text/javascript"> </script>
+    </body>
+</html>

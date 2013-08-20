@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width" />
         <title></title>
         <script src="Scripts/Vendor/modernizr-2.6.2.js" type="text/javascript"> </script>
+        <link rel="stylesheet" href="Css/bootstrap.min.css">
         <link rel="stylesheet" href="Css/deck.core.css">
         <link rel="stylesheet" href="Css/horizontal-slide.css">
         <link rel="stylesheet" href="Css/jquery.gridster.min.css">
@@ -13,7 +14,11 @@
     <body>
         <article class="deck-container">
             <section class="slide">
-                <label>Token</label><input type="text" data-bind="value: parameters.token"/>
+                <form>
+                  <fieldset class="form-inline">
+                    <input type="text" class="input-mini" placeholder="Token..." data-bind="value: parameters.token">
+                  </fieldset>
+                </form> 
             </section>
             <section class="slide">
                 <h1><span class="emphasis">Forecasting</span> using SignalR and WebAPI</h1>
@@ -129,9 +134,13 @@
                     </div>
                 </div>
                 <div class="parameters">
-                    <label>Token</label><input type="text" data-bind="value: parameters.token"/>
-                    <input type="button" value="Start" data-bind="click: parameters.start"/>
-                    <input type="button" value="Stop" data-bind="click: parameters.stop"/>
+                    <form>
+                        <fieldset class="form-inline">
+                            <input type="text" class="input-mini" placeholder="Token..." data-bind="value: parameters.token">
+                            <input type="button" class="btn" value="Start" data-bind="click: parameters.start"/>
+                            <input type="button" class="btn" value="Stop" data-bind="click: parameters.stop"/>
+                        </fieldset>
+                    </form>
                 </div>
             </section>
             <section class="slide">
@@ -214,17 +223,21 @@
                     </div>
                 </div>
                 <div class="parameters">
-                    <label>Token</label><input type="text" data-bind="value: parameters.token"/><br/>
-                    <label>Strategy</label><select data-bind="value: parameters.strategy">
-                                               <option value="Naive">Naive</option>
-                                               <option value="MovingAverage">MovingAverage</option>
-                                               <option value="SingleExp">SingleExp</option>
-                                               <option value="DoubleExp">DoubleExp</option>
-                                               <option value="TripleExp">TripleExp</option>
-                                           </select><br/>
-                    <label>Period Count</label><input type="text" data-bind="value: parameters.periodCount"/><br/>
-                    <input type="button" value="Start" data-bind="click: parameters.start"/>
-                    <input type="button" value="Stop" data-bind="click: parameters.stop"/>
+                    <form>
+                        <fieldset class="form-inline">
+                            <input type="text" class="input-mini" placeholder="Token..." data-bind="value: parameters.token">
+                            <select data-bind="value: parameters.strategy">
+                                <option value="Naive">Naive</option>
+                                <option value="MovingAverage">MovingAverage</option>
+                                <option value="SingleExp">SingleExp</option>
+                                <option value="DoubleExp">DoubleExp</option>
+                                <option value="TripleExp">TripleExp</option>
+                            </select>
+                            <input type="text" class="input-mini" placeholder="Period Count..." data-bind="value: parameters.periodCount">
+                            <input type="button" class="btn" value="Start" data-bind="click: parameters.start"/>
+                            <input type="button" class="btn" value="Stop" data-bind="click: parameters.stop"/>
+                        </fieldset>
+                    </form>
                 </div>
             </section>
             <section class="slide" style="padding: 0;">
@@ -304,17 +317,21 @@
                     </div>
                 </div>
                 <div class="parameters">
-                    <label>Token</label><input type="text" data-bind="value: parameters.token"/><br/>
-                    <label>Strategy</label><select data-bind="value: parameters.strategy">
-                                               <option value="Naive">Naive</option>
-                                               <option value="MovingAverage">MovingAverage</option>
-                                               <option value="SingleExp">SingleExp</option>
-                                               <option value="DoubleExp">DoubleExp</option>
-                                               <option value="TripleExp">TripleExp</option>
-                                           </select><br/>
-                    <label>Alpha</label><input type="text" data-bind="value: parameters.alpha"/><br/>
-                    <input type="button" value="Start" data-bind="click: parameters.start"/>
-                    <input type="button" value="Stop" data-bind="click: parameters.stop"/>
+                    <form>
+                        <fieldset class="form-inline">
+                            <input type="text" class="input-mini" placeholder="Token..." data-bind="value: parameters.token">
+                            <select data-bind="value: parameters.strategy">
+                                <option value="Naive">Naive</option>
+                                <option value="MovingAverage">MovingAverage</option>
+                                <option value="SingleExp">SingleExp</option>
+                                <option value="DoubleExp">DoubleExp</option>
+                                <option value="TripleExp">TripleExp</option>
+                            </select>
+                            <input type="text" class="input-mini" placeholder="Alpha..." data-bind="value: parameters.alpha">
+                            <input type="button" class="btn" value="Start" data-bind="click: parameters.start"/>
+                            <input type="button" class="btn" value="Stop" data-bind="click: parameters.stop"/>
+                        </fieldset>
+                    </form>
                 </div>
             </section>
             <section class="slide" style="padding: 0;">
@@ -402,18 +419,22 @@
                     </div>
                 </div>
                 <div class="parameters">
-                    <label>Token</label><input type="text" data-bind="value: parameters.token"/><br/>
-                    <label>Strategy</label><select data-bind="value: parameters.strategy">
-                                               <option value="Naive">Naive</option>
-                                               <option value="MovingAverage">MovingAverage</option>
-                                               <option value="SingleExp">SingleExp</option>
-                                               <option value="DoubleExp">DoubleExp</option>
-                                               <option value="TripleExp">TripleExp</option>
-                                           </select><br/>
-                    <label>Alpha</label><input type="text" data-bind="value: parameters.alpha"/><br/>
-                    <label>Beta</label><input type="text" data-bind="value: parameters.beta"/><br/>
-                    <input type="button" value="Start" data-bind="click: parameters.start"/>
-                    <input type="button" value="Stop" data-bind="click: parameters.stop"/>
+                    <form>
+                        <fieldset class="form-inline">
+                            <input type="text" class="input-mini" placeholder="Token..." data-bind="value: parameters.token">
+                            <select data-bind="value: parameters.strategy">
+                                <option value="Naive">Naive</option>
+                                <option value="MovingAverage">MovingAverage</option>
+                                <option value="SingleExp">SingleExp</option>
+                                <option value="DoubleExp">DoubleExp</option>
+                                <option value="TripleExp">TripleExp</option>
+                            </select>
+                            <input type="text" class="input-mini" placeholder="Alpha..." data-bind="value: parameters.alpha">
+                            <input type="text" class="input-mini" placeholder="Beta..." data-bind="value: parameters.beta">
+                            <input type="button" class="btn" value="Start" data-bind="click: parameters.start"/>
+                            <input type="button" class="btn" value="Stop" data-bind="click: parameters.stop"/>
+                        </fieldset>
+                    </form>
                 </div>
             </section>
             <section class="slide" style="padding: 0;">
@@ -493,21 +514,25 @@
                     </div>
                 </div>
                 <div class="parameters">
-                    <label>Token</label><input type="text" data-bind="value: parameters.token"/><br/>
-                    <label>Strategy</label><select data-bind="value: parameters.strategy">
-                                               <option value="Naive">Naive</option>
-                                               <option value="MovingAverage">MovingAverage</option>
-                                               <option value="SingleExp">SingleExp</option>
-                                               <option value="DoubleExp">DoubleExp</option>
-                                               <option value="TripleExp">TripleExp</option>
-                                           </select><br/>
-                    <label>Alpha</label><input type="text" data-bind="value: parameters.alpha"/><br/>
-                    <label>Beta</label><input type="text" data-bind="value: parameters.beta"/><br/>
-                    <label>Gamma</label><input type="text" data-bind="value: parameters.gamma"/><br/>
-                    <label>Periods Per Season</label><input type="text" data-bind="value: parameters.periodsPerSeason"/><br/>
-                    <label>Seasons For Regression</label><input type="text" data-bind="value: parameters.seasonsForRegression"/><br/>
-                    <input type="button" value="Start" data-bind="click: parameters.start"/>
-                    <input type="button" value="Stop" data-bind="click: parameters.stop"/>
+                    <form>
+                        <fieldset class="form-inline">
+                            <input type="text" class="input-mini" placeholder="Token..." data-bind="value: parameters.token">
+                            <select data-bind="value: parameters.strategy">
+                                <option value="Naive">Naive</option>
+                                <option value="MovingAverage">MovingAverage</option>
+                                <option value="SingleExp">SingleExp</option>
+                                <option value="DoubleExp">DoubleExp</option>
+                                <option value="TripleExp">TripleExp</option>
+                            </select>
+                            <input type="text" class="input-mini" placeholder="Alpha..." data-bind="value: parameters.alpha">
+                            <input type="text" class="input-mini" placeholder="Beta..." data-bind="value: parameters.beta">
+                            <input type="text" class="input-mini" placeholder="Gamma..." data-bind="value: parameters.gamma">
+                            <input type="text" class="input-mini" placeholder="Periods Per Season..." data-bind="value: parameters.periodsPerSeason">
+                            <input type="text" class="input-mini" placeholder="Seasons For Regression..." data-bind="value: parameters.seasonsForRegression">
+                            <input type="button" class="btn" value="Start" data-bind="click: parameters.start"/>
+                            <input type="button" class="btn" value="Stop" data-bind="click: parameters.stop"/>
+                        </fieldset>
+                    </form>
                 </div>
             </section>
             <section class="slide" style="padding: 0;">

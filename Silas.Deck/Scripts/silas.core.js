@@ -16,12 +16,12 @@
         var self = this;
         this.token = ko.observable("");
         this.strategy = ko.observable("Naieve");
-        this.periodCount = ko.observable(0);
-        this.alpha = ko.observable(0);
-        this.beta = ko.observable(0);
-        this.gamma = ko.observable(0);
-        this.periodsPerSeason = ko.observable(0);
-        this.seasonsForRegression = ko.observable(0);
+        this.periodCount = ko.observable();
+        this.alpha = ko.observable();
+        this.beta = ko.observable();
+        this.gamma = ko.observable();
+        this.periodsPerSeason = ko.observable();
+        this.seasonsForRegression = ko.observable();
         this.start = function() {
             $.connection.forecastingDataHub.server.register({
                 Token: self.token()

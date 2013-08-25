@@ -4,7 +4,7 @@
     ko.bindingHandlers.knob = {
         init: function(element, valueAccessor) {
             var value = valueAccessor()();
-            $(element).knob({ width: 120, height: 70, inputColor: '#fff', fgColor: '#12b0c5', min: 0, max: 100, angleArc: 100, angleOffset: -50, readOnly: true });
+            $(element).knob({ width: 150, height: 90, inputColor: '#fff', fgColor: '#12b0c5', min: 0, max: 100, angleArc: 100, angleOffset: -50, readOnly: true });
         },
         update: function(element, valueAccessor, allBindingsAccessor) {
             var value = valueAccessor()();
@@ -79,9 +79,9 @@
         //gridster initialization
         $(".gridster > ul").gridster({
             widget_margins: [5, 5],
-            widget_base_dimensions: [150, 150],
+            widget_base_dimensions: [200, 200],
             min_cols: 8,
-            width: 900
+            width: 1200
         });
 
         // Deck initialization
@@ -107,8 +107,8 @@
         var n = 15, isInit, x, y, trueLine, forecastLine, svg, truePath, forecastPath, xAxis;
         var period = 0;
         var margin = { top: 30, right: 30, bottom: 20, left: 80 },
-            width = 600 - margin.left - margin.right,
-            height = 400 - margin.top - margin.bottom;
+            width = 850 - margin.left - margin.right,
+            height = 500 - margin.top - margin.bottom;
         var startX = 0;
         var endX = n - 1;
         var startXRange = 0;

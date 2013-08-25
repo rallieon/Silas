@@ -24,13 +24,13 @@
     margin-top: 1em;
 }
 .slide .parameters label {
-    font-size: 20px;
+    font-size: 25px;
     color: white;
     margin-right: 0.5em;
 }
 .slide ul {
     color: #fff;
-    font-size: 35px;
+    font-size: 50px;
     left: 0;
     padding: 0 48px;
     position: absolute;
@@ -42,20 +42,20 @@
 svg {
     fill: #222;
     font-family: 'Ariel', sans-serif;
-    font-size: 18px;
+    font-size: 22px;
     font-weight: bold;
 }
 
 .trueLine {
     fill: none;
     stroke: #fff;
-    stroke-width: 4px;
+    stroke-width: 5px;
 }
 
 .forecastLine {
     fill: none;
     stroke: #dc5945;
-    stroke-width: 4px;
+    stroke-width: 5px;
 }
 
 .axis path, .axis line {
@@ -125,7 +125,7 @@ label {
     border: none;
     color: white;
     font-family: 'Ariel', sans-serif;
-    font-size: 15px;
+    font-size: 18px;
     opacity: 0.7;
     padding: 0;
     padding-top: 0.2em;
@@ -136,7 +136,7 @@ label {
     border: none;
     color: white;
     font-family: 'Ariel', sans-serif;
-    font-size: 22px;
+    font-size: 28px;
     opacity: 0.7;
     padding: 0;
     text-align: center;
@@ -146,7 +146,7 @@ label {
     border: none;
     color: white;
     font-family: 'Ariel', sans-serif;
-    font-size: 40px;
+    font-size: 46px;
     padding-top: 0.1em;
     text-align: center;
 }
@@ -155,7 +155,7 @@ label {
     border: none;
     color: white;
     font-family: 'Ariel', sans-serif;
-    font-size: 24px;
+    font-size: 32px;
     text-align: center;
 }
 
@@ -168,7 +168,7 @@ table .smalltext {
     border: none;
     color: white;
     font-family: 'Ariel', sans-serif;
-    font-size: 15px;
+    font-size: 18px;
     opacity: 0.7;
     padding: 0;
     text-align: center;
